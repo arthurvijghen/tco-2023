@@ -1,10 +1,835 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Hallo wereld 2!</title>
-</head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
-<body>
+    <title>Vergelijk milieuvriendelijke en conventionele wagens | Vlaamse Overheid</title>
+
+    <link href="style.css" rel="stylesheet">
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="assets/css/powerange.min.css" rel="stylesheet">
+
+
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script type="text/javascript" src="assets/js/vendor/jquery.min.js"> </script>
+	<script type="text/javascript" src="assets/js/vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js"> </script>
+    <script type="text/javascript" src="assets/js/vendor/jquery-scrolltofixed-min.js"> </script>
+	<script type="text/javascript" src="dist/js/bootstrap.min.js"> </script>
+    <script type="text/javascript" src="assets/js/vendor/powerange.min.js"> </script>
+    <script type="text/javascript" src="assets/js/tco.js"> </script>
+  </head>
+  
+<body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
+	<div class="container-fluid" id="header-vlaanderen">
+		<div class="container"><a href="http://www.vlaanderen.be/nl"><div class="fl-logo"></div>Vlaanderen.be</a><a class="border-left" href="http://milieuvriendelijkevoertuigen.be/" title="Home">Milieuvriendelijke voertuigen</a></div>
+ 	</div>
+
+	<div class="container" id="header-logo"><a href="http://milieuvriendelijkevoertuigen.be/" title="Home"><img src="assets/img/logo2.png" width="357" alt="Logo" /></a></div>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Menu tonen</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active" id="nav-1"><a href="#">Start berekening</a></li>
+            <li id="nav-2"><a href="#tco">Aannames voor de berekening</a></li>
+            <li id="nav-3"><a href="#about">Over deze webtool</a></li>
+            <li id="nav-4"><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    
+    <!-- Startpagina -->
+<div id="chapter-1" class="chapter">
+    <div class="container-fluid">
+    	<div class="bg-tco-blue"></div>
+        <div class="container tco-hero-container">
+            <div class="row tco-hero">
+        		<div>
+            		<h1>Vergelijk milieuvriendelijke en conventionele wagens</h1>
+           	 		<p class="lead">Vergelijk elektrische, plug-in hybride, aardgas- en brandstofwagens. <br />En ontdek of het rijden met een milieuvriendelijke wagen in 2017 	voordeliger is.</p>
+				</div>
+			</div>
+			<div class="row tco-container">
+       	 		<div class="col-sm-6 col-xs-6 tco-hero-image-container">
+         			<div class="tco-hero-images"><img class="tco-hero-image loser" src="#" id="start-image-left" /></div>
+           	 	</div>
+                <div class="col-sm-6 col-xs-6 tco-hero-image-container">
+         			<div class="tco-hero-images"><img class="tco-hero-image flipped " src="#" id="start-image-right" /></div>
+           	 	</div>
+             </div>
+
+            <div id="btn-start" class="bigbutton active">Start berekening</div>
+        </div>
+    </div>
+
+	<!-- Secties 1 t/m 3 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9 col-xs-12">
+          <div id="section1" class="tco-section row">
+            <div class="tco-box">
+              <h2>Juridische entiteit<sup>*</sup></h2>
+              <select class="form-control" id="input-entiteit" name="input-entiteit2">
+                <option selected disabled value="sel">Selecteren...</option>
+                <option value="np">Natuurlijke persoon</option>
+                <option value="ovh">Overheidsorganisatie</option>
+                <option value="vns">Vennootschap</option>
+                <option value="vzw">vzw</option>
+              </select>
+              <p>Wordt de auto gekocht als natuurlijke persoon (particulier), overheidsorganisatie, vennootschap (onderneming) of vzw?</p>
+            </div>
+            
+            <div class="tco-box" id="tco-control-btw-plicht">
+              <h2>BTW-plicht<sup>*</sup></h2>
+              <select class="form-control" id="input-btwplicht" name="input-btwplicht2">
+                <option selected value="y">Ja (standaard)</option>
+                <option value="n">Nee</option>
+              </select>
+              <p>Is de <span id="term-entity">vennootschap</span> al dan niet btw-plichtig?</p>
+            </div>
+    
+            <div class="tco-box" id="tco-control-gebruiksdoel">
+              <h2>Gebruiksdoel<sup>*</sup></h2>
+              <select class="form-control" id="input-gebruiksdoel" name="input-gebruiksdoel2">
+                <option selected disabled value="sel">Selecteren...</option>
+                <option value="bw">Bedrijfswagen</option>
+                <option value="pw">Poolwagen</option>
+              </select>
+              <p>Wordt de auto ingezet als bedrijfswagen (salariswagen, firmawagen: zowel privé als beroepsmatige verplaatsingen) of als poolwagen (enkel beroepsmatige verplaatsingen)?</p>
+              <p id="gebruiksdoel-vulin" class="bg-danger">Gelieve dit veld in te vullen.</p>
+            </div>
+    
+            <div class="tco-box" id="tco-control-verhoudingprive">
+              <h2>Verhouding privé en beroepsmatige verplaatsingen<sup>*</sup></h2>
+              <div class="form-group slider-output">
+                <label class="sr-only" for="input-prive-professioneel">Aandeel beroepsmatige verplaatsingen</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="input-prive-professioneel" placeholder="0" disabled>
+                   <div class="input-group-addon">%</div>
+                </div>
+              </div>
+              <div class="slider-wrapper suf-perc">
+                <input type="text" class="input-prive-professioneel" />
+              </div>
+              <p>Welk aandeel van uw totale afstand rijdt u voor beroepsmatige doeleinden? <br />Woon-werkverplaatsingen worden als privéverplaatsingen aanschouwd. <!--<span style="color: red; font-weight: bold;"><br /><br />De BTW van de voertuigkosten kan door <span style="color: red; font-weight: bold;">de vennootschap/organisatie</span> maximaal 50% gerecupereerd worden in functie van de verhouding van privé en professionele kilometers. Vanaf 35% beroepsmatige kilometers kan voor een forfaitair regime gekozen worden. <span style="color: red; font-weight: bold;">Meer info via <a href="https://multimediafiles.kbcgroup.eu/ng/published/kbc/pdf/kbc_autolease_fiscale_brochure_bedrijfsauto_s.pdf" target="_blank">tooltip</a>?. In tooltip 3 methodes voorstellen: rittenadministatie (individueel) / ifv woonwerkafstand (individueel) / forfaitair voor hele wagenpark in aparte pop-up.</span></span>--></p>
+            </div>
+            
+            <div id="btn-go-to-section2" class="bigbutton nextbutton">Uw wagengebruik</div>
+            
+          </div>
+          <div id="section2" class="tco-section row"> 
+            <div class="tco-box">
+              <h2>Aantal kilometer per jaar<sup>*</sup></h2>
+              <div class="form-group slider-output">
+                <label class="sr-only" for="input-afstand">Jaarlijkse afstand</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="input-afstand" placeholder="0" disabled>
+                   <div class="input-group-addon">km/j</div>
+                </div>
+              </div>
+              <div class="slider-wrapper suf-km" id="tco-afstand">
+                <input type="text" class="input-afstand" />
+              </div>
+              <p> Hoeveel kilometer per jaar gaat u gemiddeld met de wagen rijden? <br />Voor privéwagens is het gemiddelde 15.000 km/jaar, voor bedrijfswagens 30.000 km/jaar.</p>
+            </div>
+            
+            <div class="tco-box">
+              <h2>Gebruiksduur in jaar<sup>*</sup></h2>
+              <div class="form-group slider-output">
+                <label class="sr-only" for="input-leeftijd">Gebruiksduur</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="input-leeftijd" placeholder="0" disabled>
+                   <div class="input-group-addon">jaar</div>
+                </div>
+              </div>
+              <div class="slider-wrapper suf-jaar">
+                <input type="text" class="input-leeftijd" />
+              </div>
+              <p> Hoe lang wordt de auto gebruikt? </p>
+            </div>
+            
+            <div class="tco-box">
+              <h2>Theoretisch versus realistisch verbruik<sup>*</sup></h2>
+              <select class="form-control" id="input-rijgedrag" name="input-rijgedrag">
+                <option value="0">Volgens laboratoriumtesten (verbruik x 100%)</option>
+                <option value="20">Zeer zuinig (verbruik x 120%) </option>
+                <option selected value="42">Gemiddeld (verbruik x 142%)</option>
+                <option value="50">Vlot (verbruik x 150%)</option>
+                <option value="75">Sportief (verbruik x 175%)</option>
+              </select>
+              <p>Hoe zou u uw rijgedrag omschrijven? Van zeer zuinig tot sportief. Duid "Volgens laboratoriumtesten" aan om te rekenen met de officiële cijfers van de constructeurs (de <acronym title="New European Driving Cycle">NEDC</acronym>-cyclus). Op het tabblad &quot;Aannames voor de berekening&quot; vind je meer informatie.</p>
+            </div>
+            
+            <div id="btn-go-to-section3" class="bigbutton nextbutton active">De auto's kiezen</div>
+            
+            
+          </div>        
+          <div id="section3" class="tco-section"> 
+            <div id="car-tabs" class="row">
+              <div id="car-tab-A" class="car-tab col-md-4 col-sm-6 col-xs-6"><span>Stadswagen (A)</span></div>
+              <div id="car-tab-B" class="car-tab col-md-4 col-sm-6 col-xs-6"><span>Compacte klasse (B)</span></div>
+              <div id="car-tab-C" class="car-tab col-md-4 col-sm-6 col-xs-6"><span>Kleine middenklasse (C)</span></div>
+              <div id="car-tab-D" class="car-tab col-md-4 col-sm-6 col-xs-6"><span>Middenklasse (D)</span></div>
+              <div id="car-tab-E" class="car-tab col-md-4 col-sm-6 col-xs-6"><span>Premium klasse (E)</span></div>
+              <div id="car-tab-F" class="car-tab col-md-4 col-sm-6 col-xs-6"><span>Topklasse (F)</span></div>
+              <div id="car-tab-K" class="car-tab col-md-4 col-sm-6 col-xs-6"><span>Bestelwagens (K)</span></div>
+              <div id="car-tab-MPV-Comp" class="car-tab col-md-4 col-sm-6 col-xs-6"><span>Compacte monovolumes</span></div>
+              <div id="car-tab-MPV-Mid" class="car-tab col-md-4 col-sm-6 col-xs-6"><span>Medium monovolumes </span></div>
+              <div id="car-tab-SUV-D" class="car-tab col-md-4 col-sm-6 col-xs-6"><span>Terreinwagens (SUV-D)</span></div>
+              <div id="car-tab-SUV-E" class="car-tab col-md-4 col-sm-6 col-xs-6"><span>Terreinwagens (SUV-E)</span></div>
+              <div id="car-tab-SUV-F" class="car-tab col-md-4 col-sm-6 col-xs-6"><span>Terreinwagens (SUV-F)</span></div>  
+            </div>
+            
+            <div id="cpt-car" class="car-selector row">
+              <div class="car-header" id="left-car-switch">Selecteer eerste wagen: <span id="left-car-switch-term">elektrische </span>wagens <span class="glyphicon-dropdown"><span class="glyphicon glyphicon-chevron-up"></span><br /><span class="glyphicon glyphicon-chevron-down"></span></span>
+                  <div class="popover fade bottom in switch" role="tooltip" id="left-car-switch-dropdown">
+                    <div class="arrow"></div>
+                    <h3 class="popover-title" style="display: none;"></h3>
+                    <div class="popover-content">
+                        <div id="left-cng">Aardgaswagens</div>
+                        <div id="left-ev" class="active">Elektrische wagens</div>
+                        <div id="left-phev">Plug-in hybrides</div>
+                    </div>
+                  </div>
+              </div>
+              <div id="cpt-car-box" class="car-box row">
+    
+              </div>
+            </div>
+            <div id="all-car" class="car-selector row">
+              <div class="car-header" id="right-car-switch">Selecteer tweede wagen: <span id="rght-car-switch-term">benzine</span>wagens <span class="glyphicon-dropdown"><span class="glyphicon glyphicon-chevron-up"></span><br /><span class="glyphicon glyphicon-chevron-down"></span></span>
+                  <div class="popover fade bottom in switch" role="tooltip" id="right-car-switch-dropdown">
+                    <div class="arrow"></div>
+                    <h3 class="popover-title" style="display: none;"></h3>
+                    <div class="popover-content">
+                        <div id="rght-cng">Aardgaswagens</div>
+                        <div id="rght-benz" class="active">Benzine</div>
+                        <div id="rght-dies">Diesel</div>
+                        <div id="rght-ev">Elektrische wagens</div>
+                        <div id="rght-phev">Plug-in hybrides</div>
+                    </div>
+                  </div>
+              </div>
+              <div id="all-car-box" class="car-box row"></div>
+            </div>
+            
+            <div id="btn-go-to-section4" class="bigbutton nextbutton clear row">Resultaten vergelijken</div>
+          </div>
+        </div>
+        
+        <div class="col-sm-3 col-xs-12" id="myScrollspy">
+            <div id="nav-toggle"><span class="glyphicon glyphicon-chevron-down"></span></div>
+            <nav>
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active" id="nav-1"><a href="#section1">1. Vul uw gegevens in</a></li>
+                    <li class="disabled" id="nav-2"><a href="#section2">2. Uw wagengebruik</a></li>
+                    <li class="disabled" id="nav-3"><a href="#section3">3. Een auto kiezen</a></li>
+                    <li class="disabled" id="nav-4"><a href="#section4">4. Resultaten vergelijken</a></li>
+                </ul>
+            </nav>
+        </div>
+        
+      </div>
+    </div>
+
+	<!-- Sectie 4 -->
+    <div id="bg-white"><div id="section4" class="container-fluid">
+        <div class="bg-tco-blue"></div>
+        <div class="container tco-hero-container" id="tco-result">
+            <div class="row tco-hero">
+                <div>
+                    <h1 id="tco-result-term">Bespaar <span class="strong">226</span> euro per maand<br/> met een elektrische wagen!</h1>
+                    <p class="lead" style="display:none;">Of 226 euro per maand</p>
+                </div>
+            </div>
+            <div class="row tco-container">
+              <div class="col-sm-6 col-xs-6 tco-hero-image-container">
+                  <div class="tco-hero-images"><img id="tco-result-image-left" class="tco-hero-image loser" src="assets/img/cars/VW-e-golf.png" /></div>
+                  <div class="tco-result-ecoscore ecoscore-bg-67" id="tco-result-ecoscore-left">
+                    <p>Ecoscore</p>
+                    <h3>78</h3>
+                  </div>
+              </div>
+              <div class="col-sm-6 col-xs-6 tco-hero-image-container">
+                  <div class="tco-hero-images"><img id="tco-result-image-right" class="tco-hero-image flipped" src="assets/img/cars/BMW-i3.png" /></div>
+                  <div class="tco-result-ecoscore ecoscore-bg-75" id="tco-result-ecoscore-right">
+                    <p>Ecoscore</p>
+                    <h3>84</h3>
+                  </div>
+              </div>
+            </div>
+            <div class="row tco-container">
+              <div class="col-sm-6 col-xs-6 tco-hero-image-container">
+                  <h2 class="tco-result-title" id="tco-result-title-left">Volkswagen e-Golf</h2>
+              </div>
+              <div class="col-sm-6 col-xs-6 tco-hero-image-container">
+              	  <h2 class="tco-result-title" id="tco-result-title-right">Nissan LEAF Acenta</h2>
+              </div>
+            </div>
+            <div class="row tco-container">
+              <div class="col-sm-6 col-xs-6 tco-hero-image-container">
+                  <div class="row tco-result-specs">
+                      <div class="col-md-8 col-xs-11">
+                          <p id="tco-result-subtitle-left">Blue</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-sm-6 col-xs-6 tco-hero-image-container">
+                  <div class="row tco-result-specs">
+                      <div class="col-md-8 col-xs-11">
+                          <p id="tco-result-subtitle-right">Blue</p>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="row tco-container">
+              <div class="col-sm-6 col-xs-6 tco-hero-image-container">
+                  <div class="row tco-result-specs">
+                      <div class="col-md-8 col-xs-11">
+                          <p class="tco-result-change-pricing" id="tco-change-car-left"><span class="pricing-dropdown"><span class="glyphicon glyphicon-cog"></span> aanpassen</span><span class="car-drivetrain-electric" id="tco-result-left-drivetrain-type">Elektrisch</span> <span class="car-price" id="tco-result-left-price">Prijs &euro; 37.110,-</span></p>
+                          <div class="popover fade bottom in" role="tooltip" id="tco-change-car-popover-left">
+                            <div class="arrow"></div>
+                            <h3 class="popover-title" style="display: none;"></h3>
+                            <div class="popover-content">
+                                <h2>Extra opties incl. btw</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-catprice-left">Catalogusprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-catprice-left" placeholder="0" disabled> <div class="input-group-addon">&euro;</div> </div> </div> <div class="slider-wrapper suf-euro"> <input type="text" class="input-catprice-left" /> </div>
+                                
+                                <h2>Korting</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-discount-left">Korting</label> <div class="input-group"> <input type="text" class="form-control" id="input-discount-left" placeholder="0" disabled> <div class="input-group-addon">%</div> </div> </div> <div class="slider-wrapper suf-perc"> <input type="text" class="input-discount-left" /> </div>
+                                
+                                <h2>Restwaarde of herverkoopwaarde</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-residual-left">Restwaarde</label> <div class="input-group"> <input type="text" class="form-control" id="input-residual-left" placeholder="0" disabled> <div class="input-group-addon">%</div> </div> </div> <div class="slider-wrapper suf-perc"> <input type="text" class="input-residual-left" /> </div><p>In procent op de totale aanschafprijs.</p>
+                                
+                                <div id="tco-popover-left-elektriciteit"><h2>Elektriciteitsprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-elektriciteit-left">Elektriciteitsprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-elektriciteit-left" placeholder="0" disabled> <div class="input-group-addon">&euro;/kWh</div> </div> </div> <div class="slider-wrapper suf-eurokwh"> <input type="text" class="input-elektriciteit-left" /> </div> </div>
+                                
+                                <div id="tco-popover-left-aardgas"><h2>Aardgasprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-aardgas-left">Aardgasprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-aardgas-left" placeholder="0" disabled> <div class="input-group-addon">&euro;/kg</div> </div> </div> <div class="slider-wrapper suf-eurokg"> <input type="text" class="input-aardgas-left" /> </div> </div>
+                                
+                                <div id="tco-popover-left-benzine"><h2>Benzineprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-benzine-left">Benzineprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-benzine-left" placeholder="0" disabled> <div class="input-group-addon">&euro;/L</div> </div> </div> <div class="slider-wrapper suf-eurol"> <input type="text" class="input-benzine-left" /> </div> </div>
+                                
+                                <div id="tco-popover-left-diesel"><h2>Dieselprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-diesel-left">Dieselprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-diesel-left" placeholder="0" disabled> <div class="input-group-addon">&euro;/L</div> </div> </div> <div class="slider-wrapper suf-eurol"> <input type="text" class="input-diesel-left" /> </div> </div>
+                                
+                                <div id="tco-popover-left-phevratio"><h2>Aandeel elektrische afstand op totale afstand</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-phevratio-left">Aandeel elektrische afstand op totale afstand</label> <div class="input-group"> <input type="text" class="form-control" id="input-phevratio-left" placeholder="0" disabled> <div class="input-group-addon">%</div> </div> </div> <div class="slider-wrapper suf-perc"> <input type="text" class="input-phevratio-left" /> </div><p>Hoeveel procent verwacht u om elektrisch te rijden? 0% betekent volledig op benzine, 100% betekent volledig op elektriciteit.</p> </div>
+                                
+                                <div id="tco-popover-left-aardgasratio"><h2>Aandeel van op aardgas gereden afstand</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-cngratio-left">Aandeel van op aardgas gereden afstand</label> <div class="input-group"> <input type="text" class="form-control" id="input-cngratio-left" placeholder="0" disabled> <div class="input-group-addon">%</div> </div> </div> <div class="slider-wrapper suf-perc"> <input type="text" class="input-cngratio-left" /> </div><p>Hoeveel procent verwacht u op aardgas te rijden? 0% betekent volledig op benzine, 100% betekent volledig op aardgas.</p> </div>
+                                
+                                <div class="smallbutton confirmPopover">Toepassen</div>
+                            </div>
+                          </div>
+                          <!--<p>Lorem Ipsum dolor sit amet, consectur adipiscing elit, sed do eiusmod.</p>-->
+                          <div class="tco-result-specsheet row">
+                            <div class="col-sm-12 col-xs-12 title"><span class="glyphicon glyphicon-chevron-down"></span> <h3>Specificaties</h3></div>
+                            <div>
+                                <div class="col-sm-8 col-xs-8">Motorvermogen</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-vermogen">0</div>
+                                <div class="col-sm-8 col-xs-8">Acceleratie van 0-100 km/u</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-acceleratie">0</div>
+                                <div class="col-sm-8 col-xs-8">Koffer-inhoud</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-koffer">0</div>
+                                <div class="col-sm-8 col-xs-8">Cilinderinhoud</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-cilinderinhoud">0</div>
+                                <div class="col-sm-8 col-xs-8">Batterijcapaciteit</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-batterijcapaciteit">0</div>
+                                <div class="col-sm-8 col-xs-8">Inhoud brandstoftank(s)<!--<span class="car-tooltip" title="test">i</span>--></div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-brandstoftank">0</div>
+                                <div class="col-sm-8 col-xs-8">Berekend verbruik per 100 km<!--<span class="car-tooltip" title="test">i</span>--></div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-verbruik">0</div>
+                                <div class="col-sm-8 col-xs-8">Berekend rijbereik<!--<span class="car-tooltip" title="test">i</span>--></div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-rijbereik">0</div>
+                            </div>
+                          </div>
+                          <div class="tco-result-car-switch">
+                              <h3 class="tco-result-car-switch-header" title="Met dezelfde brandstof">Kies een vergelijkbare wagen</h3>
+                              <div id="tco-result-car-switch-left"> </div>
+                          </div>
+                          <div class="tco-result-specs-footer clear row"></div>
+                    </div>
+                </div>
+                    
+              </div>
+              <div class="col-sm-6 col-xs-6 tco-hero-image-container">
+                    
+                    <div class="row tco-result-specs">
+                      <div class="col-md-8 col-xs-11">
+                          <p class="tco-result-change-pricing" id="tco-change-car-right"><span class="pricing-dropdown"><span class="glyphicon glyphicon-cog"></span> aanpassen</span><span class="car-drivetrain-electric" id="tco-result-right-drivetrain-type">Elektrisch</span> <span class="car-price" id="tco-result-right-price">Prijs &euro; 37.110,-</span></p>
+                          <div class="popover fade bottom in" role="tooltip" id="tco-change-car-popover-right">
+                            <div class="arrow"></div>
+                            <h3 class="popover-title" style="display: none;"></h3>
+                            <div class="popover-content">
+                                <h2>Extra opties incl. btw</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-catprice-right">Catalogusprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-catprice-right" placeholder="0" disabled> <div class="input-group-addon">&euro;</div> </div> </div> <div class="slider-wrapper suf-euro"> <input type="text" class="input-catprice-right" /> </div>
+                                <h2>Korting</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-discount-right">Korting</label> <div class="input-group"> <input type="text" class="form-control" id="input-discount-right" placeholder="0" disabled> <div class="input-group-addon">%</div> </div> </div> <div class="slider-wrapper suf-perc"> <input type="text" class="input-discount-right" /> </div>
+                                <h2>Restwaarde of herverkoopwaarde</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-residual-right">Restwaarde</label> <div class="input-group"> <input type="text" class="form-control" id="input-residual-right" placeholder="0" disabled> <div class="input-group-addon">%</div> </div> </div> <div class="slider-wrapper suf-perc"> <input type="text" class="input-residual-right" /> </div><p>In procent op de totale aanschafprijs.</p>
+                                <div id="tco-popover-right-elektriciteit"><h2>Elektriciteitsprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-elektriciteit-right">Elektriciteitsprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-elektriciteit-right" placeholder="0" disabled> <div class="input-group-addon">&euro;/kWh</div> </div> </div> <div class="slider-wrapper suf-eurokwh"> <input type="text" class="input-elektriciteit-right" /> </div> </div>
+                                <div id="tco-popover-right-aardgas"><h2>Aardgasprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-aardgas-right">Aardgasprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-aardgas-right" placeholder="0" disabled> <div class="input-group-addon">&euro;/kg</div> </div> </div> <div class="slider-wrapper suf-eurokg"> <input type="text" class="input-aardgas-right" /> </div> </div>
+                                <div id="tco-popover-right-benzine"><h2>Benzineprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-benzine-right">Benzineprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-benzine-right" placeholder="0" disabled> <div class="input-group-addon">&euro;/L</div> </div> </div> <div class="slider-wrapper suf-eurol"> <input type="text" class="input-benzine-right" /> </div> </div>
+                               <div id="tco-popover-right-diesel"><h2>Dieselprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-diesel-right">Dieselprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-diesel-right" placeholder="0" disabled> <div class="input-group-addon">&euro;/L</div> </div> </div> <div class="slider-wrapper suf-eurol"> <input type="text" class="input-diesel-right" /> </div> </div>
+                               <div id="tco-popover-right-phevratio"><h2>Aandeel elektrische afstand op totale afstand</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-phevratio-right">Aandeel elektrische afstand op totale afstand</label> <div class="input-group"> <input type="text" class="form-control" id="input-phevratio-right" placeholder="0" disabled> <div class="input-group-addon">%</div> </div> </div> <div class="slider-wrapper suf-perc"> <input type="text" class="input-phevratio-right" /> </div><p>Hoeveel procent verwacht u om elektrisch te rijden? 0% betekent volledig op benzine, 100% betekent volledig op elektriciteit.</p> </div>
+                                <div id="tco-popover-right-aardgasratio"><h2>Aandeel van op aardgas gereden afstand</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-cngratio-right">Aandeel van op aardgas gereden afstand</label> <div class="input-group"> <input type="text" class="form-control" id="input-cngratio-right" placeholder="0" disabled> <div class="input-group-addon">%</div> </div> </div> <div class="slider-wrapper suf-perc"> <input type="text" class="input-cngratio-right" /> </div><p>Hoeveel procent verwacht u op aardgas te rijden? 0% betekent volledig op benzine, 100% betekent volledig op aardgas.</p> </div>
+                                <div class="smallbutton confirmPopover">Toepassen</div>
+                            </div>
+                          </div>
+                          <div class="tco-result-specsheet row">
+                              <div class="col-sm-12 col-xs-12 title" id="left-toggle"><span class="glyphicon glyphicon-chevron-down" id="left-toggle-icon"></span> <h3>Specificaties</h3></div>
+                              <div>
+                                <div class="col-sm-8 col-xs-8">Motorvermogen</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-vermogen">0</div>
+                                <div class="col-sm-8 col-xs-8">Acceleratie van 0-100 km/u</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-acceleratie">0</div>
+                                <div class="col-sm-8 col-xs-8">Koffer-inhoud</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-koffer">0</div>
+                                <div class="col-sm-8 col-xs-8">Cilinderinhoud</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-cilinderinhoud">0</div>
+                                <div class="col-sm-8 col-xs-8">Batterijcapaciteit</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-batterijcapaciteit">0</div>
+                                <div class="col-sm-8 col-xs-8">Inhoud brandstoftank(s)<!--<span class="car-tooltip" title="test">i</span>--></div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-brandstoftank">0</div>
+                                <div class="col-sm-8 col-xs-8">Berekend verbruik per 100 km<!--<span class="car-tooltip" title="test">i</span>--></div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-verbruik">0</div>
+                                <div class="col-sm-8 col-xs-8">Berekend rijbereik<!--<span class="car-tooltip" title="test">i</span>--></div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-rijbereik">0</div>
+                              </div>
+                          </div>
+                          <div class="tco-result-car-switch">
+                              <h3 class="tco-result-car-switch-header">Kies een vergelijkbare wagen</h3>
+                              <div id="tco-result-car-switch-right"> </div>
+                          </div>
+                          <div class="tco-result-specs-footer clear row"></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="row" id="tco-result-costs">
+                <div class="col-sm-12" id="tco-result-wagen">
+                    <h2>Aankoop en herverkoopwaarde<span class="car-tooltip" title="Toelichting aankoop en herverkoopwaarde" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>Aankoopprijs inclusief opties, korting en (in het geval van BTW-plichtige organisaties: niet-recupereerbare) BTW.</li><li>De kosten voor batterijleasing.</li><li>De herverkoopwaarde van het voertuig op het einde van de gebruiksduur.</li></ul>">i</span></h2>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="assets/img/nissan-leaf-l.png" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-wagen-left-bar"></div><div class="tco-results-number" id="tco-result-wagen-left-nr">0</div></div>
+                            <div class="clear"><img class="tco-results-thumb thumbRight" src="assets/img/volkswagen-egolf-l.png" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-wagen-right-bar"></div><div class="tco-results-number" id="tco-result-wagen-right-nr">0</div></div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="tco-results-cost-summary">
+                                <p id="tco-result-wagen-term">0</p>
+                                <h3 id="tco-result-wagen-diff">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-12" id="tco-result-prbel">
+                    <h2>Premies en belastingen (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting premies en belastingen" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>De belasting op inverkeerstelling en verkeersbelasting sinds 1 januari 2016.</li><li>De premie voor elektrische voertuigen voor natuurlijke personen sinds 1 januari 2016.</li><li>De solidariteitsbijdrage die wordt aangerekend aan de rechtspersoon in het geval van een bedrijfswagen.</li><li>De verworpen uitgave van het voordeel alle aard die wordt aangerekend aan vennootschappen in het geval van een bedrijfswagen.</li></ul>">i</span></h2>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="assets/img/nissan-leaf-l.png" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-prbel-left-bar"></div><div class="tco-results-number" id="tco-result-prbel-left-nr">0</div></div>
+                            <div class="clear"><img class="tco-results-thumb thumbRight" src="assets/img/volkswagen-egolf-l.png" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-prbel-right-bar"></div><div class="tco-results-number" id="tco-result-prbel-right-nr">0</div></div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="tco-results-cost-summary">
+                                <p id="tco-result-prbel-term">0</p>
+                                <h3 id="tco-result-prbel-diff">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-12" id="tco-result-verbr">
+                    <h2>Energie- en brandstofverbruik (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting energie- en brandstofverbruik" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>De elektriciteits, aardgas-, benzine- en/of dieselkosten inclusief (in het geval van BTW-plichtige organisaties: niet-recupereerbare) BTW, rekening houdend met de inflatie en het rijgedrag.</li><li>De verhouding van elektriciteits- en benzineverbruik of aardgas- en benzineverbruik bij plug-in hybride en aardgasvoertuigen.</li></ul>">i</span></h2>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="assets/img/nissan-leaf-l.png" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-verbr-left-bar"></div><div class="tco-results-number" id="tco-result-verbr-left-nr">0</div></div>
+                            <div class="clear"><img class="tco-results-thumb thumbRight" src="assets/img/volkswagen-egolf-l.png" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-verbr-right-bar"></div><div class="tco-results-number" id="tco-result-verbr-right-nr">0</div></div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="tco-results-cost-summary">
+                                <p id="tco-result-verbr-term">0</p>
+                                <h3 id="tco-result-verbr-diff">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-12" id="tco-result-verzrob">
+                    <h2>Verzekering en onderhoud (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting verzekering en onderhoud" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>Een BA- en omniumverzekering op de volledige looptijd</li><li>Reparatie, onderhoud en banden op de volledige looptijd, inclusief (in het geval van BTW-plichtige organisaties: niet-recupereerbare) BTW</li></ul>">i</span></h2>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="assets/img/nissan-leaf-l.png" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-verzrob-left-bar"></div><div class="tco-results-number" id="tco-result-verzrob-left-nr">0</div></div>
+                            <div class="clear"><img class="tco-results-thumb thumbRight" src="assets/img/volkswagen-egolf-l.png" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-verzrob-right-bar"></div><div class="tco-results-number" id="tco-result-verzrob-right-nr">0</div></div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="tco-results-cost-summary">
+                                <p id="tco-result-verzrob-term">0</p>
+                                <h3 id="tco-result-verzrob-diff">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-12" id="tco-result-fisc">
+                    <h2>Fiscale aftrek (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting fiscale aftrek" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>Alle fiscaal aftrekbare kosten, in functie van bedrijfswagen (tussen 50 en 120% fiscale aftrek) of poolwagengebruik (100% fiscale aftrek).</li><li>Het elektriciteits- en brandstofverbruik (75% fiscaal aftrekbaar)</li></ul>">i</span></h2>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="assets/img/nissan-leaf-l.png" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-fisc-left-bar"></div><div class="tco-results-number" id="tco-result-fisc-left-nr">0</div></div>
+                            <div class="clear"><img class="tco-results-thumb thumbRight" src="assets/img/volkswagen-egolf-l.png" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-fisc-right-bar"></div><div class="tco-results-number" id="tco-result-fisc-right-nr">0</div></div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="tco-results-cost-summary">
+                                <p id="tco-result-fisc-term">0</p>
+                                <h3 id="tco-result-fisc-diff">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-12" id="tco-result-totaltco">
+                    <h2>Totale kosten (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting totale kosten" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>Alle voorgaande kostencomponenten bij elkaar opgeteld.</li></ul>">i</span></h2>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="assets/img/nissan-leaf-l.png" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-totaltco-left-bar"></div><div class="tco-results-number" id="tco-result-totaltco-left-nr">0</div></div>
+                            <div class="clear"><img class="tco-results-thumb thumbRight" src="assets/img/volkswagen-egolf-l.png" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-totaltco-right-bar"></div><div class="tco-results-number" id="tco-result-totaltco-right-nr">0</div></div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="tco-results-cost-summary">
+                                <p id="tco-result-totaltco-term">0</p>
+                                <h3 id="tco-result-totaltco-diff">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-12" id="tco-result-vaa">
+                    <h2>Bruto voordeel alle aard voor werknemer (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting voordeel alle aard" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>Het bruto voordeel alle aard voor de werknemer op de volledige looptijd.</li></ul>">i</span></h2>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="assets/img/nissan-leaf-l.png" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-vaa-left-bar"></div><div class="tco-results-number" id="tco-result-vaa-left-nr">0</div></div>
+                            <div class="clear"><img class="tco-results-thumb thumbRight" src="assets/img/volkswagen-egolf-l.png" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-vaa-right-bar"></div><div class="tco-results-number" id="tco-result-vaa-right-nr">0</div></div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="tco-results-cost-summary">
+                                <p id="tco-result-vaa-term">0</p>
+                                <h3 id="tco-result-vaa-diff">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row last">
+				<div id="go-to-top" class="bigbutton nextbutton active">Gegevens aanpassen</div>
+				<div class="more-info"><a href="http://milieuvriendelijkevoertuigen.be/" target="_blank">Meer informatie over milieuvriendelijke wagens &raquo;</a></div>
+            </div>
+    		<div class="clear"></div>
+        </div>
+    
+    
+    </div></div>
+    
+</div> <!-- End of chapter 1 -->
+
+<div id="chapter-2" class="chapter chapter-console">
+	<div class="container">
+    	<div class="row">
+        	<div class="col-md-8 col-md-offset-2">
+            	<h1>Aannames voor de berekening</h1>
+                
+                <h2>Uitgangspunten voor de berekening</h2>
+                <p>Bij de ontwikkeling van de webapplicatie werden de volgende kenmerken in acht genomen:</p>
+
+                 <ul>
+                	<li>De berekening is slechts een indicatieve berekening van de totale kosten. De kosten in de praktijk kunnen per individuele situatie afwijken van de berekening in deze webapplicatie. Dit geldt in het bijzonder voor:
+                    	<ul>
+                        	<li>Gekozen opties en korting (is aan te passen in het eindresultaat).</li>
+                            <li>De herverkoopwaarde van het voertuig (is aan te passen in het eindresultaat).</li>
+                            <li>De verhouding van elektriciteit en benzineverbruik en aardgas- en benzineverbruik bij plug-in hybride en aargaswagens (is aan te passen in het eindresultaat).</li>
+                            <li>De berekening van de verzekering en onderhoud</li>
+                        </ul>
+                    </li>
+                    <li>De tool geldt enkel voor entiteiten in Vlaanderen.</li>
+                    <li>Voor rechtspersonen wordt aangenomen dat de voertuigen in de balans worden opgenomen.</li>
+                    <li>Er wordt geen rekening gehouden met financiering en/of aankoopopties.</li>
+                    <li>In de webapplicatie zijn meer dan 150 personenwagens beschikbaar.</li>
+                    <li>Alle terugkerende kosten worden ge&iuml;ndexeerd. </li>
+                    <li>De berekeningen gelden enkel voor nieuw ingeschreven wagens (dit heeft onder andere effect op de BIV en het Voordeel alle aard).</li>
+                    <li>Er wordt in de berekeninge geen rekening gehouden met de kosten van laad- en tankinfrastructuur voor milieuvriendelijke voertuigen.</li>
+                    <li>De totale kosten worden weergegeven op de volledige gebruiksduur.</li>
+                </ul>
+                
+                <h2>Uitgangspunten voor de voertuigen</h2>
+                <p>De selectie van voertuigen is gebaseerd op basis van de volgende uitgangspunten:</p>
+                
+                <ul>
+                	<li>Alle elektrische, plug-in hybride en aardgasvoertuigen voor vervoer van personen die in Vlaanderen verkrijgbaarbaar zijn op niet-discriminatoire basis.</li>
+                    <li>Een selectie van benzine- en dieselvoertuigen in de categori&euml;n van de hiervoor geselecteerde milieuvriendelijke voertuigen met als uitvoering en motorisatie:
+                    	<ul>
+                        	<li>Een automatische versnellingsbak (indien beschikbaar).</li>
+                            <li>Minimaal vijf deuren (indien beschikbaar).</li>
+                            <li>Tweewielaandrijving (tenzij inbegrepen in het basismodel of bij SUV's in het E- en F-segment).</li>
+                            <li>De voorkeur voor een hybride of meest milieuvriendelijke uitvoering.</li>
+                            <li>Een minimaal vermogen van 80 kW (C-segment), 100 kW (D-segment), 130 kW (E-segment) en 175 kW (F-segment).</li>
+                            <li>Een hatchback (A- tot C-segment) of break-versie (D-E segment) als carrosserievorm (indien beschikbaar).</li>                            
+                        </ul>
+                     </li>
+                </ul>
+                
+                <h2>Algemene aannames</h2>
+                <p>Voor de berekening in deze webapplicatie werden de volgende aannames gemaakt:</p>
+                <ul>
+                	<li>Jaarlijkse inflatie van 2,03% (<a href="http://statbel.fgov.be/nl/statistieken/cijfers/economie/consumptieprijzen/inflatie/" target="_blank">bron: FOD Economie, december 2016</a>)</li>
+                    <li>Vennootschapsbelasting van ondernemingen 33,99%</li>
+                    <li>Vennootschappen hebben voldoende <em>ruimte</em> in de belastbare winst om de fiscale aftrek van wagens maximaal te benutten</li>
+                    <li>Standaard elektriciteitsprijs: 0,28 &euro;/kWh inclusief BTW (<a href="http://www.vreg.be/sites/default/files/evolutie_prijzen_hh_november_2016.pdf)" target="_blank">bron: VREG, november 2016</a>)</li>
+                    <li>Standaard aardgasprijs: 0,990 &euro;/kg inclusief BTW (cfr beschikbare prijzen op www.dats24.be op 1/1/2016 voor hoogcalorisch gas (H-gas, 11.3662 kWh/m<sup>3</sup>))</li>
+                    <li>Standaard benzine E10-prijs: 1,416 &euro;/L inclusief BTW (<a href="http://www.petrolfed.be/nl/maximumprijzen/databank" target="_blank">gemiddelde van maximumprijzen in december 2016 volgens Petrolfed</a>)</li>
+                    <li>Standaard dieselprijs: 1,315 &euro;/L inclusief BTW (<a href="http://www.petrolfed.be/nl/maximumprijzen/databank" target="_blank">gemiddelde van maximumprijzen in december 2016 volgens Petrolfed</a>)</li>
+                    <li>De catalogusprijzen zijn afkomstig van de website van Directlease (<a href="http://directlease.be" target="_blank">bron</a>) of van de websites van Belgische importeurs en geraadpleegd in december 2016.</li>    
+                    <li>Het veld &quot;Theoretisch versus realistisch verbruik&quot; laat vijf waardes toe, gaande van &quot;Volgens laboratoriumtesten&quot; tot &quot;Sportief&quot;. Volgens een <a href="http://www.theicct.org/laboratory-road-2016-update" target="_blank">studie van TNO en ICCT</a> in november 2016 bedroeg de gemiddelde verbruiksfactor in Europa in 2015 1,42. Deze waarde heeft een effect op het berekende brandstof- en energieverbruik en rijbereik. Het <em>berekende</em> verbruik wordt berekend volgens een zogenaamde <em>verbruiksfactor</em> (van 1,00 (rijgedrag volgens laboratoriumtesten) tot 1,75 (sportief rijgedrag)) maal het door de constructeur opgegeven verbruik. Het berekende rijbereik wordt berekend volgens de beschikbare batterijcapaciteit en/of tankcapaciteit en het berekende verbruik.</li>
+                    <li>Verzekeringspremie van 395 euro per jaar (BA-verzekering) + 2% van de cataloguswaarde inclusief opties en (in het geval van BTW-plichtige organisaties: niet-recupereerbare) BTW, jaarlijks geïndexeerd met de inflatie (bron: TCO model elektrisch rijden, prof. ir M. Steinbuch, TU Eindhoven).</li>
+                    <li>Onderhoudskost van 0,02 + 2 miljoenste van de cataloguswaarde inclusief BTW &euro;/km (bron: TCO model elektrisch rijden, prof. ir M. Steinbuch, TU Eindhoven).</li>
+                    <li>Herverkoopwaarde van de cataloguswaarde inclusief BTW X een restwaardefactor in functie van de totale afstand (bron: TCO model elektrisch rijden, prof. ir M. Steinbuch, TU Eindhoven), met een restwaardefactor van:
+                    	<ul>
+                        	<li>80% (20.000 km) tot 30% (120.000 km) met stappen van 10% per 20.000 km.</li>
+                            <li>30% (120.000 km) tot 15% (180.000 km) met stappen van 5% per 20.000 km.</li>
+                            <li>15% (180.000 km) tot 5% (260.000 km) met stappen van 2,5% per 20.000 km.</li>
+                            <li>5% (meer dan 260.000 km).
+                        </ul>
+                     </li>
+                </ul>
+                
+                <h2>Welke kostencomponenten zijn in rekening gebracht?</h2>
+                <p>De volgende kostencomponenten worden in de webapplicatie in rekening gebracht:</p>
+                <ul>
+                	<li><strong>Aankoop en herverkoopwaarde</strong>
+                    	<ul>
+                        	<li>Aankoopprijs inclusief opties, korting en (in het geval van BTW-plichtige organisaties: niet-recupereerbare) BTW.</li>
+                            <li>De kosten voor batterijleasing.</li>
+                            <li>De herverkoopwaarde van het voertuig op het einde van de gebruiksduur.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Premies en belastingen</strong>
+                    	<ul>
+                        	<li>De belasting op inverkeerstelling en verkeersbelasting sinds 1 januari 2016 (rekening houdende met een vrijstelling van de verkeersbelasting voor CNG- en PHEV-voertuigen met een CO2-uitstoot van maximaal 50 g/km tot 31 december 2020).</li>
+                            <li>De <a href="http://www.milieuvriendelijkevoertuigen.be/zero-emissiepremie" target="_blank" title="">zero-emissie premie voor elektrische voertuigen</a> voor natuurlijke personen vanaf 1 januari 2017.</li>
+                            <li>De solidariteitsbijdrage die wordt aangerekend aan de rechtspersoon in het geval van een bedrijfswagen.</li>
+                            <li>De verworpen uitgave van het voordeel alle aard die wordt aangerekend aan vennootschappen in het geval van een bedrijfswagen.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Energie- en brandstofverbruik</strong>
+                    	<ul>
+                        	<li>De elektriciteits, aardgas-, benzine- en/of dieselkosten inclusief (in het geval van BTW-plichtige organisaties: niet-recupereerbare) BTW, rekening houdend met de inflatie en het rijgedrag.</li>
+                            <li>De verhouding van elektriciteits- en benzineverbruik of aardgas- en benzineverbruik bij plug-in hybride en aardgasvoertuigen.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Verzekering en onderhoud</strong>
+                    	<ul>
+                        	<li>Een BA- en omniumverzekering op de volledige looptijd</li>
+                            <li>Reparatie, onderhoud en banden op de volledige looptijd, inclusief (in het geval van BTW-plichtige organisaties: niet-recupereerbare) BTW</li>
+                        </ul>
+                    </li>
+                    <li><strong>Fiscale aftrek (enkel voor vennootschappen)</strong>
+                    	<ul>
+                        	<li>Alle fiscaal aftrekbare kosten, in functie van bedrijfswagen (tussen 50 en 120% fiscale aftrek) of poolwagengebruik (100% fiscale aftrek).</li>
+                            <li>Het elektriciteits- en brandstofverbruik (75% fiscaal aftrekbaar)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Totale kosten</strong>
+                    	<ul>
+                        	<li>Alle voorgaande kostencomponenten bij elkaar opgeteld.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Bruto voordeel alle aard (enkel in het geval van een bedrijfswagen)</strong>
+                    	<ul>
+                        	<li>Het bruto voordeel alle aard voor de werknemer op de volledige looptijd.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="chapter-3" class="chapter chapter-console">
+	<div class="container">
+    	<div class="row">
+        	<div class="col-md-8 col-md-offset-2">
+            	<h1>Over deze webtool</h1>
+                <p>De webapplicatie &quot;Vergelijk milieuvriendelijke en conventionele wagens&quot; werd ontwikkeld door projectbureau <a href="http://www.thenewdrive.be/" target="_blank">The New Drive</a> en ontworpen door <a href="http://haveitmade.be/" target="_blank">MADE</a> in opdracht van het departement Leefmilieu, Natuur en Energie.</p>
+                <h2>Disclaimer</h2>
+                <p>De informatie, voertuigen en databases van de webapplicatie zijn met de nodige zorgvuldigheid samengesteld en worden in de mate van het mogelijke ge&uuml;pdatet. De informatie die door middel van de webapplicatie wordt verstrekt geldt slechts ten indicatieve titel en is het resultaat van de gecombineerde gegevens van constructeurs, verzekeraars en invoer van de gebruiker.</p><p>
+Het departement Leefmilieu, Natuur en Energie garandeert echter niet dat de informatie op de website en/of verstrekt via de webapplicatie juist, actueel of volledig is. De informatie op de Website en/of verstrekt via de webapplicatie kan technische onjuistheden en typ- of andere redactionele fouten bevatten. De reële informatie, waaronder, maar niet beperkt tot de reële kosten kunnen in de praktijk of naargelang de specifieke omstandigheden afwijken van de door de webapplicatie verstrekte informatie.</p>
+
+				<h2>Gebruiksvoorwaarden</h2>
+                <p><a href="assets/docs/voorwaarden-webapplicatie.pdf" target="_blank">Bij het gebruik van de webapplicatie gaat u akkoord met de <strong>gebruiksvoorwaarden</strong></a>.</p>
+                
+                <h2>Copyright</h2>
+                <p>Copyright © 2016 Fuel LLC, The New Drive. Alle afbeeldingen, foto’s en ander beeldmateriaal, alsook alle daarin vervatte informatie, gebruikt op deze website www.milieuvriendelijkevoertuigen.be en/of de TCO webapplicatie zijn en blijven de uitsluitende eigendom van hun recspectievelijke rechthebbenden. Er wordt door het Departement Leefmilieu, Natuur en Energie geen enkel recht of licentie toegekend met betrekking tot de afbeeldingen, foto’s of beeldmateriaal, de informatie vervat hierin of enige hieraan gerelateerde (intellectuele) eigendomsrechten.</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="chapter-4" class="chapter chapter-console">
+	<div class="container">
+    	<div class="row">
+        	<div class="col-md-8 col-md-offset-2">
+            	<h1>Contact</h1>
+                <p>Heeft u vragen over de webapplicatie?</p>
+                <p>Of is bepaalde informatie onjuist of niet meer up-to-date?</p>
+                <p>Contacteer ons via <a href="mailto:beleid@lne.vlaanderen.be">beleid@lne.vlaanderen.be</a></p>
+                <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="phevratioleftcont" style="display:none;"></div>
+<div id="cngratioleftcont" style="display:none;"></div>
+
+<div class="footer container-fluid" id="footer">
+	<div class="container" id="footer-container">Dit is een offici&euml;le website van de Vlaamse overheid<span id="footer-more" class="footer-collapse">Meer info<span class="glyphicon glyphicon-menu-up"></span></span></div>
+    <div class="container" id="footer-container-exp">
+    	<div class="row">
+        	<div class="col-md-9">
+            	<div class="fl-logo"></div>
+                <h2 class="site-disclaimer">Milieuvriendelijkevoertuigen.be is een offici&euml;le website van de Vlaamse overheid</h2>
+                <div class="site-publisher">uitgegeven door <a href="http://www.vlaanderen.be/nl/contact/adressengids/diensten-van-de-vlaamse-overheid/administratieve-diensten-van-de-vlaamse-overheid/beleidsdomein-leefmilieu-natuur-en-energie/departement-leefmilieu-natuur-en-energie" target="_blank">Departement Leefmilieu, Natuur en Energie</a></div>
+                <div class="site-description">Op deze website kun je de totale kosten vergelijken van milieuvriendelijke voertuigen met conventionele voertuigen.</div>
+            </div>
+            <div class="col-md-3"><span id="footer-close" class="footer-collapse">Verberg info<span class="glyphicon glyphicon-menu-down"></span></span></div>
+        </div>
+    </div>
+</div>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="assets/js/ie10-viewport-bug-workaround.js" ></script>
+    
+	<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     
+      ga('create', 'UA-40230205-7', 'auto');
+      ga('send', 'pageview');
+     
+    </script>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalCustomCar">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Zelf een auto toevoegen</h4>
+                </div>
+                <div class="modal-body">
+    	            <div class="tco-box">
+                      <h2>Naam auto</h2>
+                      <input type="text" maxlength="35" class="form-control" value="Samengestelde auto" id="input-custom-name" />
+                      <h2>Emissienorm<sup>*</sup></h2>
+                      <select class="form-control" id="input-emissienorm" name="input-emissienorm">
+                        <option value="1">Euro 1</option>
+                        <option value="2">Euro 2</option>
+                        <option value="3">Euro 3</option>
+                        <option value="4">Euro 4</option>
+                        <option value="5">Euro 5</option>
+                        <option selected value="6">Euro 6</option>
+                      </select>
+                      <h2>Fiscale PK<sup>*</sup></h2>
+                      <select class="form-control" id="input-fiscpk" name="input-fiscpk">
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option selected value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                      </select>
+                      <h2 class="slider-title">Cataloguswaarde incl. BTW en opties</h2>
+                      <div class="form-group slider-output">
+                        <label class="sr-only" for="input-custom-aankoop">Cataloguswaarde</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="input-custom-aankoop" placeholder="0" disabled>
+                           <div class="input-group-addon">€</div>
+                        </div>
+                      </div>
+                      <div class="slider-wrapper suf-euro">
+                        <input type="text" class="input-custom-aankoop" />
+                      </div>
+                      <h2 class="slider-title">Verbruik</h2>
+                      <div class="form-group slider-output">
+                        <label class="sr-only" for="input-custom-verbruik">Verbruik</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="input-custom-verbruik" placeholder="0" disabled>
+                           <div class="input-group-addon">L/100km</div>
+                        </div>
+                      </div>
+                      <div class="slider-wrapper suf-lkm">
+                        <input type="text" class="input-custom-verbruik" />
+                      </div>
+                      <h2 class="slider-title">CO<sub>2</sub>-uitstoot</h2>
+                      <div class="form-group slider-output">
+                        <label class="sr-only" for="input-custom-co2">CO2-uitstoot</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="input-custom-co2" placeholder="0" disabled>
+                           <div class="input-group-addon">g/km</div>
+                        </div>
+                      </div>
+                      <div class="slider-wrapper suf-gkm">
+                        <input type="text" class="input-custom-co2" />
+                      </div>
+                      <h2 class="slider-title">Cilinderinhoud</h2>
+                      <div class="form-group slider-output">
+                        <label class="sr-only" for="input-custom-cc">Cilinderinhoud</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="input-custom-cc" placeholder="0" disabled>
+                           <div class="input-group-addon">cc</div>
+                        </div>
+                      </div>
+                      <div class="slider-wrapper suf-cc">
+                        <input type="text" class="input-custom-cc" />
+                      </div>
+                      
+                    </div>
+                    
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                    <!--<div id="btn-go-to-section3" class="bigbutton nextbutton active">OK</div>-->
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </body>
+
 </html>
