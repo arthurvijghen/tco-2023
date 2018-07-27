@@ -1,0 +1,75 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/* ..................... FONTS ..................... */
+
+@font-face {
+  font-family: 'Flanders Art Sans Light';
+  src: url('FlandersArtSans-Light.eot');
+  src: url('FlandersArtSans-Light.eot?#iefix') format('embedded-opentype'), 
+       url('FlandersArtSans-Light.woff') format('woff'), 
+       url('FlandersArtSans-Light.ttf')  format('truetype');
+  font-style:   normal;
+  font-weight:  200;
+}
+
+@font-face {
+  font-family: 'Flanders Art Sans';
+  src: url('FlandersArtSans-Regular.eot');
+  src: url('FlandersArtSans-Regular.eot?#iefix') format('embedded-opentype'),
+       url('FlandersArtSans-Regular.woff') format('woff'),
+       url('FlandersArtSans-Regular.ttf')  format('truetype');
+  font-style:   normal;
+  font-weight:  400;
+}
+
+@font-face {
+  font-family: "Flanders Art Sans Medium";
+  src: url("FlandersArtSans-Medium.eot");
+  src: url("FlandersArtSans-Medium.eot?#iefix") format("embedded-opentype"),
+       url("FlandersArtSans-Medium.woff") format("woff"),
+       url("FlandersArtSans-Medium.ttf")  format("truetype");
+  font-style:   normal;
+  font-weight:  400;
+}
+
+@font-face {
+  font-family: 'Flanders Art Sans Bold';
+  src: url('FlandersArtSans-Bold.eot');
+  src: url('FlandersArtSans-Bold.eot?#iefix') format('embedded-opentype'),
+       url('FlandersArtSans-Bold.woff') format('woff'),
+       url('FlandersArtSans-Bold.ttf')  format('truetype');
+  font-style:   normal;
+  font-weight:  700;
+}
+
+@font-face {
+  font-family: 'Flanders Art Serif Light';
+  src: url('flanders-serif-light-webfont.eot');
+  src: url('flanders-serif-light-webfont.eot?#iefix') format('embedded-opentype'), 
+       url('flanders-serif-light-webfont.woff') format('woff'), 
+       url('flanders-serif-light-webfont.ttf')  format('truetype');
+  font-style:   normal;
+  font-weight:  200;
+}
+
+@font-face {
+  font-family: "Flanders Art Serif Medium";
+  src: url("flanders-serif-medium-webfont.eot");
+  src: url("flanders-serif-medium-webfont.eot?#iefix") format("embedded-opentype"),
+       url("flanders-serif-medium-webfont.woff") format("woff"),
+       url("flanders-serif-medium-webfont.ttf")  format("truetype");
+  font-style:   normal;
+  font-weight:  400;
+}
+
+@font-face {
+  font-family: 'Flanders Art Sans Bold';
+  src: url('flanders-serif-bold-webfont.eot');
+  src: url('flanders-serif-bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('flanders-serif-bold-webfont.woff') format('woff'),
+       url('flanders-serif-bold-webfont.ttf')  format('truetype');
+  font-style:   normal;
+  font-weight:  700;
+}
