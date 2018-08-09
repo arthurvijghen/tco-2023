@@ -100,7 +100,7 @@ h6 { font-size:1em; }
 .popover .slider-output { width: 80px; }
 .popover #tco-popover-left-elektriciteit .slider-output { width: 95px; }
 .popover .slider-output .form-control { padding: 4px; }
-.popover .input-group-addon { padding: 6px 6px; }
+.popover .input-group-addon { padding: 6px 6px 6px 1px; }
 
 .suf-perc .range-min:after, .suf-perc .range-max:after { content: '%'; } 
 .suf-km .range-min:after, .suf-km .range-max:after { content: ' km/j'; } 

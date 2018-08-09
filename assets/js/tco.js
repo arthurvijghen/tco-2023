@@ -14,13 +14,15 @@ var drivetrainRight = 'benz';
 var entiteit = '';
 var btwplicht = 'n';
 var gebruiksdoel = 'bw';
+var tankkaart = 'y';
 
-var vennootschapsbelasting = 0.3399; // 33,99% vennnootschapsbelasting
-var benzineprijs = 1.416; // in €/L incl btw
-var dieselprijs = 1.315; // in €/L incl btw
-var elektriciteitsprijs = 0.28; // in €/kWh incl btw
-var aardgasprijs = 0.99; // in €/kg incl btw
-var inflatie = 0.0203;
+var vennootschapsbelasting = 0.2958; // 29,58% vennnootschapsbelasting
+var benzineprijs = 1.5226; // in €/L incl btw
+var dieselprijs = 1.5208; // in €/L incl btw
+var elektriciteitsprijs = 0.26; // in €/kWh incl btw
+var aardgasprijs = 0.97; // in €/kg incl btw
+var waterstofprijs = 12.5; // in €/kg incl. btw
+var inflatie = 0.0208;
 var inflatieFactor = 1;
 
 var distancePY = 30000; // in km per year
@@ -50,8 +52,8 @@ var customCO2 = 110;
 var customCC = 1600;
 var customFuel = 'benz';
 
-var filterLeft = ['cng','ev','phev'];
-var filterRight = ['cng','benz','dies','ev','phev'];
+var filterLeft = ['cng','ev','phev','fcev'];
+var filterRight = ['cng','benz','dies','ev','phev','fcev'];
 
 var nB = '?';
 var nvt = 'n.v.t.';
@@ -63,157 +65,91 @@ var leafLease = new blc([0,79],[10000,86],[15000,102],[20000,122],[25000,122]);
 var evaliaLease = new blc([0,73],[10000,76],[15000,90],[20000,106],[25000,106]);
 
 var cars = [ // PRIJZEN INCLUSIEF BTW // 0 betekent niet van toepassing // undefined of '' betekent niet beschikbaar // bonus toevoegen
-	{ 'segment': 'C', 'id': 'BMW-1', 'brand': 'BMW', 'name': '1', 'v': 'Hatch 118i (100 kW) (5d) 136pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 5.3, 'verbrCNG': 0, 'co2': 123, 'power': 100, 'acc': 8.5, 'koffer': 360, 'cilinder': 1499, 'bat': 0, 'tank': 52, 'tankcng': 0, 'ecoscore': 72, 'price': 25800, 'bonus': 0, 'pk': 8, 'image': true },
-{ 'segment': 'E', 'id': 'BMW-6', 'brand': 'BMW', 'name': '6', 'v': 'Coupe 640i (235kW) (2d) 320pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 7.4, 'verbrCNG': 0, 'co2': 172, 'power': 235, 'acc': 5.3, 'koffer': 460, 'cilinder': 2979, 'bat': 0, 'tank': 70, 'tankcng': 0, 'ecoscore': 60, 'price': 86780, 'bonus': 0, 'pk': 15, 'image': true },
-{ 'segment': 'F', 'id': 'BMW-7', 'brand': 'BMW', 'name': '7', 'v': 'Berline 740i (240 kW) (4d) 326pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 6.8, 'verbrCNG': 0, 'co2': 159, 'power': 240, 'acc': 5.5, 'koffer': 500, 'cilinder': 2998, 'bat': 0, 'tank': 78, 'tankcng': 0, 'ecoscore': 65, 'price': 94600, 'bonus': 0, 'pk': 15, 'image': true },
-{ 'segment': 'A', 'id': 'Fiat-500', 'brand': 'FIAT', 'name': '500', 'v': '1.2 8v 51kW Pop Star (3d) 69pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.9, 'verbrCNG': 0, 'co2': 115, 'power': 51, 'acc': 12.9, 'koffer': 185, 'cilinder': 1242, 'bat': 0, 'tank': 35, 'tankcng': 0, 'ecoscore': 73, 'price': 14090, 'bonus': 0, 'pk': 7, 'image': true },
-{ 'segment': 'MPV-Mid', 'id': 'Ford-C-Max', 'brand': 'Ford', 'name': 'Focus C-Max', 'v': '1.0i EcoBoost 92kW S/S Trend (5d) 125pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 5.1, 'verbrCNG': 0, 'co2': 117, 'power': 92, 'acc': 11.4, 'koffer': 471, 'cilinder': 998, 'bat': 0, 'tank': 55, 'tankcng': 0, 'ecoscore': 71, 'price': 21750, 'bonus': 0, 'pk': 6, 'image': true },
-{ 'segment': 'B', 'id': 'Ford-Fiesta', 'brand': 'Ford', 'name': 'Fiesta', 'v': '1.0i EcoBoost 74kW Powershift Trend (5d) 100pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.9, 'verbrCNG': 0, 'co2': 114, 'power': 74, 'acc': 10.8, 'koffer': 290, 'cilinder': 999, 'bat': 0, 'tank': 42, 'tankcng': 0, 'ecoscore': 72, 'price': 18200, 'bonus': 0, 'pk': 6, 'image': true },
-{ 'segment': 'C', 'id': 'Ford-Focus', 'brand': 'Ford', 'name': 'Focus', 'v': '1.0i EcoB. 74kW S/S Trend (5d) 100pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.6, 'verbrCNG': 0, 'co2': 99, 'power': 74, 'acc': 12.5, 'koffer': 363, 'cilinder': 998, 'bat': 0, 'tank': 55, 'tankcng': 0, 'ecoscore': 72, 'price': 19900, 'bonus': 0, 'pk': 6, 'image': true },
-{ 'segment': 'SUV-D', 'id': 'Honda-CRV', 'brand': 'Honda', 'name': 'CR-V', 'v': '2.0i i-VTEC 4x4 Aut. Elegance (5d) 155pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 7.5, 'verbrCNG': 0, 'co2': 175, 'power': 114, 'acc': 12.3, 'koffer': 589, 'cilinder': 1997, 'bat': 0, 'tank': 58, 'tankcng': 0, 'ecoscore': 63, 'price': 33940, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'E', 'id': 'Lexus-GS', 'brand': 'Lexus', 'name': 'GS', 'v': '300h Business Edition (4d) 223pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.4, 'verbrCNG': 0, 'co2': 104, 'power': 133, 'acc': 9, 'koffer': 482, 'cilinder': 2494, 'bat': 0, 'tank': 66, 'tankcng': 0, 'ecoscore': 75, 'price': 46240, 'bonus': 0, 'pk': 13, 'image': true },
-{ 'segment': 'F', 'id': 'Lexus-LS', 'brand': 'Lexus', 'name': 'LS', 'v': '600h F Sport Line (4d) 445pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 8.6, 'verbrCNG': 0, 'co2': 199, 'power': 327, 'acc': 6.1, 'koffer': 465, 'cilinder': 4969, 'bat': 0, 'tank': 84, 'tankcng': 0, 'ecoscore': 59, 'price': 126300, 'bonus': 0, 'pk': 25, 'image': true },
-{ 'segment': 'F', 'id': 'Mercedes-S-class', 'brand': 'Mercedes-Benz', 'name': 'S-klasse', 'v': 'S-Klasse S 500 (4d) 455pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 8.4, 'verbrCNG': 0, 'co2': 196, 'power': 335, 'acc': 4.8, 'koffer': 530, 'cilinder': 4663, 'bat': 0, 'tank': 80, 'tankcng': 0, 'ecoscore': 59, 'price': 111562, 'bonus': 0, 'pk': 23, 'image': true },
-{ 'segment': 'SUV-E', 'id': 'Porsche-cayenne', 'brand': 'Porsche', 'name': 'Cayenne', 'v': '3.6 S (5d) 420pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 9.5, 'verbrCNG': 0, 'co2': 223, 'power': 309, 'acc': 5.5, 'koffer': 670, 'cilinder': 3604, 'bat': 0, 'tank': 85, 'tankcng': 0, 'ecoscore': 56, 'price': 87241, 'bonus': 0, 'pk': 18, 'image': true },
-{ 'segment': 'F', 'id': 'Porsche-Panamera', 'brand': 'Porsche', 'name': 'Panamera', 'v': '2.9 4S (5d) 440pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 8.1, 'verbrCNG': 0, 'co2': 184, 'power': 324, 'acc': 4.4, 'koffer': 495, 'cilinder': 2894, 'bat': 0, 'tank': 75, 'tankcng': 0, 'ecoscore': 58, 'price': 116523, 'bonus': 0, 'pk': 15, 'image': true },
-{ 'segment': 'A', 'id': 'Smart-Fortwo', 'brand': 'smart', 'name': 'Fortwo', 'v': '0.9 66kW Coupé Prime (3d) 90pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.2, 'verbrCNG': 0, 'co2': 97, 'power': 66, 'acc': 10.4, 'koffer': 260, 'cilinder': 898, 'bat': 0, 'tank': 28, 'tankcng': 0, 'ecoscore': 76, 'price': 14258, 'bonus': 0, 'pk': 5, 'image': true },
-{ 'segment': 'D', 'id': 'Toyota-prius', 'brand': 'Toyota', 'name': 'Prius', 'v': '1.8 VVT-i Hybrid Business (5d) 122pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 3, 'verbrCNG': 0, 'co2': 70, 'power': 90, 'acc': 10.6, 'koffer': 502, 'cilinder': 1798, 'bat': 0, 'tank': 45, 'tankcng': 0, 'ecoscore': 77, 'price': 31580, 'bonus': 0, 'pk': 10, 'image': true },
-{ 'segment': 'B', 'id': 'Toyota-yaris', 'brand': 'Toyota', 'name': 'Yaris', 'v': '1.5 VVT-i HYbrid Comfort (5d) 100pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 3.3, 'verbrCNG': 0, 'co2': 75, 'power': 74, 'acc': 11.8, 'koffer': 286, 'cilinder': 1497, 'bat': 0, 'tank': 36, 'tankcng': 0, 'ecoscore': 80, 'price': 20225, 'bonus': 0, 'pk': 8, 'image': true },
-{ 'segment': 'D', 'id': 'Volvo-V60', 'brand': 'Volvo', 'name': 'V60', 'v': 'T3 Geartronic Momentum (5d) 152pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 5.9, 'verbrCNG': 0, 'co2': 138, 'power': 112, 'acc': 8.7, 'koffer': 430, 'cilinder': 1498, 'bat': 0, 'tank': 68, 'tankcng': 0, 'ecoscore': 68, 'price': 37790, 'bonus': 0, 'pk': 8, 'image': true },
-{ 'segment': 'SUV-D', 'id': 'Volvo-xc60', 'brand': 'Volvo', 'name': 'XC60', 'v': 'T5 Geartronic Momentum (5d) 245pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 6.7, 'verbrCNG': 0, 'co2': 157, 'power': 180, 'acc': 7.2, 'koffer': 495, 'cilinder': 1969, 'bat': 0, 'tank': 70, 'tankcng': 0, 'ecoscore': 65, 'price': 46680, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'SUV-E', 'id': 'Volvo-XC70', 'brand': 'Volvo', 'name': 'XC90', 'v': 'T5 4WD Geartronic Momentum 7PL. (5d) 254pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 7.6, 'verbrCNG': 0, 'co2': 176, 'power': 187, 'acc': 8.2, 'koffer': 314, 'cilinder': 1969, 'bat': 0, 'tank': 71, 'tankcng': 0, 'ecoscore': 63, 'price': 63750, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'C', 'id': 'VW-golf', 'brand': 'Volkswagen', 'name': 'Golf', 'v': '1.4 TSi 92kW DSG BMT Trendline (5d) 125pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 5, 'verbrCNG': 0, 'co2': 116, 'power': 92, 'acc': 9.1, 'koffer': 380, 'cilinder': 1395, 'bat': 0, 'tank': 50, 'tankcng': 0, 'ecoscore': 71, 'price': 24090, 'bonus': 0, 'pk': 8, 'image': true },
-{ 'segment': 'D', 'id': 'VW-Passat', 'brand': 'Volkswagen', 'name': 'Passat', 'v': '1.4 TSI ACT Highline DSG-7 (4d) 150pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 5.1, 'verbrCNG': 0, 'co2': 117, 'power': 110, 'acc': 8.4, 'koffer': 586, 'cilinder': 1395, 'bat': 0, 'tank': 66, 'tankcng': 0, 'ecoscore': 72, 'price': 35470, 'bonus': 0, 'pk': 8, 'image': true },
-{ 'segment': 'B', 'id': 'x-audi-a1', 'brand': 'Audi', 'name': 'A1', 'v': '1.0 TFSI ultra 70kW Design (3d) 95pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.2, 'verbrCNG': 0, 'co2': 97, 'power': 70, 'acc': 10.9, 'koffer': 270, 'cilinder': 999, 'bat': 0, 'tank': 45, 'tankcng': 0, 'ecoscore': 76, 'price': 18550, 'bonus': 0, 'pk': 6, 'image': false },
-{ 'segment': 'K', 'id': 'x-citroen-berlingo', 'brand': 'Citro&euml;n', 'name': 'Berlingo', 'v': '1.6 VTi 95 MAN Feel Edition (5d) 97pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 6.4, 'verbrCNG': 0, 'co2': 148, 'power': 72, 'acc': 12.8, 'koffer': 544, 'cilinder': 1598, 'bat': 0, 'tank': 60, 'tankcng': 0, 'ecoscore': 66, 'price': 19660, 'bonus': 0, 'pk': 9, 'image': false },
-{ 'segment': 'A', 'id': 'x-citroen-c1', 'brand': 'Citro&euml;n', 'name': 'C1', 'v': '1.0 VTi ETG Shine (5d) 69pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.2, 'verbrCNG': 0, 'co2': 97, 'power': 50, 'acc': 14.6, 'koffer': 196, 'cilinder': 998, 'bat': 0, 'tank': 35, 'tankcng': 0, 'ecoscore': 76, 'price': 14450, 'bonus': 0, 'pk': 6, 'image': false },
-{ 'segment': 'B', 'id': 'x-citroen-c3', 'brand': 'Citro&euml;n', 'name': 'C3', 'v': '1.2 PureTech 82 S&S ETG Seduction (5d) 82pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.2, 'verbrCNG': 0, 'co2': 97, 'power': 60, 'acc': 14.4, 'koffer': 300, 'cilinder': 1199, 'bat': 0, 'tank': 50, 'tankcng': 0, 'ecoscore': 74, 'price': 16545, 'bonus': 0, 'pk': 7, 'image': false },
-{ 'segment': 'B', 'id': 'x-dacia-sandero', 'brand': 'Dacia', 'name': 'Sandero', 'v': '1.2 16v Ambiance (5d) 73pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 5.8, 'verbrCNG': 0, 'co2': 130, 'power': 54, 'acc': 14.5, 'koffer': 320, 'cilinder': 1149, 'bat': 0, 'tank': 50, 'tankcng': 0, 'ecoscore': 70, 'price': 8700, 'bonus': 0, 'pk': 6, 'image': false },
-{ 'segment': 'K', 'id': 'x-fiat-doblo', 'brand': 'FIAT', 'name': 'Doblo', 'v': '1.4 T-Jet Street (5d) 120pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 7.2, 'verbrCNG': 0, 'co2': 169, 'power': 88, 'acc': 12.3, 'koffer': 790, 'cilinder': 1368, 'bat': 0, 'tank': 60, 'tankcng': 0, 'ecoscore': 64, 'price': 17990, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'MPV-Comp', 'id': 'x-ford-b-max', 'brand': 'Ford', 'name': 'B-Max', 'v': '1.0i EcoBoost 74kW S/S Trend (5d) 100pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.9, 'verbrCNG': 0, 'co2': 114, 'power': 74, 'acc': 13.2, 'koffer': 318, 'cilinder': 998, 'bat': 0, 'tank': 48, 'tankcng': 0, 'ecoscore': 72, 'price': 18000, 'bonus': 0, 'pk': 6, 'image': false },
-{ 'segment': 'A', 'id': 'x-hyundai-i10', 'brand': 'Hyundai', 'name': 'i10', 'v': '1.0 Blue Drive (5d) 67pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.3, 'verbrCNG': 0, 'co2': 98, 'power': 49, 'acc': 15.1, 'koffer': 252, 'cilinder': 998, 'bat': 0, 'tank': 40, 'tankcng': 0, 'ecoscore': 72, 'price': 12549, 'bonus': 0, 'pk': 6, 'image': false },
-{ 'segment': 'C', 'id': 'x-mercedes-a', 'brand': 'Mercedes-Benz', 'name': 'A-klasse', 'v': 'A 180 BlueEFFICIENCY Style Edition (5d) 122pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 5.2, 'verbrCNG': 0, 'co2': 120, 'power': 90, 'acc': 8.9, 'koffer': 341, 'cilinder': 1595, 'bat': 0, 'tank': 40, 'tankcng': 0, 'ecoscore': 72, 'price': 27528, 'bonus': 0, 'pk': 9, 'image': false },
-{ 'segment': 'MPV-Comp', 'id': 'x-nissan-note', 'brand': 'Nissan', 'name': 'Note', 'v': 'DIG-S 98 Acenta CVT (5d) 98pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 5.1, 'verbrCNG': 0, 'co2': 119, 'power': 72, 'acc': 12.6, 'koffer': 411, 'cilinder': 1198, 'bat': 0, 'tank': 41, 'tankcng': 0, 'ecoscore': 72, 'price': 18840, 'bonus': 0, 'pk': 7, 'image': false },
-{ 'segment': 'A', 'id': 'x-opel-karl', 'brand': 'Opel', 'name': 'Karl', 'v': '1.0 ecoFLEX S/S Enjoy (5d) 75pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.1, 'verbrCNG': 0, 'co2': 99, 'power': 55, 'acc': 13.9, 'koffer': 195, 'cilinder': 999, 'bat': 0, 'tank': 32, 'tankcng': 0, 'ecoscore': 76, 'price': 11800, 'bonus': 0, 'pk': 6, 'image': false },
-{ 'segment': 'A', 'id': 'x-peugeot-108', 'brand': 'Peugeot', 'name': '108', 'v': '1.0 Active s/s (5d) 69pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 3.8, 'verbrCNG': 0, 'co2': 88, 'power': 51, 'acc': 13, 'koffer': 196, 'cilinder': 998, 'bat': 0, 'tank': 35, 'tankcng': 0, 'ecoscore': 78, 'price': 12445, 'bonus': 0, 'pk': 6, 'image': false },
-{ 'segment': 'B', 'id': 'x-peugeot-208', 'brand': 'Peugeot', 'name': '208', 'v': '1.2 PureTech 60kW BMP s/s Active (5d) 82pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.2, 'verbrCNG': 0, 'co2': 97, 'power': 60, 'acc': 14.5, 'koffer': 311, 'cilinder': 1199, 'bat': 0, 'tank': 50, 'tankcng': 0, 'ecoscore': 75, 'price': 17775, 'bonus': 0, 'pk': 7, 'image': false },
-{ 'segment': 'MPV-Mid', 'id': 'x-peugeot-3008', 'brand': 'Peugeot', 'name': '3008', 'v': '2.0 BlueHDi 110kW S&S GT Line (5d) 150pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.4, 'verbrCNG': 0, 'co2': 114, 'power': 110, 'acc': 9.6, 'koffer': 520, 'cilinder': 1997, 'bat': 0, 'tank': 53, 'tankcng': 0, 'ecoscore': 64, 'price': 36300, 'bonus': 0, 'pk': 11, 'image': false },
-{ 'segment': 'D', 'id': 'x-peugeot-508', 'brand': 'Peugeot', 'name': '508', 'v': '1.6 121kW S/S Auto Allure (4d) 165pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 5.8, 'verbrCNG': 0, 'co2': 134, 'power': 121, 'acc': 9.7, 'koffer': 515, 'cilinder': 1598, 'bat': 0, 'tank': 72, 'tankcng': 0, 'ecoscore': 69, 'price': 34160, 'bonus': 0, 'pk': 9, 'image': false },
-{ 'segment': 'B', 'id': 'x-renault-clio', 'brand': 'Renault', 'name': 'Clio', 'v': 'Energy TCe 120 EDC Limited (5d) 118pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 5.4, 'verbrCNG': 0, 'co2': 120, 'power': 87, 'acc': 9.2, 'koffer': 300, 'cilinder': 1197, 'bat': 0, 'tank': 45, 'tankcng': 0, 'ecoscore': 71, 'price': 19350, 'bonus': 0, 'pk': 7, 'image': false },
-{ 'segment': 'MPV-Mid', 'id': 'x-renault-scenic', 'brand': 'Renault', 'name': 'Sc&eacute;nic', 'v': 'Energy TCe 115 Zen (5d) 116pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 5.8, 'verbrCNG': 0, 'co2': 129, 'power': 85, 'acc': 12.3, 'koffer': 437, 'cilinder': 1197, 'bat': 0, 'tank': 52, 'tankcng': 0, 'ecoscore': 70, 'price': 23100, 'bonus': 0, 'pk': 7, 'image': false },
-{ 'segment': 'A', 'id': 'x-renault-twingo', 'brand': 'Renault', 'name': 'Twingo', 'v': '1.0 SCe 70 S&S Life (5d) 71pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.2, 'verbrCNG': 0, 'co2': 95, 'power': 52, 'acc': 14.5, 'koffer': 219, 'cilinder': 999, 'bat': 0, 'tank': 35, 'tankcng': 0, 'ecoscore': 75, 'price': 10150, 'bonus': 0, 'pk': 6, 'image': false },
-{ 'segment': 'C', 'id': 'x-toyota-auris', 'brand': 'Toyota', 'name': 'Auris', 'v': '1.8 VVT-i Hybrid CVT Comfort (5d) 136pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 3.6, 'verbrCNG': 0, 'co2': 82, 'power': 73, 'acc': 10.9, 'koffer': 360, 'cilinder': 1798, 'bat': 0, 'tank': 45, 'tankcng': 0, 'ecoscore': 79, 'price': 25860, 'bonus': 0, 'pk': 10, 'image': false },
-{ 'segment': 'A', 'id': 'x-toyota-aygo', 'brand': 'Toyota', 'name': 'Aygo', 'v': '1.0 VVT-i x-play (5d) 69pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.1, 'verbrCNG': 0, 'co2': 95, 'power': 51, 'acc': 14.2, 'koffer': 168, 'cilinder': 998, 'bat': 0, 'tank': 35, 'tankcng': 0, 'ecoscore': 77, 'price': 11990, 'bonus': 0, 'pk': 6, 'image': false },
-{ 'segment': 'C', 'id': 'x-volvo-v40', 'brand': 'Volvo', 'name': 'V40', 'v': 'T2 Eco Geartronic Kinetic (5d) 122pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 5.4, 'verbrCNG': 0, 'co2': 125, 'power': 90, 'acc': 9.8, 'koffer': 335, 'cilinder': 1498, 'bat': 0, 'tank': 62, 'tankcng': 0, 'ecoscore': 71, 'price': 26600, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'MPV-Mid', 'id': 'x-vw-touran', 'brand': 'Volkswagen', 'name': 'Touran', 'v': '1.4 TSi 110kW DSG-7 BMT Trendline (5d) 150pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 5.4, 'verbrCNG': 0, 'co2': 126, 'power': 110, 'acc': 8.9, 'koffer': 834, 'cilinder': 1395, 'bat': 0, 'tank': 58, 'tankcng': 0, 'ecoscore': 71, 'price': 28440, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'A', 'id': 'x-vw-up', 'brand': 'Volkswagen', 'name': 'Up!', 'v': '1.0 MPi 55kW BMT ASG Move up! (5d) 75pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 4.7, 'verbrCNG': 0, 'co2': 97, 'power': 55, 'acc': 13.2, 'koffer': 251, 'cilinder': 999, 'bat': 0, 'tank': 35, 'tankcng': 0, 'ecoscore': 76, 'price': 13651, 'bonus': 0, 'pk': 6, 'image': false },
-{ 'segment': 'C', 'id': 'Audi-A3-Gtron-Temp', 'brand': 'Audi', 'name': 'A3 g-tron', 'v': 'Sportback 1.4 TFSi 81kW g-tron Attraction (5d) 110pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 5.2, 'verbrCNG': 2.8, 'co2': 92, 'power': 81, 'acc': 10.8, 'koffer': 380, 'cilinder': 1395, 'bat': 0, 'tank': 50, 'tankcng': 11, 'ecoscore': 81, 'price': 25850, 'bonus': 0, 'pk': 8, 'image': true },
-{ 'segment': 'MPV-Comp', 'id': 'Fiat-500L', 'brand': 'FIAT', 'name': '500L', 'v': 'CNG NATURAL POWER Pop Star (5d) 80pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 5.9, 'verbrCNG': 3.9, 'co2': 105, 'power': 59, 'acc': 15.7, 'koffer': 400, 'cilinder': 875, 'bat': 0, 'tank': 50, 'tankcng': 14, 'ecoscore': 78, 'price': 20700, 'bonus': 0, 'pk': 5, 'image': true },
-{ 'segment': 'MPV-Comp', 'id': 'Fiat-500L-temp', 'brand': 'FIAT', 'name': '500L Living', 'v': 'Twinair/CNG 59kW Pop Star (5d) 80pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 5.9, 'verbrCNG': 3.9, 'co2': 105, 'power': 59, 'acc': 15.7, 'koffer': 638, 'cilinder': 875, 'bat': 0, 'tank': 50, 'tankcng': 14, 'ecoscore': 78, 'price': 21000, 'bonus': 0, 'pk': 5, 'image': true },
-{ 'segment': 'C', 'id': 'Mercedes-B-cng-temp', 'brand': 'Mercedes-Benz', 'name': 'B 200 NGT', 'v': 'B-Klasse B 200 c (5d) 156pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 5.8, 'verbrCNG': 4.4, 'co2': 115, 'power': 115, 'acc': 9.2, 'koffer': 488, 'cilinder': 1991, 'bat': 0, 'tank': 12, 'tankcng': 21, 'ecoscore': 77, 'price': 33033, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'E', 'id': 'Mercedes-E-cng-temp', 'brand': 'Mercedes-Benz', 'name': 'E 200 NGT', 'v': 'Berline E 200 Natural Gas Drive Avantgarde (4d) 156pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 6.6, 'verbrCNG': 4.4, 'co2': 118, 'power': 115, 'acc': 10.4, 'koffer': 540, 'cilinder': 1991, 'bat': 0, 'tank': 59, 'tankcng': 20, 'ecoscore': 77, 'price': 51812, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'C', 'id': 'VW-golf-tgi-temp', 'brand': 'Volkswagen', 'name': 'Golf TGI', 'v': '1.4 TGi BlueMotion Trendline DSG (5d) 110pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 5.1, 'verbrCNG': 3.6, 'co2': 92, 'power': 81, 'acc': 10.6, 'koffer': 380, 'cilinder': 1395, 'bat': 0, 'tank': 50, 'tankcng': 15, 'ecoscore': 81, 'price': 26630, 'bonus': 0, 'pk': 8, 'image': true },
-{ 'segment': 'K', 'id': 'x-fiat-doblo-cng', 'brand': 'FIAT', 'name': 'Doblo', 'v': '1.4 T-Jet CNG Lounge Natural Power (5d) 120pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 7.4, 'verbrCNG': 4.9, 'co2': 134, 'power': 88, 'acc': 12.7, 'koffer': 790, 'cilinder': 1368, 'bat': 0, 'tank': 22, 'tankcng': 16, 'ecoscore': 75, 'price': 23050, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'A', 'id': 'x-fiat-panda-cng', 'brand': 'FIAT', 'name': 'Panda', 'v': '0.9 Twinair 59kW CNG Street (5d) 80pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 4.5, 'verbrCNG': 3.1, 'co2': 85, 'power': 59, 'acc': 12.8, 'koffer': 200, 'cilinder': 875, 'bat': 0, 'tank': 35, 'tankcng': 12, 'ecoscore': 81, 'price': 14540, 'bonus': 0, 'pk': 5, 'image': false },
-{ 'segment': 'B', 'id': 'x-fiat-punto-cng', 'brand': 'FIAT', 'name': 'Punto', 'v': '1.4 51kW CNG Street (5d) 70pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 6.3, 'verbrCNG': 4.2, 'co2': 115, 'power': 51, 'acc': 16.9, 'koffer': 200, 'cilinder': 1368, 'bat': 0, 'tank': 45, 'tankcng': 13, 'ecoscore': 77, 'price': 17810, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'K', 'id': 'x-fiat-qubo-cng', 'brand': 'FIAT', 'name': 'Qubo', 'v': '1.4 Lounge CNG Natural Power (5d) 70pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 6.8, 'verbrCNG': 4.2, 'co2': 119, 'power': 51, 'acc': 17.7, 'koffer': 275, 'cilinder': 1368, 'bat': 0, 'tank': 45, 'tankcng': 13, 'ecoscore': 76, 'price': 18175, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'B', 'id': 'x-lancia-ypsilon-cng', 'brand': 'Lancia', 'name': 'Ypsilon', 'v': '0.9 TwinAir 59kW CNG Gold (5d) 80pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 5.8, 'verbrCNG': 4, 'co2': 86, 'power': 59, 'acc': 13.1, 'koffer': 202, 'cilinder': 875, 'bat': 0, 'tank': 40, 'tankcng': 12, 'ecoscore': 81, 'price': 17390, 'bonus': 0, 'pk': 5, 'image': false },
-{ 'segment': 'MPV-Mid', 'id': 'x-opel-zafira-cng', 'brand': 'Opel', 'name': 'Zafira Tourer 1.6 Turbo CNG', 'v': '1.6 Turbo CNG ecoFLEX Cosmo (5d) 150pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 9.4, 'verbrCNG': 5, 'co2': 136, 'power': 110, 'acc': 11.5, 'koffer': 710, 'cilinder': 1598, 'bat': 0, 'tank': 14, 'tankcng': 25, 'ecoscore': 0, 'price': 29200, 'bonus': 0, 'pk': 9, 'image': false },
-{ 'segment': 'C', 'id': 'x-seat-leon-cng', 'brand': 'Seat', 'name': 'Leon TGI', 'v': '1.4 TGI 81kW Reference (5d) 110pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 5.3, 'verbrCNG': 4.5, 'co2': 96, 'power': 81, 'acc': 10.9, 'koffer': 380, 'cilinder': 1395, 'bat': 0, 'tank': 50, 'tankcng': 17, 'ecoscore': 80, 'price': 21590, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'A', 'id': 'x-seat-mii-cng', 'brand': 'Seat', 'name': 'Mii', 'v': '1.0 50kW CNG Style (5d) 68pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 4.5, 'verbrCNG': 2.9, 'co2': 79, 'power': 50, 'acc': 16.3, 'koffer': 213, 'cilinder': 999, 'bat': 0, 'tank': 10, 'tankcng': 11, 'ecoscore': 83, 'price': 13650, 'bonus': 0, 'pk': 6, 'image': false },
-{ 'segment': 'D', 'id': 'x-skoda-octavia-cng', 'brand': '&Scaron;koda', 'name': 'Octavia', 'v': '1.4 TSi CNG 81kW G-Tec Ambition (5d) 110pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 5.3, 'verbrCNG': 3.7, 'co2': 94, 'power': 81, 'acc': 10.9, 'koffer': 460, 'cilinder': 1395, 'bat': 0, 'tank': 50, 'tankcng': 15, 'ecoscore': 80, 'price': 25890, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'D', 'id': 'x-volvo-v60-cng', 'brand': 'Volvo', 'name': 'V60', 'v': 'T5 Bi-Fuel Geartronic Summum (5d) 245pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 6.4, 'verbrCNG': 4.3, 'co2': 116, 'power': 180, 'acc': 6.4, 'koffer': 310, 'cilinder': 1969, 'bat': 0, 'tank': 68, 'tankcng': 16, 'ecoscore': 75, 'price': 49350, 'bonus': 0, 'pk': 11, 'image': false },
-{ 'segment': 'K', 'id': 'x-vw-caddy-maxi-cng', 'brand': 'Volkswagen', 'name': 'Caddy Maxi CNG', 'v': '1.4 TGi 81KW BMT Maxi Trendline (5d) 110pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 6.5, 'verbrCNG': 4.3, 'co2': 116, 'power': 81, 'acc': 13.7, 'koffer': 380, 'cilinder': 1395, 'bat': 0, 'tank': 13, 'tankcng': 37, 'ecoscore': 77, 'price': 22780, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'A', 'id': 'x-vw-eco-up-cng', 'brand': 'Volkswagen', 'name': 'eco-Up', 'v': '1.0 MPi 50kW CNG BMT ECO-up! (5d) 68pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 4.5, 'verbrCNG': 2.9, 'co2': 82, 'power': 50, 'acc': 16.3, 'koffer': 213, 'cilinder': 999, 'bat': 0, 'tank': 10, 'tankcng': 11, 'ecoscore': 83, 'price': 14310, 'bonus': 0, 'pk': 6, 'image': false },
-{ 'segment': 'C', 'id': 'x-vw-golf-variant-cng', 'brand': 'Volkswagen', 'name': 'Golf Variant TGI', 'v': '1.4 TGi 81kW Trendline DSG (5d) 110pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 5.3, 'verbrCNG': 3.7, 'co2': 94, 'power': 81, 'acc': 10.9, 'koffer': 605, 'cilinder': 1395, 'bat': 0, 'tank': 51, 'tankcng': 16, 'ecoscore': 80, 'price': 27530, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'C', 'id': 'Audi-A3', 'brand': 'Audi', 'name': 'A3', 'v': 'Sportback (Nieuw model) 1.6 TDi 81kW S tronic (5d) 110pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 3.8, 'verbrCNG': 0, 'co2': 99, 'power': 81, 'acc': 10.7, 'koffer': 380, 'cilinder': 1598, 'bat': 0, 'tank': 50, 'tankcng': 0, 'ecoscore': 66, 'price': 27090, 'bonus': 0, 'pk': 9, 'image': true },
-{ 'segment': 'D', 'id': 'Audi-A4', 'brand': 'Audi', 'name': 'A4', 'v': '2.0 TDi 100kW S tronic Design (4d) 136pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 4.1, 'verbrCNG': 0, 'co2': 106, 'power': 100, 'acc': 9.1, 'koffer': 480, 'cilinder': 1968, 'bat': 0, 'tank': 40, 'tankcng': 0, 'ecoscore': 65, 'price': 37860, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'E', 'id': 'Audi-A6', 'brand': 'Audi', 'name': 'A6', 'v': '2.0 TDI Ultra 140kW (4d) 190pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 4.4, 'verbrCNG': 0, 'co2': 114, 'power': 140, 'acc': 8.4, 'koffer': 530, 'cilinder': 1968, 'bat': 0, 'tank': 73, 'tankcng': 0, 'ecoscore': 64, 'price': 42480, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'F', 'id': 'Audi-A8', 'brand': 'Audi', 'name': 'A8', 'v': '3.0 TDi 193kW Tip8 quattro LWB (4d) 262pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 5.9, 'verbrCNG': 0, 'co2': 155, 'power': 193, 'acc': 6.1, 'koffer': 490, 'cilinder': 2967, 'bat': 0, 'tank': 82, 'tankcng': 0, 'ecoscore': 59, 'price': 83925, 'bonus': 0, 'pk': 15, 'image': true },
-{ 'segment': 'SUV-D', 'id': 'Audi-Q5', 'brand': 'Audi', 'name': 'Q5', 'v': '2.0 TDi 140kW S tronic (5d) 190pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 4.8, 'verbrCNG': 0, 'co2': 126, 'power': 140, 'acc': 8.7, 'koffer': 540, 'cilinder': 1968, 'bat': 0, 'tank': 75, 'tankcng': 0, 'ecoscore': 62, 'price': 42880, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'SUV-F', 'id': 'Audi-Q7', 'brand': 'Audi', 'name': 'Q7', 'v': '3.0 TDI 200kW Tiptr. quattro (5d) 272pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 5.7, 'verbrCNG': 0, 'co2': 149, 'power': 200, 'acc': 6.3, 'koffer': 890, 'cilinder': 2967, 'bat': 0, 'tank': 75, 'tankcng': 0, 'ecoscore': 59, 'price': 63340, 'bonus': 0, 'pk': 15, 'image': true },
-{ 'segment': 'D', 'id': 'BMW-3', 'brand': 'BMW', 'name': '3', 'v': 'Touring 320d Efficientdynamics Edition (120 kW) (5d) 163pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 4.1, 'verbrCNG': 0, 'co2': 107, 'power': 120, 'acc': 8.2, 'koffer': 495, 'cilinder': 1995, 'bat': 0, 'tank': 57, 'tankcng': 0, 'ecoscore': 64, 'price': 38550, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'E', 'id': 'BMW-5', 'brand': 'BMW', 'name': '5', 'v': 'Berline 520d xDrive (140 kW) (4d) 190pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 4.7, 'verbrCNG': 0, 'co2': 119, 'power': 140, 'acc': 7.9, 'koffer': 520, 'cilinder': 1995, 'bat': 0, 'tank': 70, 'tankcng': 0, 'ecoscore': 63, 'price': 48650, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'SUV-D', 'id': 'BMW-X3', 'brand': 'BMW', 'name': 'X3', 'v': 'sDrive18d (110 kW) (5d) 150pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 5, 'verbrCNG': 0, 'co2': 130, 'power': 110, 'acc': 9.5, 'koffer': 550, 'cilinder': 1995, 'bat': 0, 'tank': 67, 'tankcng': 0, 'ecoscore': 62, 'price': 39550, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'SUV-E', 'id': 'BMW-X5', 'brand': 'BMW', 'name': 'X5', 'v': 'xDrive25d (155 kW) (5d) 211pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 5.6, 'verbrCNG': 0, 'co2': 146, 'power': 155, 'acc': 7.7, 'koffer': 650, 'cilinder': 1995, 'bat': 0, 'tank': 85, 'tankcng': 0, 'ecoscore': 60, 'price': 59250, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'SUV-F', 'id': 'BMW-X6', 'brand': 'BMW', 'name': 'X6', 'v': 'xDrive30d (190kW) (5d) 258pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 6, 'verbrCNG': 0, 'co2': 157, 'power': 190, 'acc': 6.7, 'koffer': 580, 'cilinder': 2993, 'bat': 0, 'tank': 85, 'tankcng': 0, 'ecoscore': 58, 'price': 68750, 'bonus': 0, 'pk': 15, 'image': true },
-{ 'segment': 'E', 'id': 'Jaguar-XF', 'brand': 'Jaguar', 'name': 'XF', 'v': '2.0D 132KW Aut. Prestige (4d) 180pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 4.3, 'verbrCNG': 0, 'co2': 114, 'power': 132, 'acc': 8.1, 'koffer': 540, 'cilinder': 1999, 'bat': 0, 'tank': 66, 'tankcng': 0, 'ecoscore': 64, 'price': 48225, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'SUV-E', 'id': 'Kia-sorento', 'brand': 'KIA', 'name': 'Sorento', 'v': 'Fusion 2.2 CRDi AWD Auto 7pl ISG (5d) 200pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 6.7, 'verbrCNG': 0, 'co2': 177, 'power': 147, 'acc': 9.6, 'koffer': 660, 'cilinder': 2199, 'bat': 0, 'tank': 71, 'tankcng': 0, 'ecoscore': 56, 'price': 40790, 'bonus': 0, 'pk': 12, 'image': true },
-{ 'segment': 'C', 'id': 'Mercedes-B-temp', 'brand': 'Mercedes-Benz', 'name': 'B-klasse', 'v': 'B 180 d BlueEFFICIENCY Style Edition (5d) 109pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 3.6, 'verbrCNG': 0, 'co2': 94, 'power': 80, 'acc': 11.6, 'koffer': 488, 'cilinder': 1461, 'bat': 0, 'tank': 40, 'tankcng': 0, 'ecoscore': 66, 'price': 30710, 'bonus': 0, 'pk': 8, 'image': true },
-{ 'segment': 'E', 'id': 'Mercedes-E-class', 'brand': 'Mercedes-Benz', 'name': 'E-klasse', 'v': 'Berline E 220 d 120kW Avantgarde (4d) 163pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 3.9, 'verbrCNG': 0, 'co2': 102, 'power': 120, 'acc': 7.9, 'koffer': 540, 'cilinder': 1950, 'bat': 0, 'tank': 25, 'tankcng': 0, 'ecoscore': 65, 'price': 50892, 'bonus': 0, 'pk': 10, 'image': true },
-{ 'segment': 'B', 'id': 'Mini', 'brand': 'MINI', 'name': 'MINI', 'v': '5 door One D (5d) 95pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 3.5, 'verbrCNG': 0, 'co2': 92, 'power': 70, 'acc': 11.4, 'koffer': 278, 'cilinder': 1496, 'bat': 0, 'tank': 44, 'tankcng': 0, 'ecoscore': 67, 'price': 20210, 'bonus': 0, 'pk': 8, 'image': true },
-{ 'segment': 'SUV-D', 'id': 'Mitubischi-outlander', 'brand': 'Mitsubishi', 'name': 'Outlander', 'v': '2.2 Di-D diesel 6MT 2WD 7pl. Intense Pr. (5d) 150pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 5.1, 'verbrCNG': 0, 'co2': 134, 'power': 110, 'acc': 10.3, 'koffer': 124, 'cilinder': 2268, 'bat': 0, 'tank': 63, 'tankcng': 0, 'ecoscore': 61, 'price': 33940, 'bonus': 0, 'pk': 12, 'image': true },
-{ 'segment': 'SUV-D', 'id': 'Porsche-Macan', 'brand': 'Porsche', 'name': 'Macan', 'v': '3.0 S Diesel (155 kW) (5d) 211pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 6.3, 'verbrCNG': 0, 'co2': 164, 'power': 155, 'acc': 6.3, 'koffer': 500, 'cilinder': 2967, 'bat': 0, 'tank': 60, 'tankcng': 0, 'ecoscore': 58, 'price': 63041, 'bonus': 0, 'pk': 15, 'image': true },
-{ 'segment': 'SUV-E', 'id': 'VW-touareg', 'brand': 'Volkswagen', 'name': 'Touareg', 'v': '3.0L V6 TDI 193kW BMT (5d) 262pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 6.6, 'verbrCNG': 0, 'co2': 174, 'power': 193, 'acc': 7.3, 'koffer': 697, 'cilinder': 2967, 'bat': 0, 'tank': 85, 'tankcng': 0, 'ecoscore': 57, 'price': 60270, 'bonus': 0, 'pk': 15, 'image': true },
-{ 'segment': 'MPV-Comp', 'id': 'x-citroen-c3-picasso', 'brand': 'Citro&euml;n', 'name': 'C3 Picasso', 'v': '1.6 BlueHDi 100 MAN Business GPS (5d) 99pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 3.9, 'verbrCNG': 0, 'co2': 101, 'power': 73, 'acc': 12.1, 'koffer': 500, 'cilinder': 1560, 'bat': 0, 'tank': 50, 'tankcng': 0, 'ecoscore': 65, 'price': 16335, 'bonus': 0, 'pk': 9, 'image': false },
-{ 'segment': 'C', 'id': 'x-citroen-c4', 'brand': 'Citro&euml;n', 'name': 'C4', 'v': '1.6 e-HDi 115 MAN6 Business GPS (5d) 114pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 3.8, 'verbrCNG': 0, 'co2': 97, 'power': 84, 'acc': 11.2, 'koffer': 380, 'cilinder': 1590, 'bat': 0, 'tank': 60, 'tankcng': 0, 'ecoscore': 66, 'price': 19239, 'bonus': 0, 'pk': 9, 'image': false },
-{ 'segment': 'MPV-Mid', 'id': 'x-citroen-c4-picasso', 'brand': 'Citro&euml;n', 'name': 'C4 Picasso', 'v': '1.6 BlueHDi 115 S&S MAN6 Business GPS (5d) 115pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 3.7, 'verbrCNG': 0, 'co2': 94, 'power': 85, 'acc': 11.7, 'koffer': 537, 'cilinder': 1560, 'bat': 0, 'tank': 55, 'tankcng': 0, 'ecoscore': 66, 'price': 22143, 'bonus': 0, 'pk': 9, 'image': false },
-{ 'segment': 'D', 'id': 'x-citroen-c5', 'brand': 'Citro&euml;n', 'name': 'C5', 'v': '1.6 e-HDi 115 EGMV6 Bus. GPS (4d) 114pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 4.3, 'verbrCNG': 0, 'co2': 111, 'power': 84, 'acc': 14.3, 'koffer': 439, 'cilinder': 1560, 'bat': 0, 'tank': 71, 'tankcng': 0, 'ecoscore': 64, 'price': 23595, 'bonus': 0, 'pk': 9, 'image': false },
-{ 'segment': 'B', 'id': 'x-hyundai-i20', 'brand': 'Hyundai', 'name': 'i20', 'v': '1.1 CRDi 55kW Blue Drive (5d) 75pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 3.6, 'verbrCNG': 0, 'co2': 92, 'power': 55, 'acc': 16, 'koffer': 326, 'cilinder': 1120, 'bat': 0, 'tank': 50, 'tankcng': 0, 'ecoscore': 66, 'price': 16849, 'bonus': 0, 'pk': 6, 'image': false },
-{ 'segment': 'C', 'id': 'x-kia-ceed', 'brand': 'KIA', 'name': 'C&#180;eed', 'v': 'Business Mind 1.6 CRDi 110 ISG EcoDynami (5d) 110pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 3.8, 'verbrCNG': 0, 'co2': 99, 'power': 81, 'acc': 10.6, 'koffer': 380, 'cilinder': 1582, 'bat': 0, 'tank': 53, 'tankcng': 0, 'ecoscore': 65, 'price': 24440, 'bonus': 0, 'pk': 9, 'image': false },
-{ 'segment': 'C', 'id': 'x-opel-astra', 'brand': 'Opel', 'name': 'Astra', 'v': '1.6 CDTI 81kW ecoFLEX S/S Edition (5d) 110pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 3.3, 'verbrCNG': 0, 'co2': 88, 'power': 81, 'acc': 10.9, 'koffer': 370, 'cilinder': 1598, 'bat': 0, 'tank': 48, 'tankcng': 0, 'ecoscore': 67, 'price': 22550, 'bonus': 0, 'pk': 9, 'image': false },
-{ 'segment': 'B', 'id': 'x-opel-corsa', 'brand': 'Opel', 'name': 'Corsa', 'v': '1.3 CDTI 70kW ecoF.S/S Easytronic Enjoy (5d) 95pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 3.2, 'verbrCNG': 0, 'co2': 84, 'power': 70, 'acc': 13.5, 'koffer': 285, 'cilinder': 1248, 'bat': 0, 'tank': 45, 'tankcng': 0, 'ecoscore': 68, 'price': 18600, 'bonus': 0, 'pk': 7, 'image': false },
-{ 'segment': 'D', 'id': 'x-opel-insignia', 'brand': 'Opel', 'name': 'Insignia', 'v': 'Hatchback 1.6 CDTI 100kW Aut. Cosmo (5d) 136pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 5, 'verbrCNG': 0, 'co2': 133, 'power': 100, 'acc': 10.9, 'koffer': 530, 'cilinder': 1598, 'bat': 0, 'tank': 70, 'tankcng': 0, 'ecoscore': 61, 'price': 33850, 'bonus': 0, 'pk': 9, 'image': false },
-{ 'segment': 'MPV-Mid', 'id': 'x-opel-zafira-tourer', 'brand': 'Opel', 'name': 'Zafira Tourer', 'v': '1.6 CDTI ecoFLEX 100kW S/S Cosmo (5d) 136pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 4.1, 'verbrCNG': 0, 'co2': 109, 'power': 100, 'acc': 11.2, 'koffer': 710, 'cilinder': 1598, 'bat': 0, 'tank': 58, 'tankcng': 0, 'ecoscore': 75, 'price': 28300, 'bonus': 0, 'pk': 9, 'image': false },
-{ 'segment': 'C', 'id': 'x-peugeot-308', 'brand': 'Peugeot', 'name': '308', 'v': '1.6 BlueHDi 85kW s/s Auto Active (5d) 116pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 3.6, 'verbrCNG': 0, 'co2': 95, 'power': 85, 'acc': 9.9, 'koffer': 470, 'cilinder': 1560, 'bat': 0, 'tank': 53, 'tankcng': 0, 'ecoscore': 67, 'price': 25250, 'bonus': 0, 'pk': 9, 'image': false },
-{ 'segment': 'MPV-Mid', 'id': 'x-peugeot-5008', 'brand': 'Peugeot', 'name': '5008', 'v': '1.6 BlueHDi S&S 88kW Aut. Allure (5d) 120pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 4.3, 'verbrCNG': 0, 'co2': 112, 'power': 88, 'acc': 13.1, 'koffer': 823, 'cilinder': 1560, 'bat': 0, 'tank': 60, 'tankcng': 0, 'ecoscore': 64, 'price': 32300, 'bonus': 0, 'pk': 9, 'image': false },
-{ 'segment': 'K', 'id': 'x-peugeot-partner-tepee', 'brand': 'Peugeot', 'name': 'Partner Tepee', 'v': '1.6 BlueHDi 73kW S&S MSQ Tepee Active (5d) 100pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 4.2, 'verbrCNG': 0, 'co2': 109, 'power': 73, 'acc': 14.3, 'koffer': 675, 'cilinder': 1560, 'bat': 0, 'tank': 60, 'tankcng': 0, 'ecoscore': 65, 'price': 21275, 'bonus': 0, 'pk': 9, 'image': false },
-{ 'segment': 'K', 'id': 'x-renault-kangoo-maxi', 'brand': 'Renault', 'name': 'Kangoo (maxi)', 'v': 'Energy dCi 75 Life (5d) 75pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 4.3, 'verbrCNG': 0, 'co2': 112, 'power': 55, 'acc': 16.3, 'koffer': 660, 'cilinder': 1461, 'bat': 0, 'tank': 60, 'tankcng': 0, 'ecoscore': 64, 'price': 17350, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'C', 'id': 'x-renault-megane', 'brand': 'Renault', 'name': 'M&eacute;gane', 'v': '1.5 Energy dCi 110 EDC Intens (5d) 110pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 3.7, 'verbrCNG': 0, 'co2': 95, 'power': 81, 'acc': 12, 'koffer': 524, 'cilinder': 1461, 'bat': 0, 'tank': 47, 'tankcng': 0, 'ecoscore': 66, 'price': 27000, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'B', 'id': 'x-skoda-fabia', 'brand': '&Scaron;koda', 'name': 'Fabia', 'v': '1.4 CRTDI 66kW DSG7 Ambition (5d) 90pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 3.8, 'verbrCNG': 0, 'co2': 99, 'power': 66, 'acc': 11.1, 'koffer': 330, 'cilinder': 1422, 'bat': 0, 'tank': 45, 'tankcng': 0, 'ecoscore': 66, 'price': 19690, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'D', 'id': 'x-skoda-octavia', 'brand': '&Scaron;koda', 'name': 'Octavia', 'v': '2.0 CRTDi 110kW DSG 6 GreenTec Ambition (5d) 150pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 4.4, 'verbrCNG': 0, 'co2': 115, 'power': 110, 'acc': 8.5, 'koffer': 590, 'cilinder': 1968, 'bat': 0, 'tank': 50, 'tankcng': 0, 'ecoscore': 61, 'price': 28850, 'bonus': 0, 'pk': 11, 'image': false },
-{ 'segment': 'K', 'id': 'x-vw-caddy-maxi', 'brand': 'Volkswagen', 'name': 'Caddy Maxi', 'v': '2.0 CRTDi 75kW SCR BMT Maxi Trendline (5d) 102pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 4.7, 'verbrCNG': 0, 'co2': 123, 'power': 75, 'acc': 13.3, 'koffer': 530, 'cilinder': 1968, 'bat': 0, 'tank': 55, 'tankcng': 0, 'ecoscore': 62, 'price': 21850, 'bonus': 0, 'pk': 11, 'image': false },
-{ 'segment': 'B', 'id': 'x-vw-polo', 'brand': 'Volkswagen', 'name': 'Polo', 'v': '1.4 TDI 66kW Comfortline BMT DSG (5d) 90pk', 'fuel': 'dies', 'verbrEl': 0, 'verbrBr': 3.5, 'verbrCNG': 0, 'co2': 92, 'power': 66, 'acc': 10.9, 'koffer': 280, 'cilinder': 1422, 'bat': 0, 'tank': 45, 'tankcng': 0, 'ecoscore': 67, 'price': 21412, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'C', 'id': 'BMW-i3', 'brand': 'BMW', 'name': 'i3', 'v': 'i3 Advanced (5d) 170pk', 'fuel': 'ev', 'verbrEl': 11, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 125, 'acc': 7.3, 'koffer': 260, 'cilinder': 0, 'bat': 33, 'tank': 0, 'tankcng': 0, 'ecoscore': 88, 'price': 40150, 'bonus': 3500, 'pk': 4, 'image': true },
-{ 'segment': 'C', 'id': 'Ford-focus-electric', 'brand': 'Ford', 'name': 'Focus Electric', 'v': 'Electric', 'fuel': 'ev', 'verbrEl': 14.2, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 107, 'acc': 11.4, 'koffer': 316, 'cilinder': 0, 'bat': 23, 'tank': 0, 'tankcng': 0, 'ecoscore': 86, 'price': 36330, 'bonus': 3500, 'pk': 4, 'image': true },
-{ 'segment': 'B', 'id': 'KIA-soulEV', 'brand': 'KIA', 'name': 'Soul EV', 'v': 'Soul EV (5d) 110pk', 'fuel': 'ev', 'verbrEl': 14.7, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 81, 'acc': 11.2, 'koffer': 281, 'cilinder': 0, 'bat': 27, 'tank': 0, 'tankcng': 0, 'ecoscore': 86, 'price': 35290, 'bonus': 3500, 'pk': 4, 'image': true },
-{ 'segment': 'C', 'id': 'Mercedes-B', 'brand': 'Mercedes-Benz', 'name': 'B-klasse', 'v': 'B-Klasse B 250 e Style (5d) 180pk', 'fuel': 'ev', 'verbrEl': 17.6, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 132, 'acc': 7.9, 'koffer': 501, 'cilinder': 0, 'bat': 36, 'tank': 0, 'tankcng': 0, 'ecoscore': 84, 'price': 39930, 'bonus': 3500, 'pk': 4, 'image': true },
-{ 'segment': 'B', 'id': 'Mitsubishi-i-MiEV', 'brand': 'Mitsubishi', 'name': 'i-MiEV', 'v': 'Intro Edition (5d) 67pk', 'fuel': 'ev', 'verbrEl': 13.5, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 49, 'acc': 15.9, 'koffer': 235, 'cilinder': 0, 'bat': 16, 'tank': 0, 'tankcng': 0, 'ecoscore': 87, 'price': 28890, 'bonus': 4000, 'pk': 4, 'image': true },
-{ 'segment': 'C', 'id': 'Nissan-Leaf24', 'brand': 'Nissan', 'name': 'LEAF 24 kWh', 'v': 'Acenta (5d) 109pk', 'fuel': 'ev', 'verbrEl': 15, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 80, 'acc': 11.5, 'koffer': 370, 'cilinder': 0, 'bat': 24, 'tank': 0, 'tankcng': 0, 'ecoscore': 86, 'price': 31890, 'bonus': 3500, 'pk': 4, 'image': true },
-{ 'segment': 'C', 'id': 'Nissan-Leaf24bl', 'brand': 'Nissan', 'name': 'LEAF 24 kWh (battery lease)', 'v': 'Acenta Battery leasing (5d) 109pk', 'fuel': 'ev', 'verbrEl': 15, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 80, 'acc': 11.5, 'koffer': 370, 'cilinder': 0, 'bat': 24, 'tank': 0, 'tankcng': 0, 'ecoscore': 86, 'price': 25990, 'bonus': 3500, 'pk': 4, 'image': true },
-{ 'segment': 'C', 'id': 'Nissan-Leaf30', 'brand': 'Nissan', 'name': 'LEAF 30 kWh', 'v': 'Acenta 30kWh (5d) 109pk', 'fuel': 'ev', 'verbrEl': 15, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 80, 'acc': 11.5, 'koffer': 370, 'cilinder': 0, 'bat': 30, 'tank': 0, 'tankcng': 0, 'ecoscore': 86, 'price': 35350, 'bonus': 3500, 'pk': 4, 'image': true },
-{ 'segment': 'C', 'id': 'Nissan-Leaf30bl', 'brand': 'Nissan', 'name': 'LEAF 30 kWh (battery lease)', 'v': 'Acenta Battery Leasing 30kWh (5d) 109pk', 'fuel': 'ev', 'verbrEl': 15, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 80, 'acc': 11.5, 'koffer': 370, 'cilinder': 0, 'bat': 30, 'tank': 0, 'tankcng': 0, 'ecoscore': 86, 'price': 29450, 'bonus': 3500, 'pk': 4, 'image': true },
-{ 'segment': 'K', 'id': 'Nissan-NV200-temp', 'brand': 'Nissan', 'name': 'e-NV200 Evalia', 'v': 'Connect Edition (5d) 109pk', 'fuel': 'ev', 'verbrEl': 16.5, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 80, 'acc': 14, 'koffer': 1850, 'cilinder': 0, 'bat': 24, 'tank': 0, 'tankcng': 0, 'ecoscore': 85, 'price': 39006, 'bonus': 3500, 'pk': 4, 'image': true },
-{ 'segment': 'K', 'id': 'Nissan-NV200-temp2', 'brand': 'Nissan', 'name': 'e-NV200 Evalia (battery Lease)', 'v': 'FLEX Connect Edition (5d)', 'fuel': 'ev', 'verbrEl': 16.5, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 80, 'acc': 14, 'koffer': 1850, 'cilinder': 0, 'bat': 24, 'tank': 0, 'tankcng': 0, 'ecoscore': 85, 'price': 33106, 'bonus': 3500, 'pk': 4, 'image': true },
-{ 'segment': 'SUV-E', 'id': 'Tesla-X75D', 'brand': 'Tesla', 'name': 'Model X 75D', 'v': '75kWh (Dual Motor) (5d) 328pk', 'fuel': 'ev', 'verbrEl': 20.8, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 386, 'acc': 6.2, 'koffer': 2180, 'cilinder': 0, 'bat': 75, 'tank': 0, 'tankcng': 0, 'ecoscore': 82, 'price': 100600, 'bonus': 2000, 'pk': 4, 'image': true },
-{ 'segment': 'SUV-E', 'id': 'Tesla-Xp90D', 'brand': 'Tesla', 'name': 'Model X 90D', 'v': '90kWh (Dual Motor) (5d) 417pk', 'fuel': 'ev', 'verbrEl': 21.7, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 568, 'acc': 5, 'koffer': 2180, 'cilinder': 0, 'bat': 90, 'tank': 0, 'tankcng': 0, 'ecoscore': 81, 'price': 111200, 'bonus': 2000, 'pk': 4, 'image': true },
-{ 'segment': 'C', 'id': 'VW-e-golf', 'brand': 'Volkswagen', 'name': 'e-Golf', 'v': 'e-Golf (5d) 115pk', 'fuel': 'ev', 'verbrEl': 12.7, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 85, 'acc': 10.4, 'koffer': 341, 'cilinder': 0, 'bat': 24.2, 'tank': 0, 'tankcng': 0, 'ecoscore': 88, 'price': 37110, 'bonus': 3500, 'pk': 4, 'image': true },
-{ 'segment': 'B', 'id': 'x-citroen-c-zero', 'brand': 'Citroën', 'name': 'C-Zero', 'v': 'C-Zero Electric Seduction (5d) 67pk', 'fuel': 'ev', 'verbrEl': 13.5, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 49, 'acc': 15.9, 'koffer': 166, 'cilinder': 0, 'bat': 16, 'tank': 0, 'tankcng': 0, 'ecoscore': 87, 'price': 29985, 'bonus': 4000, 'pk': 4, 'image': false },
-{ 'segment': 'A', 'id': 'x-citroen-mehari', 'brand': 'Citroën', 'name': 'E-Mehari', 'v': '0', 'fuel': 'ev', 'verbrEl': 41.3, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 42, 'acc': 0, 'koffer': 200, 'cilinder': 0, 'bat': 30, 'tank': 0, 'tankcng': 0, 'ecoscore': 70, 'price': 25200, 'bonus': 4000, 'pk': 4, 'image': false },
-{ 'segment': 'C', 'id': 'x-hyundai-ioniq-e', 'brand': 'Hyundai', 'name': 'IONIQ Electric', 'v': 'Premium (5d) 120pk', 'fuel': 'ev', 'verbrEl': 11.5, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 88, 'acc': 9.9, 'koffer': 455, 'cilinder': 0, 'bat': 28, 'tank': 0, 'tankcng': 0, 'ecoscore': 88, 'price': 34999, 'bonus': 3500, 'pk': 4, 'image': false },
-{ 'segment': 'B', 'id': 'x-peugeot-ion', 'brand': 'Peugeot', 'name': 'iOn', 'v': 'Lithium-iOn 330 V Active (5d) 67pk', 'fuel': 'ev', 'verbrEl': 13.5, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 49, 'acc': 15.9, 'koffer': 166, 'cilinder': 0, 'bat': 16, 'tank': 0, 'tankcng': 0, 'ecoscore': 87, 'price': 30120, 'bonus': 4000, 'pk': 4, 'image': false },
-{ 'segment': 'K', 'id': 'x-renault-kangoo', 'brand': 'Renault', 'name': 'Kangoo Z.E. Maxi 5p', 'v': 'Kangoo Maxi Z.E. 5 zitplaatsen', 'fuel': 'ev', 'verbrEl': 15.5, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 44, 'acc': 20.3, 'koffer': 1300, 'cilinder': 0, 'bat': 22, 'tank': 0, 'tankcng': 0, 'ecoscore': 86, 'price': 28012, 'bonus': 3500, 'pk': 4, 'image': false },
-{ 'segment': 'B', 'id': 'x-renault-zoe', 'brand': 'Renault', 'name': 'ZOE 22 kWh (Battery Lease)', 'v': 'Entry R90 B-rent', 'fuel': 'ev', 'verbrEl': 13.3, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 65, 'acc': 12.2, 'koffer': 338, 'cilinder': 0, 'bat': 22, 'tank': 0, 'tankcng': 0, 'ecoscore': 87, 'price': 22050, 'bonus': 4000, 'pk': 4, 'image': false },
-{ 'segment': 'B', 'id': 'x-renault-zoe40', 'brand': 'Renault', 'name': 'ZOE 40 kWh (Battery Lease)', 'v': 'Life Q90 B-rent', 'fuel': 'ev', 'verbrEl': 13.3, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 65, 'acc': 12.2, 'koffer': 338, 'cilinder': 0, 'bat': 41, 'tank': 0, 'tankcng': 0, 'ecoscore': 87, 'price': 25250, 'bonus': 4000, 'pk': 4, 'image': false },
-{ 'segment': 'B', 'id': 'x-renault-zoe40-BL', 'brand': 'Renault', 'name': 'ZOE 40 kWh (Battery Buy)', 'v': 'Life Q90 B-buy', 'fuel': 'ev', 'verbrEl': 13.3, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 65, 'acc': 12.2, 'koffer': 338, 'cilinder': 0, 'bat': 41, 'tank': 0, 'tankcng': 0, 'ecoscore': 87, 'price': 33650, 'bonus': 3500, 'pk': 4, 'image': false },
-{ 'segment': 'B', 'id': 'x-renault-zoeBL', 'brand': 'Renault', 'name': 'ZOE 22 kWh (Battery Buy)', 'v': 'Entry R90 B-buy', 'fuel': 'ev', 'verbrEl': 13.3, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 65, 'acc': 12.2, 'koffer': 338, 'cilinder': 0, 'bat': 22, 'tank': 0, 'tankcng': 0, 'ecoscore': 87, 'price': 30550, 'bonus': 4000, 'pk': 4, 'image': false },
-{ 'segment': 'F', 'id': 'x-tesla-S60', 'brand': 'Tesla', 'name': 'Model S 60', 'v': '60kWh (5d) 320pk', 'fuel': 'ev', 'verbrEl': 18.5, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 285, 'acc': 5.8, 'koffer': 745, 'cilinder': 0, 'bat': 60, 'tank': 0, 'tankcng': 0, 'ecoscore': 83, 'price': 80200, 'bonus': 2000, 'pk': 4, 'image': false },
-{ 'segment': 'F', 'id': 'x-tesla-S75', 'brand': 'Tesla', 'name': 'Model S 75', 'v': '75kWh (5d) 320pk', 'fuel': 'ev', 'verbrEl': 18.9, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 386, 'acc': 5.8, 'koffer': 745, 'cilinder': 0, 'bat': 75, 'tank': 0, 'tankcng': 0, 'ecoscore': 83, 'price': 87500, 'bonus': 2000, 'pk': 4, 'image': false },
-{ 'segment': 'F', 'id': 'x-tesla-SP90D', 'brand': 'Tesla', 'name': 'Model S P90D', 'v': '90kWh (Dual Motor) (5d) 422pk', 'fuel': 'ev', 'verbrEl': 20, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 568, 'acc': 4.4, 'koffer': 894, 'cilinder': 0, 'bat': 90, 'tank': 0, 'tankcng': 0, 'ecoscore': 82, 'price': 103900, 'bonus': 2000, 'pk': 4, 'image': false },
-{ 'segment': 'A', 'id': 'x-vw-e-up', 'brand': 'Volkswagen', 'name': 'e-Up!', 'v': 'e-up! (5d) 82pk', 'fuel': 'ev', 'verbrEl': 11.7, 'verbrBr': 0, 'verbrCNG': 0, 'co2': 0, 'power': 60, 'acc': 12.4, 'koffer': 250, 'cilinder': 0, 'bat': 18.7, 'tank': 0, 'tankcng': 0, 'ecoscore': 88, 'price': 26900, 'bonus': 4000, 'pk': 4, 'image': false },
-{ 'segment': 'D', 'id': 'BMW-330e', 'brand': 'BMW', 'name': '330e', 'v': 'Berline 330e iPerformance (4d) 252pk', 'fuel': 'phev', 'verbrEl': 19, 'verbrBr': 4.9, 'verbrCNG': 0, 'co2': 44, 'power': 185, 'acc': 6.1, 'koffer': 480, 'cilinder': 1998, 'bat': 7.6, 'tank': 41, 'tankcng': 0, 'ecoscore': 76, 'price': 43850, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'C', 'id': 'BMW-i3-rex', 'brand': 'BMW', 'name': 'i3 REX', 'v': 'i3 Advanced Range Extender (5d) 170pk', 'fuel': 'phev', 'verbrEl': 11.5, 'verbrBr': 9.7, 'verbrCNG': 0, 'co2': 12, 'power': 125, 'acc': 8.1, 'koffer': 260, 'cilinder': 647, 'bat': 33, 'tank': 9, 'tankcng': 0, 'ecoscore': 86, 'price': 44650, 'bonus': 0, 'pk': 4, 'image': true },
-{ 'segment': 'F', 'id': 'BMW-i8', 'brand': 'BMW', 'name': 'i8', 'v': '1.5 Hybride Aut. (2d) 362pk', 'fuel': 'phev', 'verbrEl': 11.9, 'verbrBr': 5.2, 'verbrCNG': 0, 'co2': 49, 'power': 266, 'acc': 4.4, 'koffer': 154, 'cilinder': 1499, 'bat': 7.1, 'tank': 42, 'tankcng': 0, 'ecoscore': 77, 'price': 142000, 'bonus': 0, 'pk': 8, 'image': true },
-{ 'segment': 'SUV-E', 'id': 'BMW-X5Xdrive40', 'brand': 'BMW', 'name': 'X5 xDrive40', 'v': 'xDrive40e (230 kW) (5d) 313pk', 'fuel': 'phev', 'verbrEl': 29, 'verbrBr': 7.4, 'verbrCNG': 0, 'co2': 77, 'power': 230, 'acc': 6.8, 'koffer': 500, 'cilinder': 1997, 'bat': 9, 'tank': 85, 'tankcng': 0, 'ecoscore': 71, 'price': 73950, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'C', 'id': 'Golf-GTE-temp', 'brand': 'Volkswagen', 'name': 'Golf GTE', 'v': '1.4 TSi BMT GTE DSG (5d) 204pk', 'fuel': 'phev', 'verbrEl': 11.4, 'verbrBr': 4.5, 'verbrCNG': 0, 'co2': 35, 'power': 150, 'acc': 7.6, 'koffer': 272, 'cilinder': 1398, 'bat': 8.8, 'tank': 40, 'tankcng': 0, 'ecoscore': 81, 'price': 38920, 'bonus': 0, 'pk': 8, 'image': true },
-{ 'segment': 'D', 'id': 'kia-optima-phev', 'brand': 'KIA', 'name': 'Optima PHEV', 'v': '2.0 GDi Auto (4d) 205pk', 'fuel': 'phev', 'verbrEl': 18.1, 'verbrBr': 5.1, 'verbrCNG': 0, 'co2': 37, 'power': 151, 'acc': 9.4, 'koffer': 307, 'cilinder': 1999, 'bat': 9.8, 'tank': 55, 'tankcng': 0, 'ecoscore': 0, 'price': 45490, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'D', 'id': 'Mercedes-C350-Temp', 'brand': 'Mercedes-Benz', 'name': 'C350e', 'v': 'C-Klasse Berline (New) C 350 E Avantgarde (4d) 279pk', 'fuel': 'phev', 'verbrEl': 11, 'verbrBr': 4.7, 'verbrCNG': 0, 'co2': 48, 'power': 205, 'acc': 5.9, 'koffer': 335, 'cilinder': 1991, 'bat': 6.2, 'tank': 50, 'tankcng': 0, 'ecoscore': 78, 'price': 53422, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'SUV-F', 'id': 'Mercedes-GLE500', 'brand': 'Mercedes-Benz', 'name': 'GLE500e', 'v': 'GLE 500 e 4MATIC (5d) 442pk', 'fuel': 'phev', 'verbrEl': 16, 'verbrBr': 7.7, 'verbrCNG': 0, 'co2': 78, 'power': 325, 'acc': 5.3, 'koffer': 690, 'cilinder': 2996, 'bat': 8.8, 'tank': 93, 'tankcng': 0, 'ecoscore': 68, 'price': 77198, 'bonus': 0, 'pk': 15, 'image': true },
-{ 'segment': 'F', 'id': 'Mercedes-S550-Temp', 'brand': 'Mercedes-Benz', 'name': 'S500', 'v': 'S-Klasse S 500 e L (4d) 449pk', 'fuel': 'phev', 'verbrEl': 13.5, 'verbrBr': 6.5, 'verbrCNG': 0, 'co2': 65, 'power': 330, 'acc': 5.2, 'koffer': 530, 'cilinder': 2996, 'bat': 8.7, 'tank': 78, 'tankcng': 0, 'ecoscore': 74, 'price': 118943, 'bonus': 0, 'pk': 15, 'image': true },
-{ 'segment': 'SUV-D', 'id': 'Mitsubishi-outlander-phev', 'brand': 'Mitsubishi', 'name': 'Outlander PHEV', 'v': '2.0L PHEV Business Edition 4WD (5d) 203pk', 'fuel': 'phev', 'verbrEl': 13.4, 'verbrBr': 5.5, 'verbrCNG': 0, 'co2': 42, 'power': 149, 'acc': 11, 'koffer': 463, 'cilinder': 1998, 'bat': 12, 'tank': 45, 'tankcng': 0, 'ecoscore': 78, 'price': 47240, 'bonus': 0, 'pk': 4, 'image': true },
-{ 'segment': 'SUV-E', 'id': 'Porsche-Cayenne-S-E-Hybrid', 'brand': 'Porsche', 'name': 'Cayenne S E-Hybrid', 'v': '3.0 S e-Hybrid (5d) 416pk', 'fuel': 'phev', 'verbrEl': 20.8, 'verbrBr': 7.6, 'verbrCNG': 0, 'co2': 75, 'power': 306, 'acc': 5.9, 'koffer': 580, 'cilinder': 2995, 'bat': 10.8, 'tank': 80, 'tankcng': 0, 'ecoscore': 68, 'price': 89177, 'bonus': 0, 'pk': 15, 'image': true },
-{ 'segment': 'D', 'id': 'Volvo-V60-drivee', 'brand': 'Volvo', 'name': 'V60 PHEV', 'v': 'D6 Twin Engine Momentum (5d) 220pk', 'fuel': 'phev', 'verbrEl': 13.3, 'verbrBr': 5.4, 'verbrCNG': 0, 'co2': 48, 'power': 162, 'acc': 6, 'koffer': 310, 'cilinder': 2400, 'bat': 11.2, 'tank': 46, 'tankcng': 0, 'ecoscore': 74, 'price': 59080, 'bonus': 0, 'pk': 13, 'image': true },
-{ 'segment': 'SUV-E', 'id': 'Volvo-XC90PHEV', 'brand': 'Volvo', 'name': 'XC90 PHEV', 'v': '2.0 T8 4WD Geartronic Momentum 7PL. (5d) 407pk', 'fuel': 'phev', 'verbrEl': 23, 'verbrBr': 7, 'verbrCNG': 0, 'co2': 49, 'power': 300, 'acc': 5.6, 'koffer': 314, 'cilinder': 1969, 'bat': 9.2, 'tank': 50, 'tankcng': 0, 'ecoscore': 75, 'price': 80350, 'bonus': 0, 'pk': 11, 'image': true },
-{ 'segment': 'D', 'id': 'vw-passat-gtephev-temp', 'brand': 'Volkswagen', 'name': 'Passat GTE', 'v': '1.4 TSI GTE (4d) 218pk', 'fuel': 'phev', 'verbrEl': 12.2, 'verbrBr': 5.1, 'verbrCNG': 0, 'co2': 37, 'power': 160, 'acc': 7.4, 'koffer': 402, 'cilinder': 1395, 'bat': 9.9, 'tank': 50, 'tankcng': 0, 'ecoscore': 80, 'price': 46110, 'bonus': 0, 'pk': 8, 'image': true },
-{ 'segment': 'C', 'id': 'x-audi-a3-etron', 'brand': 'Audi', 'name': 'A3 e-tron nieuw model', 'v': 'Sportback 1.4 TFSi e-tron S tronic Attraction (5d) 204pk', 'fuel': 'phev', 'verbrEl': 12.4, 'verbrBr': 4.5, 'verbrCNG': 0, 'co2': 38, 'power': 150, 'acc': 7.6, 'koffer': 280, 'cilinder': 1395, 'bat': 8.8, 'tank': 40, 'tankcng': 0, 'ecoscore': 80, 'price': 40300, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'SUV-F', 'id': 'x-audi-q7-etron', 'brand': 'Audi', 'name': 'Q7 e-tron', 'v': 'Audi Q7 E-tron 3.0 TDI Tiptr. Quattro S Line (5d) 373pk', 'fuel': 'phev', 'verbrEl': 25, 'verbrBr': 5.8, 'verbrCNG': 0, 'co2': 48, 'power': 275, 'acc': 6.2, 'koffer': 650, 'cilinder': 2967, 'bat': 17.3, 'tank': 75, 'tankcng': 0, 'ecoscore': 68, 'price': 82910, 'bonus': 0, 'pk': 15, 'image': false },
-{ 'segment': 'C', 'id': 'x-bmw-225xe', 'brand': 'BMW', 'name': '225xe', 'v': 'Active Tourer 225xe (5d) 224pk', 'fuel': 'phev', 'verbrEl': 11.9, 'verbrBr': 5.3, 'verbrCNG': 0, 'co2': 46, 'power': 165, 'acc': 6.7, 'koffer': 468, 'cilinder': 1496, 'bat': 7.7, 'tank': 36, 'tankcng': 0, 'ecoscore': 79, 'price': 38300, 'bonus': 0, 'pk': 8, 'image': false },
-{ 'segment': 'E', 'id': 'x-bmw-530e', 'brand': 'BMW', 'name': '530e', 'v': 'Berline iPerformance (4d) 252pk', 'fuel': 'phev', 'verbrEl': 18.8, 'verbrBr': 5.7, 'verbrCNG': 0, 'co2': 44, 'power': 185, 'acc': 6.2, 'koffer': 520, 'cilinder': 1998, 'bat': 9.4, 'tank': 41, 'tankcng': 0, 'ecoscore': 0, 'price': 57950, 'bonus': 0, 'pk': 11, 'image': false },
-{ 'segment': 'F', 'id': 'x-bmw-740e', 'brand': 'BMW', 'name': '740e', 'v': 'BMW 740e iPerformance', 'fuel': 'phev', 'verbrEl': 12.5, 'verbrBr': 5.9, 'verbrCNG': 0, 'co2': 45, 'power': 240, 'acc': 5.4, 'koffer': 515, 'cilinder': 1998, 'bat': 9.2, 'tank': 46, 'tankcng': 0, 'ecoscore': 78, 'price': 98200, 'bonus': 0, 'pk': 11, 'image': false },
-{ 'segment': 'E', 'id': 'x-mercedes-350e', 'brand': 'Mercedes-Benz', 'name': 'E350e', 'v': 'Berline (Nieuw model) E 350 e Avantgarde (4d) 299pk', 'fuel': 'phev', 'verbrEl': 20.7, 'verbrBr': 4.6, 'verbrCNG': 0, 'co2': 49, 'power': 220, 'acc': 6.2, 'koffer': 450, 'cilinder': 1991, 'bat': 6.2, 'tank': 60, 'tankcng': 0, 'ecoscore': 0, 'price': 65461, 'bonus': 0, 'pk': 11, 'image': false },
-{ 'segment': 'SUV-D', 'id': 'x-mercedes-GLCe', 'brand': 'Mercedes-Benz', 'name': 'GLC 350e', 'v': 'GLC-Klasse GLC 350 e 4MATIC (5d) 326pk', 'fuel': 'phev', 'verbrEl': 25.6, 'verbrBr': 5.9, 'verbrCNG': 0, 'co2': 59, 'power': 240, 'acc': 5.9, 'koffer': 550, 'cilinder': 1991, 'bat': 8.7, 'tank': 50, 'tankcng': 0, 'ecoscore': 74, 'price': 54813, 'bonus': 0, 'pk': 11, 'image': false },
-{ 'segment': 'F', 'id': 'x-porsche-panameraPHEV', 'brand': 'Porsche', 'name': 'Panamera S E-Hybrid', 'v': '4 E-Hybrid (5d) 462pk', 'fuel': 'phev', 'verbrEl': 15.9, 'verbrBr': 7.6, 'verbrCNG': 0, 'co2': 56, 'power': 340, 'acc': 4.6, 'koffer': 405, 'cilinder': 2894, 'bat': 14.1, 'tank': 80, 'tankcng': 0, 'ecoscore': 0, 'price': 110957, 'bonus': 0, 'pk': 15, 'image': false },
-{ 'segment': 'D', 'id': 'x-toyota-prius-PHEV', 'brand': 'Toyota', 'name': 'Prius PHEV', 'v': '1.8 Plug-in Hybrid Business Plus Automaat', 'fuel': 'phev', 'verbrEl': 17.6, 'verbrBr': 3, 'verbrCNG': 0, 'co2': 22, 'power': 90, 'acc': 11.8, 'koffer': 360, 'cilinder': 1798, 'bat': 8.8, 'tank': 43, 'tankcng': 0, 'ecoscore': 0, 'price': 37945, 'bonus': 0, 'pk': 10, 'image': false }
+{ 'segment': 'D', 'id': 'audi-a3-sportback-etron', 'brand': 'Audi', 'name': 'A3 Sportback e-tron', 'v': '1.4 TFSi e-tron S tronic Sport (5d) 204pk', 'fuel': 'benz', 'verbrEl': 12.4, 'verbrBr': 5.1, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 38, 'power': 150, 'acc': 7.6, 'koffer': 280, 'cilinder': 1395, 'bat': 8.8, 'tank': 40, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 80, 'price': 41110, 'bonus': 0, 'pk': 8, 'image': true },
+{ 'segment': 'SUV-F', 'id': 'audi-q7-etron', 'brand': 'Audi', 'name': 'Q7 e-tron', 'v': '3.0 TDI Tiptr. Quattro S Line (5d) 373pk', 'fuel': 'phev', 'verbrEl': 25, 'verbrBr': 5.8, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 48, 'power': 275, 'acc': 6.2, 'koffer': 650, 'cilinder': 2967, 'bat': 17.3, 'tank': 75, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 68, 'price': 91630, 'bonus': 0, 'pk': 15, 'image': true },
+{ 'segment': 'D', 'id': 'x-audi-a4', 'brand': 'Audi', 'name': 'A4 Avant g-tron', 'v': '2.0 TFSi CNG 125kW S tronic (5d) 170pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 3.8, 'verbrCNG': 4.2, 'verbrFCEV': 0, 'co2': 102, 'power': 125, 'acc': 8.4, 'koffer': 505, 'cilinder': 1984, 'bat': 0, 'tank': 25, 'tankcng': 19, 'tankfcev': 0, 'ecoscore': 78, 'price': 40879, 'bonus': 0, 'pk': 11, 'image': false },
+{ 'segment': 'D', 'id': 'audi-a5-sportback-gtron', 'brand': 'Audi', 'name': 'A5 Sportback g-tron', 'v': '2.0 TFSI CNG S tronic (5d) 170pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 3.8, 'verbrCNG': 3.8, 'verbrFCEV': 0, 'co2': 102, 'power': 125, 'acc': 8.4, 'koffer': 390, 'cilinder': 1984, 'bat': 0, 'tank': 25, 'tankcng': 19, 'tankfcev': 0, 'ecoscore': 78, 'price': 42800, 'bonus': 0, 'pk': 11, 'image': true },
+{ 'segment': 'C', 'id': 'x-bmw-2', 'brand': 'BMW', 'name': '225xe Active Tourer', 'v': 'iPerformance (5d) 224pk', 'fuel': 'benz', 'verbrEl': 11.9, 'verbrBr': 5.3, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 46, 'power': 165, 'acc': 6.7, 'koffer': 400, 'cilinder': 1499, 'bat': 7.7, 'tank': 36, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 78, 'price': 39650, 'bonus': 0, 'pk': 8, 'image': false },
+{ 'segment': 'D', 'id': 'bmw-330e-iperformance', 'brand': 'BMW', 'name': '330e Berline', 'v': 'iPerformance (4d) 252pk', 'fuel': 'benz', 'verbrEl': 19, 'verbrBr': 4.9, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 44, 'power': 185, 'acc': 6.1, 'koffer': 480, 'cilinder': 1998, 'bat': 7.6, 'tank': 41, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 76, 'price': 43850, 'bonus': 0, 'pk': 11, 'image': true },
+{ 'segment': 'E', 'id': 'bmw-530e-iperformance', 'brand': 'BMW', 'name': '530e Berline', 'v': 'iPerformance (4d) 252pk', 'fuel': 'benz', 'verbrEl': 13.4, 'verbrBr': 5.7, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 47, 'power': 185, 'acc': 6.2, 'koffer': 530, 'cilinder': 1998, 'bat': 9.2, 'tank': 46, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 78, 'price': 59650, 'bonus': 0, 'pk': 11, 'image': true },
+{ 'segment': 'F', 'id': 'bmw-740e-iperformance', 'brand': 'BMW', 'name': '740 Reeks Berline', 'v': 'iPerformance (4d) 326pk', 'fuel': 'benz', 'verbrEl': 12.5, 'verbrBr': 5.8, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 45, 'power': 240, 'acc': 5.5, 'koffer': 420, 'cilinder': 1998, 'bat': 9.2, 'tank': 46, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 78, 'price': 106750, 'bonus': 0, 'pk': 11, 'image': true },
+{ 'segment': 'C', 'id': 'bmw-i3', 'brand': 'BMW', 'name': 'i3', 'v': 'Advanced (5d) 170pk', 'fuel': 'ev', 'verbrEl': 13.1, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 125, 'acc': 7.3, 'koffer': 260, 'cilinder': 0, 'bat': 33.2, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 88, 'price': 42050, 'bonus': 2500, 'pk': 4, 'image': true },
+{ 'segment': 'C', 'id': 'bmw-i3-s', 'brand': 'BMW', 'name': 'i3s REx', 'v': '(5d) 184pk', 'fuel': 'phev', 'verbrEl': 12.5, 'verbrBr': 6.9, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 14, 'power': 135, 'acc': 7.7, 'koffer': 260, 'cilinder': 647, 'bat': 33.2, 'tank': 9, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 85, 'price': 47450, 'bonus': 0, 'pk': 4, 'image': true },
+{ 'segment': 'SUV-F', 'id': 'bmw-x5-xdrive40e', 'brand': 'BMW', 'name': 'X5 xDrive 40e', 'v': 'iPerformance (230 kW) (5d) 313pk', 'fuel': 'benz', 'verbrEl': 29, 'verbrBr': 7.4, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 77, 'power': 230, 'acc': 6.8, 'koffer': 500, 'cilinder': 1997, 'bat': 9, 'tank': 85, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 71, 'price': 75250, 'bonus': 0, 'pk': 11, 'image': true },
+{ 'segment': 'K', 'id': 'x-citroen-eberlingo', 'brand': 'Citroën', 'name': 'e-Berlingo ', 'v': 'Shine (5d) 67pk', 'fuel': 'ev', 'verbrEl': 17.7, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 49, 'acc': 19.5, 'koffer': 675, 'cilinder': 0, 'bat': 22.5, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 84, 'price': 33100, 'bonus': 3500, 'pk': 4, 'image': false },
+{ 'segment': 'B', 'id': 'x-citroen-czero', 'brand': 'Citroën', 'name': 'C-Zéro Electric', 'v': 'Seduction (5d) 67pk', 'fuel': 'ev', 'verbrEl': 12.6, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 49, 'acc': 15.9, 'koffer': 166, 'cilinder': 0, 'bat': 16, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 88, 'price': 30235, 'bonus': 4000, 'pk': 4, 'image': false },
+{ 'segment': 'A', 'id': 'citroen-e-mehari', 'brand': 'Citroën', 'name': 'E-Mehari', 'v': 'Hard Top (3d) 68pk', 'fuel': 'ev', 'verbrEl': 41.3, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 50, 'acc': 19, 'koffer': 200, 'cilinder': 0, 'bat': 30, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 70, 'price': 27830, 'bonus': 4000, 'pk': 4, 'image': true },
+{ 'segment': 'A', 'id': 'x-fiat-panda', 'brand': 'Fiat', 'name': 'Panda', 'v': '0.9 Twinair 59kW CNG Lounge (5d) 80pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 4.5, 'verbrCNG': 3.1, 'verbrFCEV': 0, 'co2': 85, 'power': 59, 'acc': 12.8, 'koffer': 200, 'cilinder': 875, 'bat': 0, 'tank': 35, 'tankcng': 12, 'tankfcev': 0, 'ecoscore': 81, 'price': 15040, 'bonus': 0, 'pk': 5, 'image': false },
+{ 'segment': 'B', 'id': 'x-fiat-punto', 'brand': 'Fiat', 'name': 'Punto', 'v': '1.4 51kW CNG Easy (5d) 70pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 6.3, 'verbrCNG': 4.2, 'verbrFCEV': 0, 'co2': 115, 'power': 51, 'acc': 16.9, 'koffer': 275, 'cilinder': 1368, 'bat': 0, 'tank': 45, 'tankcng': 13, 'tankfcev': 0, 'ecoscore': 77, 'price': 16440, 'bonus': 0, 'pk': 8, 'image': false },
+{ 'segment': 'K', 'id': 'x-fiat-doblo', 'brand': 'Fiat', 'name': 'Doblò', 'v': '1.4 T-Jet CNG Lounge Natural Power (5d) 120pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 7.4, 'verbrCNG': 4.9, 'verbrFCEV': 0, 'co2': 134, 'power': 88, 'acc': 12.3, 'koffer': 790, 'cilinder': 1368, 'bat': 0, 'tank': 22, 'tankcng': 16, 'tankfcev': 0, 'ecoscore': 75, 'price': 21775, 'bonus': 0, 'pk': 8, 'image': false },
+{ 'segment': 'K', 'id': 'x-fiat-qubo', 'brand': 'Fiat', 'name': 'Qubo', 'v': '1.4 Lounge CNG Natural Power (5d) 70pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 6.8, 'verbrCNG': 4.2, 'verbrFCEV': 0, 'co2': 119, 'power': 51, 'acc': 17.5, 'koffer': 250, 'cilinder': 1368, 'bat': 0, 'tank': 45, 'tankcng': 13, 'tankfcev': 0, 'ecoscore': 76, 'price': 16540, 'bonus': 0, 'pk': 8, 'image': false },
+{ 'segment': 'C', 'id': 'fiat-500l-cng', 'brand': 'Fiat', 'name': '500L', 'v': 'Lounge (5d) 80pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 5.9, 'verbrCNG': 3.9, 'verbrFCEV': 0, 'co2': 105, 'power': 59, 'acc': 15.7, 'koffer': 396, 'cilinder': 875, 'bat': 0, 'tank': 50, 'tankcng': 14, 'tankfcev': 0, 'ecoscore': 78, 'price': 22500, 'bonus': 0, 'pk': 5, 'image': true },
+{ 'segment': 'D', 'id': 'hyundai-ioniq-phev', 'brand': 'Hyundai', 'name': 'Ioniq PHEV', 'v': '1.6 Plug-in Hybride Executive (5d) 141pk', 'fuel': 'benz', 'verbrEl': 9.4, 'verbrBr': 3.9, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 26, 'power': 104, 'acc': 10.6, 'koffer': 350, 'cilinder': 1580, 'bat': 8.9, 'tank': 43, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 84, 'price': 36999, 'bonus': 0, 'pk': 9, 'image': true },
+{ 'segment': 'D', 'id': 'x-ioniq-electric', 'brand': 'Hyundai', 'name': 'Ioniq Electric', 'v': 'Executive (5d) 120pk', 'fuel': 'ev', 'verbrEl': 11.5, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 88, 'acc': 9.9, 'koffer': 455, 'cilinder': 0, 'bat': 30.5, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 88, 'price': 37699, 'bonus': 3500, 'pk': 4, 'image': false },
+{ 'segment': 'E', 'id': 'x-jaguar-ipace', 'brand': 'Jaguar', 'name': 'I-Pace', 'v': 'SE (5d) 400pk', 'fuel': 'ev', 'verbrEl': 21.3, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 294, 'acc': 4.8, 'koffer': 577, 'cilinder': 0, 'bat': 90, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 87080, 'bonus': 2000, 'pk': 4, 'image': false },
+{ 'segment': 'D', 'id': 'kia-optima-phev', 'brand': 'Kia', 'name': 'Optima PHEV', 'v': '2.0 GDi Auto (4d) 205pk', 'fuel': 'benz', 'verbrEl': 12.2, 'verbrBr': 5.1, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 37, 'power': 151, 'acc': 9.4, 'koffer': 307, 'cilinder': 1999, 'bat': 9.8, 'tank': 55, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 80, 'price': 46240, 'bonus': 0, 'pk': 11, 'image': true },
+{ 'segment': 'D', 'id': 'x-kia-optima-sportwagon-phev', 'brand': 'Kia', 'name': 'Optima Sportwagon PHEV', 'v': 'PHEV 2.0 GDi Sense Auto (5d) 205pk', 'fuel': 'benz', 'verbrEl': 12.2, 'verbrBr': 4.8, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 33, 'power': 151, 'acc': 9.7, 'koffer': 440, 'cilinder': 1999, 'bat': 11.3, 'tank': 55, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 81, 'price': 47540, 'bonus': 0, 'pk': 11, 'image': false },
+{ 'segment': 'SUV-B', 'id': 'kia-niro-phev', 'brand': 'Kia', 'name': 'Niro PHEV', 'v': 'Sense 1.6 GDi PHEV 6DCT (5d) 141pk', 'fuel': 'benz', 'verbrEl': 14.3, 'verbrBr': 4.3, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 29, 'power': 104, 'acc': 10.8, 'koffer': 427, 'cilinder': 1580, 'bat': 8.9, 'tank': 43, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 81, 'price': 40840, 'bonus': 0, 'pk': 9, 'image': true },
+{ 'segment': 'B', 'id': 'kia-soul-ev', 'brand': 'Kia', 'name': 'Soul EV', 'v': '(5d) 110pk', 'fuel': 'ev', 'verbrEl': 14.7, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 81, 'acc': 11.3, 'koffer': 281, 'cilinder': 0, 'bat': 33, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 86, 'price': 35890, 'bonus': 3500, 'pk': 4, 'image': true },
+{ 'segment': 'D', 'id': '0', 'brand': 'Mercedes-Benz', 'name': 'C350e Break', 'v': '(5d) 279pk', 'fuel': 'benz', 'verbrEl': 11.7, 'verbrBr': 2.1, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 49, 'power': 205, 'acc': 6.2, 'koffer': 345, 'cilinder': 1991, 'bat': 6.2, 'tank': 50, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 78, 'price': 54329, 'bonus': 0, 'pk': 11, 'image': true },
+{ 'segment': 'E', 'id': '0', 'brand': 'Mercedes-Benz', 'name': 'E350e Berline', 'v': 'Avantgarde (4d) 286pk', 'fuel': 'benz', 'verbrEl': 11.5, 'verbrBr': 2.1, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 49, 'power': 210, 'acc': 6.2, 'koffer': 450, 'cilinder': 1991, 'bat': 6.2, 'tank': 60, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 78, 'price': 65824, 'bonus': 0, 'pk': 11, 'image': true },
+{ 'segment': 'SUV-F', 'id': '0', 'brand': 'Mercedes-Benz', 'name': 'GLE500e', 'v': '4MATIC (5d) 449pk', 'fuel': 'benz', 'verbrEl': 16.7, 'verbrBr': 7.3, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 78, 'power': 330, 'acc': 5.3, 'koffer': 480, 'cilinder': 2996, 'bat': 8.8, 'tank': 80, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 70, 'price': 77682, 'bonus': 0, 'pk': 15, 'image': true },
+{ 'segment': 'C', 'id': 'mini-countryman-phev', 'brand': 'Mini', 'name': 'Countryman SE ALL4', 'v': '(5d) 224pk', 'fuel': 'benz', 'verbrEl': 14.1, 'verbrBr': 5.6, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 55, 'power': 165, 'acc': 6.8, 'koffer': 405, 'cilinder': 1499, 'bat': 7.6, 'tank': 36, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 76, 'price': 38450, 'bonus': 0, 'pk': 8, 'image': true },
+{ 'segment': 'SUV-D', 'id': 'mitsubishi-outlander-phev', 'brand': 'Mitsubishi', 'name': 'Outlander PHEV', 'v': '2.0L PHEV Business Edition 4WD (5d) 203pk', 'fuel': 'benz', 'verbrEl': 13.4, 'verbrBr': 5.4, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 41, 'power': 149, 'acc': 11, 'koffer': 463, 'cilinder': 1998, 'bat': 12, 'tank': 45, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 79, 'price': 48340, 'bonus': 0, 'pk': 11, 'image': true },
+{ 'segment': 'K', 'id': 'x-nissan-env200-evalia', 'brand': 'Nissan', 'name': 'e-NV200 Evalia', 'v': 'Connect Edition (5d) 109pk', 'fuel': 'ev', 'verbrEl': 16.5, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 80, 'acc': 14, 'koffer': 2300, 'cilinder': 0, 'bat': 40, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 85, 'price': 43584, 'bonus': 2500, 'pk': 4, 'image': false },
+{ 'segment': 'K', 'id': 'x-nissan-env200-evalia-7', 'brand': 'Nissan', 'name': ' e-NV200 Evalia 7 seats', 'v': 'Connect Edition 7 Seats (5d) 109pk', 'fuel': 'ev', 'verbrEl': 16.5, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 80, 'acc': 14, 'koffer': 870, 'cilinder': 0, 'bat': 40, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 85, 'price': 44189, 'bonus': 2500, 'pk': 4, 'image': false },
+{ 'segment': 'C', 'id': 'nissan-leaf', 'brand': 'Nissan', 'name': 'LEAF', 'v': 'Acenta 40kWh (5d) 150pk', 'fuel': 'ev', 'verbrEl': 15.8, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 110, 'acc': 7.9, 'koffer': 435, 'cilinder': 0, 'bat': 40, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 86, 'price': 36540, 'bonus': 3500, 'pk': 4, 'image': true },
+{ 'segment': 'C', 'id': 'x-opel-astra-cng', 'brand': 'Opel', 'name': 'Astra CNG ECOTEC', 'v': '1.4 Turbo 81kW ECOTEC CNG Innovation (5d) 110pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 4.9, 'verbrCNG': 6.3, 'verbrFCEV': 0, 'co2': 113, 'power': 81, 'acc': 10.9, 'koffer': 241, 'cilinder': 1399, 'bat': 0, 'tank': 14, 'tankcng': 19, 'tankfcev': 0, 'ecoscore': 78, 'price': 25800, 'bonus': 0, 'pk': 8, 'image': false },
+{ 'segment': 'C', 'id': 'x-opel-astra-sports-tourer-cng', 'brand': 'Opel', 'name': 'Astra Sports Tourer', 'v': '1.4 Turbo 81kW ECOTEC CNG Innovation (5d) 110pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 5.1, 'verbrCNG': 6.5, 'verbrFCEV': 0, 'co2': 116, 'power': 81, 'acc': 12.3, 'koffer': 397, 'cilinder': 1399, 'bat': 0, 'tank': 14, 'tankcng': 19, 'tankfcev': 0, 'ecoscore': 78, 'price': 26675, 'bonus': 0, 'pk': 8, 'image': false },
+{ 'segment': 'B', 'id': 'x-peugeot-ion', 'brand': 'Peugeot', 'name': 'iOn', 'v': '330 V Active (5d) 67pk', 'fuel': 'ev', 'verbrEl': 13.5, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 49, 'acc': 15.9, 'koffer': 166, 'cilinder': 0, 'bat': 16, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 87, 'price': 30370, 'bonus': 4000, 'pk': 4, 'image': false },
+{ 'segment': 'K', 'id': 'x-peugeot-partner-tepee-ev', 'brand': 'Peugeot', 'name': 'Partner tepee Electric', 'v': 'Allure (5d) 67pk', 'fuel': 'ev', 'verbrEl': 17.7, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 49, 'acc': 19.5, 'koffer': 675, 'cilinder': 0, 'bat': 22.5, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 84, 'price': 33100, 'bonus': 3500, 'pk': 4, 'image': false },
+{ 'segment': 'SUV-F', 'id': 'porsche-cayenne-phev', 'brand': 'Porsche', 'name': 'Cayenne E-Hybrid', 'v': '3.0 (5d) 462pk', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 69, 'power': 340, 'acc': 5, 'koffer': 645, 'cilinder': 2995, 'bat': 14.1, 'tank': 75, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 69, 'price': 93025, 'bonus': 0, 'pk': 15, 'image': true },
+{ 'segment': 'F', 'id': 'porsche-panamera-phev', 'brand': 'Porsche', 'name': 'Panamera E-Hybrid', 'v': '2.9 (5d) 462pk', 'fuel': 'benz', 'verbrEl': 15.9, 'verbrBr': 7.6, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 56, 'power': 340, 'acc': 4.6, 'koffer': 405, 'cilinder': 2894, 'bat': 14.1, 'tank': 80, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 74, 'price': 112748, 'bonus': 0, 'pk': 15, 'image': true },
+{ 'segment': 'K', 'id': 'x-renault-kangoo-ze', 'brand': 'Renault', 'name': 'Kangoo Z.E. Maxi', 'v': '5 pl. 58 BVEL ', 'fuel': 'ev', 'verbrEl': 18.8, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 44, 'acc': 22.4, 'koffer': 1300, 'cilinder': 0, 'bat': 33, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 86, 'price': 37026, 'bonus': 3500, 'pk': 4, 'image': false },
+{ 'segment': 'B', 'id': 'x-renault-zoe', 'brand': 'Renault', 'name': 'Zoe  ', 'v': 'Limited#2 B-buy (5d) 109pk', 'fuel': 'ev', 'verbrEl': 14.8, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 80, 'acc': 12.2, 'koffer': 338, 'cilinder': 0, 'bat': 41, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 85, 'price': 35450, 'bonus': 3500, 'pk': 4, 'image': false },
+{ 'segment': 'A', 'id': 'x-seat-mii-cng', 'brand': 'Seat', 'name': 'Mii EcoFuel', 'v': '1.0 50kW CNG Style (5d) 68pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 2.9, 'verbrFCEV': 0, 'co2': 83, 'power': 50, 'acc': 16.3, 'koffer': 213, 'cilinder': 999, 'bat': 0, 'tank': 10, 'tankcng': 11, 'tankfcev': 0, 'ecoscore': 82, 'price': 14320, 'bonus': 0, 'pk': 6, 'image': false },
+{ 'segment': 'B', 'id': 'x-seat-ibiza-cng', 'brand': 'Seat', 'name': 'Ibiza TGI', 'v': '1.0 TGI 90pk Style (5d) 90pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 4.9, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 88, 'power': 66, 'acc': 12.1, 'koffer': 262, 'cilinder': 999, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 82, 'price': 18520, 'bonus': 0, 'pk': 6, 'image': false },
+{ 'segment': 'C', 'id': 'x-seat-leon-cng', 'brand': 'Seat', 'name': 'Leon TGI', 'v': '1.4 TGI 81kW Style (5d) 110pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 3.5, 'verbrFCEV': 0, 'co2': 96, 'power': 81, 'acc': 10.9, 'koffer': 380, 'cilinder': 1395, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 24090, 'bonus': 0, 'pk': 8, 'image': false },
+{ 'segment': 'C', 'id': 'x-seat-leon-st-cng', 'brand': 'Seat', 'name': 'Leon ST TGI', 'v': '1.4L TGI 81kW Style (5d) 110pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 5.3, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 96, 'power': 81, 'acc': 11, 'koffer': 587, 'cilinder': 1395, 'bat': 0, 'tank': 50, 'tankcng': 15, 'tankfcev': 0, 'ecoscore': 80, 'price': 24990, 'bonus': 0, 'pk': 8, 'image': false },
+{ 'segment': 'A', 'id': 'x-skoda-citigo-cng', 'brand': 'Skoda', 'name': 'Citigo G-TEC', 'v': '1.0 CNG 50kW Ambition (5d) 68pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 4.5, 'verbrCNG': 2.9, 'verbrFCEV': 0, 'co2': 82, 'power': 50, 'acc': 16.3, 'koffer': 213, 'cilinder': 999, 'bat': 0, 'tank': 10, 'tankcng': 12, 'tankfcev': 0, 'ecoscore': 82, 'price': 13845, 'bonus': 0, 'pk': 6, 'image': false },
+{ 'segment': 'C', 'id': 'x-skoda-octavia-cng', 'brand': 'Skoda', 'name': 'Octavia Combi G-TEC', 'v': 'Combi 1.4 TGI 81kW G-Tec Style (5d) 110pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 5.8, 'verbrCNG': 3.8, 'verbrFCEV': 0, 'co2': 102, 'power': 81, 'acc': 11, 'koffer': 480, 'cilinder': 1395, 'bat': 0, 'tank': 50, 'tankcng': 15, 'tankfcev': 0, 'ecoscore': 79, 'price': 30175, 'bonus': 0, 'pk': 8, 'image': false },
+{ 'segment': 'A', 'id': 'smart-for-four', 'brand': 'smart', 'name': 'forfour', 'v': '60kW (5d) 82pk', 'fuel': 'ev', 'verbrEl': 18.6, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 60, 'acc': 12.7, 'koffer': 185, 'cilinder': 0, 'bat': 17.6, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 88, 'price': 23571, 'bonus': 4000, 'pk': 4, 'image': true },
+{ 'segment': 'A', 'id': 'smart-fortwo-ed', 'brand': 'smart', 'name': 'fortwo', 'v': '60kW Business Solution (3d) 82pk', 'fuel': 'ev', 'verbrEl': 15.9, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 60, 'acc': 11.5, 'koffer': 260, 'cilinder': 0, 'bat': 17.6, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 88, 'price': 22995, 'bonus': 4000, 'pk': 4, 'image': true },
+{ 'segment': 'E', 'id': 'tesla-models-75d', 'brand': 'Tesla', 'name': 'Model S 75D', 'v': '75kWh (Dual Motor) (5d) 525pk', 'fuel': 'ev', 'verbrEl': 18.9, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 386, 'acc': 4.4, 'koffer': 894, 'cilinder': 0, 'bat': 75, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 83, 'price': 86100, 'bonus': 2000, 'pk': 4, 'image': true },
+{ 'segment': 'E', 'id': 'tesla-models-100d', 'brand': 'Tesla', 'name': 'Model S 100D', 'v': '100kWh (Dual Motor) (5d) 525pk', 'fuel': 'ev', 'verbrEl': 18.9, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 386, 'acc': 4.3, 'koffer': 894, 'cilinder': 0, 'bat': 100, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 83, 'price': 109150, 'bonus': 2000, 'pk': 4, 'image': true },
+{ 'segment': 'SUV-E', 'id': 'tesla-modelx-75d', 'brand': 'Tesla', 'name': 'Model X 75D', 'v': '75kWh (Dual Motor) (5d) 525pk', 'fuel': 'ev', 'verbrEl': 20.8, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 386, 'acc': 5.2, 'koffer': 2180, 'cilinder': 0, 'bat': 75, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 82, 'price': 92850, 'bonus': 2000, 'pk': 4, 'image': true },
+{ 'segment': 'SUV-E', 'id': 'tesla-modelx-100d', 'brand': 'Tesla', 'name': 'Model X 100D', 'v': '100kWh (Dual Motor) (5d) 525pk', 'fuel': 'ev', 'verbrEl': 20.8, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 386, 'acc': 4.9, 'koffer': 2180, 'cilinder': 0, 'bat': 100, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 82, 'price': 112500, 'bonus': 2000, 'pk': 4, 'image': true },
+{ 'segment': 'SUV-F', 'id': 'rangerover-landrover-phev', 'brand': 'Land', 'name': 'Rover Range Rover PHEV', 'v': 'P400e Vogue (5d) 404pk', 'fuel': 'benz', 'verbrEl': 21, 'verbrBr': 2.8, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 64, 'power': 297, 'acc': 6.8, 'koffer': 550, 'cilinder': 1997, 'bat': 13.1, 'tank': 90, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 70, 'price': 120700, 'bonus': 0, 'pk': 11, 'image': true },
+{ 'segment': 'SUV-F', 'id': 'rangerover-landrover-sport-phev', 'brand': 'Land', 'name': 'Rover Range Rover Sport PHEV', 'v': 'P400e SE (5d) 404pk', 'fuel': 'benz', 'verbrEl': 21, 'verbrBr': 2.8, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 64, 'power': 297, 'acc': 6.7, 'koffer': 446, 'cilinder': 1997, 'bat': 13.1, 'tank': 90, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 70, 'price': 88500, 'bonus': 0, 'pk': 11, 'image': true },
+{ 'segment': 'D', 'id': 'toyota-prius-phev', 'brand': 'Toyota', 'name': 'Prius PHEV', 'v': '1.8 VVT-i PHEV Hybrid Business (5d) 122pk', 'fuel': 'benz', 'verbrEl': 7.2, 'verbrBr': 3, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 28, 'power': 90, 'acc': 11.1, 'koffer': 360, 'cilinder': 1798, 'bat': 8.8, 'tank': 43, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 87, 'price': 42970, 'bonus': 0, 'pk': 10, 'image': true },
+{ 'segment': 'D', 'id': 'toyota-mirai', 'brand': 'Toyota', 'name': 'Miral Berline', 'v': 'Waterstof Hybride (154 PK) e-CVT', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 0, 'acc': 0, 'koffer': 0, 'cilinder': 0, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 79900, 'bonus': 20000, 'pk': 0, 'image': true },
+{ 'segment': 'C', 'id': 'vw-e-golf', 'brand': 'Volkswagen', 'name': 'e-Golf', 'v': '(5d) 136pk', 'fuel': 'ev', 'verbrEl': 14.1, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 100, 'acc': 9.6, 'koffer': 341, 'cilinder': 0, 'bat': 35.8, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 87, 'price': 39010, 'bonus': 3500, 'pk': 4, 'image': true },
+{ 'segment': 'A', 'id': 'x-vw-e-up', 'brand': 'Volkswagen', 'name': 'e-up!', 'v': '(5d) 82pk', 'fuel': 'ev', 'verbrEl': 11.7, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 60, 'acc': 12.4, 'koffer': 250, 'cilinder': 0, 'bat': 20, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 88, 'price': 27200, 'bonus': 4000, 'pk': 4, 'image': false },
+{ 'segment': 'C', 'id': 'x-vw-golf-gte', 'brand': 'Volkswagen', 'name': 'Golf GTE', 'v': '1.4 TSI E-Motor', 'fuel': 'benz', 'verbrEl': 14, 'verbrBr': 5.1, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 38, 'power': 150, 'acc': 7.6, 'koffer': 272, 'cilinder': 1395, 'bat': 7, 'tank': 40, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 80, 'price': 40060, 'bonus': 0, 'pk': 8, 'image': false },
+{ 'segment': 'D', 'id': 'x-vw-passat-gte', 'brand': 'Volkswagen', 'name': 'Passat GTE', 'v': '1.4 TSI E-Motor', 'fuel': 'benz', 'verbrEl': 16, 'verbrBr': 4.8, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 37, 'power': 160, 'acc': 7.4, 'koffer': 402, 'cilinder': 1395, 'bat': 8, 'tank': 50, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 80, 'price': 47310, 'bonus': 0, 'pk': 8, 'image': false },
+{ 'segment': 'A', 'id': 'x-vw-up-cng', 'brand': 'Volkswagen', 'name': 'up! TGI', 'v': '1.0 MPi CNG 44kW BMT Move up! (5d) 68pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 4.5, 'verbrCNG': 2.9, 'verbrFCEV': 0, 'co2': 82, 'power': 50, 'acc': 16.3, 'koffer': 251, 'cilinder': 999, 'bat': 0, 'tank': 10, 'tankcng': 11, 'tankfcev': 0, 'ecoscore': 82, 'price': 13240, 'bonus': 0, 'pk': 6, 'image': false },
+{ 'segment': 'B', 'id': 'x-vw-polo-cng', 'brand': 'Volkswagen', 'name': 'Polo TGI', 'v': '1.0 TGI Comfortline (5d) 90pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 4.8, 'verbrCNG': 3.1, 'verbrFCEV': 0, 'co2': 85, 'power': 66, 'acc': 11.9, 'koffer': 251, 'cilinder': 999, 'bat': 0, 'tank': 0, 'tankcng': 12, 'tankfcev': 0, 'ecoscore': 82, 'price': 17900, 'bonus': 0, 'pk': 6, 'image': false },
+{ 'segment': 'C', 'id': 'vw-golf-tgi', 'brand': 'Volkswagen', 'name': 'Golf TGI', 'v': '1.4 TGi 81kW Comfortline (5d) 110pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 5.6, 'verbrCNG': 3.6, 'verbrFCEV': 0, 'co2': 98, 'power': 81, 'acc': 10.6, 'koffer': 380, 'cilinder': 1395, 'bat': 0, 'tank': 0, 'tankcng': 15, 'tankfcev': 0, 'ecoscore': 80, 'price': 23925, 'bonus': 0, 'pk': 8, 'image': true },
+{ 'segment': 'C', 'id': 'vw-golf-sportwagon', 'brand': 'Volkswagen', 'name': 'Golf Variant TGI', 'v': '1.4 TGi BlueMotion 96kW Comfortline DSG (5d) 131pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 5.3, 'verbrCNG': 3.5, 'verbrFCEV': 0, 'co2': 98, 'power': 96, 'acc': 10.9, 'koffer': 424, 'cilinder': 1498, 'bat': 0, 'tank': 0, 'tankcng': 15, 'tankfcev': 0, 'ecoscore': 80, 'price': 27810, 'bonus': 0, 'pk': 8, 'image': true },
+{ 'segment': 'K', 'id': 'x-vw-caddy-cng', 'brand': 'Volkswagen', 'name': 'Caddy TGI bluemotion', 'v': '1.4 TGi BMT 81kW Comfortline (5d) 110pk', 'fuel': 'cng', 'verbrEl': 0, 'verbrBr': 6, 'verbrCNG': 4.1, 'verbrFCEV': 0, 'co2': 118, 'power': 81, 'acc': 12.9, 'koffer': 190, 'cilinder': 1395, 'bat': 0, 'tank': 0, 'tankcng': 26, 'tankfcev': 0, 'ecoscore': 77, 'price': 26170, 'bonus': 0, 'pk': 8, 'image': false },
+{ 'segment': 'E', 'id': 'x-volvo-v90-phev', 'brand': 'Volvo', 'name': 'V90 T8 Plug-in', 'v': 'e4x4 Geartronic R-Design (5d) 392pk', 'fuel': 'benz', 'verbrEl': 17, 'verbrBr': 5.8, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 49, 'power': 288, 'acc': 5.3, 'koffer': 560, 'cilinder': 1969, 'bat': 10.4, 'tank': 60, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 76, 'price': 75850, 'bonus': 0, 'pk': 11, 'image': false },
+{ 'segment': 'E', 'id': 'volvo-s90-phev', 'brand': 'Volvo', 'name': 'S90 T8 Plug-in', 'v': 'e4x4 Geartronic R-Design (4d) 392pk', 'fuel': 'benz', 'verbrEl': 17, 'verbrBr': 5.8, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 49, 'power': 288, 'acc': 5.1, 'koffer': 537, 'cilinder': 1969, 'bat': 10.4, 'tank': 60, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 76, 'price': 74400, 'bonus': 0, 'pk': 11, 'image': true },
+{ 'segment': 'D', 'id': 'x-volvo-v60-phev', 'brand': 'Volvo', 'name': 'V60 Plug-in', 'v': '4x4 Geartronic R-Design (5d) 341pk', 'fuel': 'phev', 'verbrEl': 16, 'verbrBr': 6.3, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 49, 'power': 251, 'acc': 5.7, 'koffer': 529, 'cilinder': 1969, 'bat': 10.4, 'tank': 60, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 73, 'price': 55000, 'bonus': 0, 'pk': 11, 'image': false },
+{ 'segment': 'SUV-D', 'id': 'x-volvo-xc60-phev', 'brand': 'Volvo', 'name': 'XC60 T8 Plug-in', 'v': 'e4x4 Geartronic R-Design (5d) 392pk', 'fuel': 'benz', 'verbrEl': 18.6, 'verbrBr': 6, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 52, 'power': 288, 'acc': 5.5, 'koffer': 468, 'cilinder': 1969, 'bat': 10.4, 'tank': 71, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 76, 'price': 71350, 'bonus': 0, 'pk': 11, 'image': false },
+{ 'segment': 'SUV-F', 'id': 'volvo-xc90-phev', 'brand': 'Volvo', 'name': 'XC90 T8 Plug-In', 'v': '4WD Geartronic R-Design 7PL. (5d) 392pk', 'fuel': 'benz', 'verbrEl': 20, 'verbrBr': 6.5, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 59, 'power': 288, 'acc': 5.8, 'koffer': 316, 'cilinder': 1969, 'bat': 10.4, 'tank': 70, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 74, 'price': 85950, 'bonus': 0, 'pk': 11, 'image': true },
+{ 'segment': '0', 'id': 'vw-golf', 'brand': 'Volkswagen', 'name': 'Golf VII', 'v': '0', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 0, 'acc': 0, 'koffer': 0, 'cilinder': 0, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 0, 'bonus': 0, 'pk': 0, 'image': true },
+{ 'segment': '0', 'id': 'hyundai-ioniq-hybrid', 'brand': 'Hyundai', 'name': 'IONIQ Hybrid', 'v': '0', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 0, 'acc': 0, 'koffer': 0, 'cilinder': 0, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 0, 'bonus': 0, 'pk': 0, 'image': true },
+{ 'segment': '0', 'id': 'kia-niro', 'brand': 'KIA', 'name': 'Niro', 'v': '0', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 0, 'acc': 0, 'koffer': 0, 'cilinder': 0, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 0, 'bonus': 0, 'pk': 0, 'image': true },
+{ 'segment': '0', 'id': 'kia-optima', 'brand': 'KIA', 'name': 'Optima', 'v': '0', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 0, 'acc': 0, 'koffer': 0, 'cilinder': 0, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 0, 'bonus': 0, 'pk': 0, 'image': true },
+{ 'segment': '0', 'id': 'volvo-xc90-t6-momentum', 'brand': 'Volvo', 'name': 'XC90', 'v': '0', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 0, 'acc': 0, 'koffer': 0, 'cilinder': 0, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 0, 'bonus': 0, 'pk': 0, 'image': true },
+{ 'segment': '0', 'id': 'volvo-xc60-t5-momentum', 'brand': 'Volvo', 'name': 'XC60', 'v': 'T5 Momentum', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 0, 'acc': 0, 'koffer': 0, 'cilinder': 0, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 0, 'bonus': 0, 'pk': 0, 'image': true },
+{ 'segment': '0', 'id': 'volvo-v60-t5-dynamic', 'brand': 'Volvo', 'name': 'V60', 'v': '0', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 0, 'acc': 0, 'koffer': 0, 'cilinder': 0, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 0, 'bonus': 0, 'pk': 0, 'image': true },
+{ 'segment': '0', 'id': 'volvo-s90-t6-momentum', 'brand': 'Volvo', 'name': 'S90', 'v': 'T6 Momentum', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 0, 'acc': 0, 'koffer': 0, 'cilinder': 0, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 0, 'bonus': 0, 'pk': 0, 'image': true },
+{ 'segment': '0', 'id': 'volvo-v90-t6-awd-r-design', 'brand': 'Volvo', 'name': 'V90 T8 Plug-in', 'v': 'T6 AWD R-design', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 0, 'acc': 0, 'koffer': 0, 'cilinder': 0, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 0, 'bonus': 0, 'pk': 0, 'image': true },
+{ 'segment': '0', 'id': 'vw-passat', 'brand': 'Volkswagen', 'name': 'Passat', 'v': '0', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 0, 'acc': 0, 'koffer': 0, 'cilinder': 0, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 0, 'bonus': 0, 'pk': 0, 'image': true },
+{ 'segment': '0', 'id': 'porsche-panamera', 'brand': 'Porsche', 'name': 'Panamera', 'v': '0', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 0, 'acc': 0, 'koffer': 0, 'cilinder': 0, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 0, 'bonus': 0, 'pk': 0, 'image': true },
+{ 'segment': '0', 'id': 'porsche-cayenne', 'brand': 'Porsche', 'name': 'Cayenne', 'v': '0', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 0, 'acc': 0, 'koffer': 0, 'cilinder': 0, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 0, 'bonus': 0, 'pk': 0, 'image': true },
+{ 'segment': '0', 'id': 'mitsubishi-outlander', 'brand': 'Mitsubishi', 'name': 'Outlander', 'v': '0', 'fuel': 'benz', 'verbrEl': 0, 'verbrBr': 0, 'verbrCNG': 0, 'verbrFCEV': 0, 'co2': 0, 'power': 0, 'acc': 0, 'koffer': 0, 'cilinder': 0, 'bat': 0, 'tank': 0, 'tankcng': 0, 'tankfcev': 0, 'ecoscore': 0, 'price': 0, 'bonus': 0, 'pk': 0, 'image': true }
 
 
 
@@ -245,7 +181,7 @@ function fillCarBoxes(str) {
 				if(carsLeft[i].image == false) { 
 					tempCarSrc = 'silhouettes/' + carsLeft[i].segment;
 				}
-				cptCarBoxHtml.push('<div class="car col-md-4 col-xs-6" id="' + carsLeft[i].id + '"> <h4>Selecteren als eerste wagen</h4> <img src="assets/img/cars/' + tempCarSrc + '.png" width="250" /> <h2>' + carsLeft[i].brand + ' ' + carsLeft[i].name + '</h2> <h3>' + carsLeft[i].v + '</h3> <p><span class="car-drivetrain-' + fuelToFuelType(carsLeft[i].fuel) + '">' + drivetrainToString(carsLeft[i].fuel,'') + '</span> <span class="car-price"><span class="glyphicon glyphicon-tag"></span> Prijs &euro; ' + addCommas(carsLeft[i].price,0) + ',-</span></p> </div>');					 
+				cptCarBoxHtml.push('<div class="car col-md-4 col-xs-6" id="' + carsLeft[i].id + '"> <h4>Selecteren als eerste wagen</h4> <img src="assets/img/cars/' + tempCarSrc + '-32.png" width="250" /> <h2>' + carsLeft[i].brand + ' ' + carsLeft[i].name + '</h2> <h3>' + carsLeft[i].v + '</h3> <p><span class="car-drivetrain-' + fuelToFuelType(carsLeft[i].fuel) + '">' + drivetrainToString(carsLeft[i].fuel,'') + '</span> <span class="car-price"><span class="glyphicon glyphicon-tag"></span> Prijs &euro; ' + addCommas(carsLeft[i].price,0) + ',-</span></p> </div>');					 
 			});
 			cptCarBoxHtml.push('<div class="clear"></div>');
 			$('#cpt-car-box').html(cptCarBoxHtml.join(''));
@@ -268,7 +204,7 @@ function fillCarBoxes(str) {
 				if(carsRight[i].image == false) { 
 					tempCarSrc = 'silhouettes/' + carsRight[i].segment;
 				}
-				allCarBoxHtml.push('<div class="car col-md-4 col-xs-6" id="' + carsRight[i].id + '"> <h4>Selecteren als tweede wagen</h4> <img src="assets/img/cars/' + tempCarSrc + '.png" width="250" /> <h2>' + carsRight[i].brand + ' ' + carsRight[i].name + '</h2> <h3>' + carsRight[i].v + '</h3> <p><span class="car-drivetrain-' + fuelToFuelType(carsRight[i].fuel) + '">' + drivetrainToString(carsRight[i].fuel,'') + '</span> <span class="car-price"><span class="glyphicon glyphicon-tag"></span> Prijs &euro; ' + addCommas(carsRight[i].price,0) + ',-</span></p> </div>');					 
+				allCarBoxHtml.push('<div class="car col-md-4 col-xs-6" id="' + carsRight[i].id + '"> <h4>Selecteren als tweede wagen</h4> <img src="assets/img/cars/' + tempCarSrc + '-32.png" width="250" /> <h2>' + carsRight[i].brand + ' ' + carsRight[i].name + '</h2> <h3>' + carsRight[i].v + '</h3> <p><span class="car-drivetrain-' + fuelToFuelType(carsRight[i].fuel) + '">' + drivetrainToString(carsRight[i].fuel,'') + '</span> <span class="car-price"><span class="glyphicon glyphicon-tag"></span> Prijs &euro; ' + addCommas(carsRight[i].price,0) + ',-</span></p> </div>');					 
 			});
 			if ( drivetrainRight == 'benz' || drivetrainRight == 'dies') { 
 				allCarBoxHtml.push('<div class="car col-md-4 col-xs-6 customCar"> <h4>Selecteren als tweede wagen</h4> <img src="assets/img/custom.png" width="250" /> <h2>Stel een <span style="text-transform: lowercase;">' + drivetrainToString(drivetrainRight,'') + '</span>wagen samen</h2> <h3>Op basis van eigen criteria.</h3> <p><span class="car-drivetrain-' + fuelToFuelType(drivetrainRight) + '">' + drivetrainToString(drivetrainRight,'') + '</span> <span class="car-price"><span class="glyphicon glyphicon-tag"></span> Prijs &euro; <span class="customPriceTag">' + addCommas(25000,0) + '</span>,-</span></p> </div>');
@@ -330,6 +266,9 @@ function drivetrainToString(str1,str2) {
  	  case 'cng':
         terms = 'Aardgas'
         break;
+ 	  case 'fcev':
+        terms = 'Waterstof'
+        break;
       default:
         terms = 'Diesel'
 	 }
@@ -344,6 +283,8 @@ function verbruikToString(verbruik,fuelType) {
 		terms = addCommas(verbruik[0],1) + ' kWh + ' + addCommas(verbruik[1],1) + ' L';
 	}else if (fuelType == 'cng') {
 		terms = addCommas(verbruik[2],1) + ' kg + ' + addCommas(verbruik[1],1) + ' L';
+	}else if (fuelType == 'fcev') {
+		terms = addCommas(verbruik[3],1) + ' kg';
 	}else {
 		terms = addCommas(verbruik[1],1) + ' L';
 	}
@@ -353,12 +294,14 @@ function verbruikToString(verbruik,fuelType) {
 function rijbereikToString(verbruik,car) {
 	var terms = '';
 	if (car.drivetrain == 'ev') {
-		terms = addCommas(car.batterijcapaciteit / verbruik[0]*100) + ' km';
+		terms = addCommas(car.batterijcapaciteit / verbruik[0] *100) + ' km';
 	} else if (car.drivetrain == 'phev') {
 		terms = addCommas(car.batterijcapaciteit / car.verbrEl / rijgedrag *100) + ' + ' + addCommas(car.tank / car.verbrBr / rijgedrag *100) + ' km';
-	}else if (car.drivetrain == 'cng') {
+	} else if (car.drivetrain == 'fcev') {
+		terms = addCommas(car.tankFCEV / car.verbrFCEV / rijgedrag *100) + ' km';
+	} else if (car.drivetrain == 'cng') {
 		terms = addCommas(car.tankCNG / car.verbrCNG / rijgedrag *100) + ' + ' + addCommas(car.tank / car.verbrBr / rijgedrag *100) + ' km';
-	}else {
+	} else {
 		terms = addCommas(car.tank / verbruik[1]*100) + ' km';
 	}
 	return terms;
@@ -375,11 +318,11 @@ function suggestiesToString(car,flipped) {
 	});
 	var imageSrc = car.id;
 	if (car.image == false) { imageSrc = 'silhouettes/' + car.segment; }
-	terms.push('<span><img id="ch-' + car.id + '" class="active ' + flipped + '" src="assets/img/cars/' + car.imageSrc() + '.png" title="' + car.fullName + '" /></span>'); // Gekozen wagen als eerste plaatsen, actief
+	terms.push('<span><img id="ch-' + car.id + '" class="active ' + flipped + '" src="assets/img/cars/' + car.imageSrc() + '-32.png" title="' + car.fullName + '" /></span>'); // Gekozen wagen als eerste plaatsen, actief
 	jQuery.each(definitiveList, function(i, item) { 
 		imageSrc = definitiveList[i].id;
 		if (definitiveList[i].image == false) { imageSrc = 'silhouettes/' + definitiveList[i].segment; }
-		terms.push('<span><img id="ch-' + definitiveList[i].id + '" class="' + flipped + '" src="assets/img/cars/' + imageSrc + '.png" title="' + definitiveList[i].brand + ' ' + definitiveList[i].name + '" /></span>');
+		terms.push('<span><img id="ch-' + definitiveList[i].id + '" class="' + flipped + '" src="assets/img/cars/' + imageSrc + '-32.png" title="' + definitiveList[i].brand + ' ' + definitiveList[i].name + '" /></span>');
 	});
 	return terms.join(' ');
 }
@@ -388,6 +331,9 @@ function fuelToFuelType(str) {
 	var terms = '';
 	switch(str) {
       case 'ev':
+        terms = 'electric'
+        break;
+      case 'fcev':
         terms = 'electric'
         break;
       case 'phev':
@@ -434,10 +380,12 @@ function Car(that) { // Alle kenmerken van de voertuigen die - ongeacht de input
 	this.verbrEl = that.verbrEl; // energieverbruik in kWh/100 km
 	this.verbrBr = that.verbrBr; // brandstofverbruik in L/100 km
 	this.verbrCNG = that.verbrCNG; // CNG verbruik in kg/100 km
+	this.verbrFCEV = that.verbrFCEV; // Waterstofverbruik in kg/100 km
 	if (typeof this.verbrEl == 'undefined') this.verbrEl = 0;
 	if (typeof this.verbrBr == 'undefined') this.verbrBr = 0;
 	if (typeof this.verbrCNG == 'undefined') this.verbrCNG = 0;
-	this.drivetrain = that.fuel; // ev | benz | dies | lpg | cng
+	if (typeof this.verbrFCEV == 'undefined') this.verbrFCEV = 0;
+	this.drivetrain = that.fuel; // ev | benz | dies | phev | cng | fcev
 	this.image = that.image;
 	this.euro = that.euro; // Euronorm (indien roetfilter werkelijke + 1)
 	if (typeof this.euro == 'undefined') this.euro = 6;
@@ -481,19 +429,23 @@ function Car(that) { // Alle kenmerken van de voertuigen die - ongeacht de input
 	this.cilinder = that.cilinder; // in cc
 	this.cilinderText = that.cilinder + ' cc';
 	if (typeof that.cilinder == 'undefined' || that.cilinder == '') this.cilinder = nB
-	if (this.drivetrain == 'ev') this.cilinderText = nvt;
+	if (this.drivetrain == 'ev' || this.drivetrain == 'fcev') this.cilinderText = nvt;
 	this.batterijcapaciteit = that.bat;
 	this.batterijcapaciteitText = addCommas(that.bat,1) + ' kWh';
 	if (typeof that.bat == 'undefined' || that.bat == 'undefined') this.batterijcapaciteitText = nB
-	if (this.drivetrain == 'cng' || this.drivetrain == 'dies' || this.drivetrain == 'benz') this.batterijcapaciteitText = nvt;
+	if (this.drivetrain == 'cng' || this.drivetrain == 'dies' || this.drivetrain == 'benz' || this.drivetrain == 'fcev') this.batterijcapaciteitText = nvt;
 	this.tank = that.tank; // in L
-	if (typeof this.tank == 'undefined') this.tank = 0;
 	this.tankCNG = that.tankcng; // in kg
+	this.tankFCEV = that.tankfcev; // in kg
+	if (typeof this.tank == 'undefined') this.tank = 0;
 	if (typeof this.tankCNG == 'undefined') this.tankCNG = 0;
+	if (typeof this.tankFCEV == 'undefined') this.tankFCEV = 0;
 	this.tankText = this.tank;
 	if (typeof that.tank == 'undefined' || that.tankcng == 'undefined') this.tankText = nB
 	if (this.drivetrain == 'cng') { 
 		this.tankText = this.tankCNG + ' kg + ' + this.tank + ' L'
+	} else if (this.drivetrain == 'fcev') {
+		this.tankText = this.tankFCEV + ' kg';
 	} else { 
 		this.tankText = this.tank + ' L'
 	}
@@ -504,7 +456,7 @@ function Car(that) { // Alle kenmerken van de voertuigen die - ongeacht de input
 	if (typeof this.batterylease == 'undefined') this.batterylease = new blc(); 
 	this.fiscalePK = that.pk; // fiscale PK
 	if (typeof this.fiscalePK == 'undefined') this.fiscalePK = 0;
-	if(this.fuel == 'ev') {
+	if(this.fuel == 'ev' || this.fuel == 'fcev') {
 		this.co2 = 0;
 		this.fiscalePK = 4;
 	}
@@ -523,16 +475,16 @@ function Car(that) { // Alle kenmerken van de voertuigen die - ongeacht de input
 		var rob = 0;
 		rob = (0.02+this.priceIncl/2000000)*(1+btw);
 		if (this.drivetrain == 'ev') { 
-			rob *= 0.75; // Elektrische voertuigen hebben minder kosten
+			rob *= 0.75; // Elektrische voertuigen hebben 75% minder kosten
 		}
 		return rob;
 	}
 	
 	this.vaaCoef = function() {
 		var co2Coef = 0;
-		var diesRef = 89; // Diesel-CO2-referentie: 89 g/km per 1/1/2016
-		var benzRef = 107; // Benzine-CO2-referentie: 107 g/km per 1/1/2016
-		if (this.drivetrain == 'ev') {
+		var diesRef = 86; // Diesel-CO2-referentie: 86 g/km per 1/1/2018
+		var benzRef = 105; // Benzine-CO2-referentie: 105 g/km per 1/1/2018
+		if (this.drivetrain == 'ev' || this.drivetrain == 'fcev') {
 			co2Coef = 0.04;
 		} else if (this.drivetrain == 'dies') {
 			co2Coef = 0.055 + (this.co2 - diesRef) * 0.001;
@@ -543,10 +495,10 @@ function Car(that) { // Alle kenmerken van de voertuigen die - ongeacht de input
 		return co2Coef;
 	}
 	
-	this.solidariteitsbijdragePY = function() { // Solidariteitsbijdrage per 1/1/2016
+	this.solidariteitsbijdragePY = function() { // Solidariteitsbijdrage per 1/1/2018
 		var sol = 0;
-		var solMinimum = 25.55; // Minimum bijdrage per maand
-		var solIndex = 1.2267; // Index 2016
+		var solMinimum = 26.47; // Minimum bijdrage per maand
+		var solIndex = 1.2708; // Gezondheidsindex per 1/1/2018
 		if (this.drivetrain == 'dies') {
 			sol = (this.co2*9-600)/12;
 		}
@@ -564,7 +516,7 @@ function Car(that) { // Alle kenmerken van de voertuigen die - ongeacht de input
 	
 	this.fiscaleAftrek = function() {
 		var fa = 0;
-		if (this.drivetrain == 'ev') {
+		if (this.drivetrain == 'ev' || this.drivetrain == 'fcev') {
 			fa = 1.2;
 		} else if (this.drivetrain  == 'dies') {
 			if (this.co2 <= 60) { fa = 1; }
@@ -586,6 +538,30 @@ function Car(that) { // Alle kenmerken van de voertuigen die - ongeacht de input
 		return fa;
 	}
 	
+	this.fiscaleAftrek2020 = function() {
+		var fa = 1; // Voor EV
+		if (this.drivetrain != 'ev' && this.drivetrain != 'fcev') {
+			var bc = 1;
+			if (this.drivetrain == 'benz') {
+				bc = 0.95; 
+			} else if (this.drivetrain == 'cng') {
+				if (this.fiscalePK <= 11 ) {
+					bc = 0.9;
+				} else {
+					bc = 0.95; 
+				}
+			}  else if (this.drivetrain == 'phev') {
+				bc = 1; 
+			}
+			fa = Math.round(100*(1.2 - 0.005 * bc * this.co2)) / 100;
+		}
+		fa = Math.max(fa,0.5); // Minimum is 50%
+		if (this.co2 > 200) { // Vanaf 200g/km is de fiscale aftrek 40%
+			fa = 0.4;
+		}
+		return fa;
+	}
+	
 	this.residualValue = function(d,leeftijd) { // Geeft de restwaarde ifv totale prijs inclusief BTW
 		var r = 0; // 80% > 30% met s = 10% | 30% > 15% met s = 5% | 15% > 5% met s = 2.5%
 		if       (d < 120001) { r = 90   - d / 2000; }
@@ -598,37 +574,37 @@ function Car(that) { // Alle kenmerken van de voertuigen die - ongeacht de input
 		return r;
 	}
 	
-	this.biv = function() { // BIV vanaf 1/1/2016
+	this.biv = function() { // BIV vanaf 1/7/2018
 		var b = 0;
-		if (this.drivetrain == 'ev' || this.drivetrain == 'cng' || this.co2 <= 50) { 
+		if (this.drivetrain == 'ev' || this.drivetrain == 'fcev' || this.drivetrain == 'cng' || this.co2 <= 50) { 
 			b = 0; // BIV is 0 euro voor ev, cng- en PHEV<50gCO2
 		}
-		else { // VÓÓR 2016: {(CO2 * f + x) / 250}^6 * (4.500 + c) * LC ; NA 2016: (BIV = [(CO2 * f + x)6 * 4.500 + c] * LC ) / 246
+		else { // VÓÓR 2016: {(CO2 * f + x) / 250}^6 * (4.500 + c) * LC ; NA 2016: (BIV = [({CO2 * f + x}/ 246)6 * 4.500 + c] * LC )
 			var LC = 1; // Leeftijdscorrectie: 1 bij nieuwe voertuigen
-			var x = 18; // 0 in 2012, 4.5 in 2013, 9 in 2014, 13.5 in 2015, 
-			var bMinimum = 41.99; // minimum BIV-tarief vanaf 1 juli 2015 ; 40 in 2012
-			var bMaximum = 10497.70; // maximum BIV-tarief vanaf 1 juli 2015 ; 10.000 in 2012
+			var x = 27; // 0 in 2012, 4.5 in 2013, 9 in 2014, 13.5 in 2015, 18 in 2016, 22.5 in 2017 en 27 in 2018
+			var bMinimum = 44.51; // minimum BIV-tarief vanaf 1 juli 2018 ; 40 in 2012
+			var bMaximum = 11126.51; // maximum BIV-tarief vanaf 1 juli 2018 ; 10.000 in 2012
 
 			var f = 1;
 			if (this.drivetrain == 'lpg') f = 0.88;
 			if (this.drivetrain == 'cng') f = 0.93; // Voor 100% aardgasvoertuigen 0.93; voor bi-fuel 0.744
 			var c = 0;
-			if (this.drivetrain == 'dies') {
-				if (this.euro == 0) { c = 2863.15; }
-				else if (this.euro == 1) { c = 840; }
-				else if (this.euro == 2) { c = 622.57; }
-				else if (this.euro == 3) { c = 493.36; }
-				else if (this.euro == 4) { c = 467.06; }
-				else if (this.euro == 5) { c = 459.35; }
-				else if (this.euro == 6) { c = 454.07; }
+			if (this.drivetrain == 'dies') { // bedragen per 1/7/2018
+				if (this.euro == 0) { c = 3034.65; }
+				else if (this.euro == 1) { c = 890.65; }
+				else if (this.euro == 2) { c = 659.86; }
+				else if (this.euro == 3) { c = 522.91; }
+				else if (this.euro == 4) { c = 495.04; }
+				else if (this.euro == 5) { c = 486.87; }
+				else if (this.euro == 6) { c = 481.27; }
 			}
-			else { // Benzine, PHEV > 50g en LPG
-				if (this.euro == 0) { c = 1138.78; }
-				else if (this.euro == 1) { c = 509.28; }
-				else if (this.euro == 2) { c = 152.29; }
-				else if (this.euro == 3) { c = 95.53; }
-				else if (this.euro == 4) { c = 22.93; }
-				else if (this.euro == 5 || this.euro == 6) { c = 20.61; }
+			else { // Benzine, PHEV > 50g en LPG (Geen diesel)
+				if (this.euro == 0) { c = 1206.99; }
+				else if (this.euro == 1) { c = 539.79; }
+				else if (this.euro == 2) { c = 161.41; }
+				else if (this.euro == 3) { c = 101.25; }
+				else if (this.euro == 4) { c = 24.3; }
+				else if (this.euro == 5 || this.euro == 6) { c = 21.84; }
 			}
 			b = 1;
 			b *= this.co2*f + x; //{(CO2 * f + x) / 250}^6
@@ -641,34 +617,34 @@ function Car(that) { // Alle kenmerken van de voertuigen die - ongeacht de input
 		return b;
 	}
 	
-	this.vkbPY = function() { // Verkeersbelasting vanaf 1/1/2016
+	this.vkbPY = function() { // Verkeersbelasting vanaf 1/7/2018
 		var v = 0; 
-		if (this.drivetrain == 'ev') { 
+		if (this.drivetrain == 'ev' || this.drivetrain == 'fcev' || this.drivetrain == 'cng' || this.co2 <= 50) { 
 			v = 0; // Verkeersbelasting is 0 euro voor EV (en voor CNG- en PHEV-voertuigen (met 50 gram of minder) 0 gedurende 4 jaar)
 		} else { // Andere brandstoffen en PHEV met > 50 g/km
 			// Verkeersbelasting criterium 1: fiscale PK
-			switch(this.fiscalePK) { 
+			switch(this.fiscalePK) {  // vanaf 1/7/2018 INCLUSIEF OPDECIEM
 				case 1 : case 2 : case 3 : 
-				case 4 : v =   69.72; break; //  Was in 2015:70.32
-				case 5 : v =   87.24; break; //  Was in 2015:87.96
-				case 6 : v =  126.12; break; //  Was in 2015:127.20
-				case 7 : v =  164.76; break; //  Was in 2015:166.20
-				case 8 : v =  203.76; break; //  Was in 2015:205.56
-				case 9 : v =  242.64; break; //  Was in 2015:244.80
-				case 10: v =  281.16; break; //  Was in 2015:283.68
-				case 11: v =  365.92; break; //  Was in 2015:368.28
-				case 12: v =  448.56; break; //  Was in 2015:452.64
-				case 13: v =  532.08; break; //  Was in 2015:536.88
-				case 14: v =  615.84; break; //  Was in 2015:621.48
-				case 15: v =  699.48; break; //  Was in 2015:705.84
-				case 16: v =  916.20; break; //  Was in 2015:924.60
-				case 17: v = 1133.16; break; //  Was in 2015:1143.48
-				case 18: v = 1350.00; break; //  Was in 2015:1362.36
-				case 19: v = 1566.36; break; //  Was in 2015:1580.76
-				default: v = 1783.20; //  Was in 2015:1799.52
+				case 4 : v =   81.97; break;
+				case 5 : v =  102.56; break;
+				case 6 : v =  148.37; break;
+				case 7 : v =  193.78; break;
+				case 8 : v =  239.71; break;
+				case 9 : v =  285.38; break;
+				case 10: v =  330.79; break;
+				case 11: v =  429.26; break;
+				case 12: v =  527.74; break;
+				case 13: v =  626.08; break;
+				case 14: v =  724.55; break;
+				case 15: v =  823.02; break; 
+				case 16: v = 1078.04; break; 
+				case 17: v = 1333.33; break; 
+				case 18: v = 1588.49; break; 
+				case 19: v = 1842.98; break; 
+				default: v = 2098.14; 
 			}
 			if (this.fiscalePK > 20) { // Fiscale PK boven 21
-				v = v + (this.fiscalePK - 20) * 97.20; // was 98.04 in 2015
+				v = v + (this.fiscalePK - 20) * 114.31; // vanaf 1/7/2018
 			}
 			// Verkeersbelasting criterium 2: CO2
 			var co2Reference = 122;
@@ -759,11 +735,11 @@ function blc() {
 	}
 }
 
-function calculateVerbr(car,phev,cng) { // Returnt een array van het re&euml;le verbruik in kWh, L en kg per 100 km, rekening houdend met de ratio's
+function calculateVerbr(car,phev,cng) { // Returnt een array van het re&euml;le verbruik in kWh, L en kg per 100 km, rekening houdend met de ratio's (0: elektrisch; 1: brandstof; 2: CNG en 3: waterstof)
 	var verbruik = [];
 	var phevVerhouding = phev;
 	var cngVerhouding = cng;
-	if (car.drivetrain == 'ev') phevVerhouding = 1; 
+	if (car.drivetrain == 'ev' || car.drivetrain == 'fcev') phevVerhouding = 1; 
 	if (car.drivetrain == 'dies' || car.drivetrain == 'benz') { 
 		phevVerhouding = 0; 
 		cngVerhouding = 0;
@@ -773,6 +749,7 @@ function calculateVerbr(car,phev,cng) { // Returnt een array van het re&euml;le 
 	verbruik.push(rijgedrag*phevVerhouding*car.verbrEl);
 	verbruik.push(rijgedrag*(1-phevVerhouding)*(1-cngVerhouding)*car.verbrBr);
 	verbruik.push(rijgedrag*cngVerhouding*car.verbrCNG);
+	verbruik.push(rijgedrag*car.verbrFCEV);
 	return verbruik;
 }
 
@@ -808,6 +785,7 @@ function calculateTCO() {
 		entiteit = $('#input-entiteit').val();
 		btwplicht = $('#input-btwplicht').val();
 		gebruiksdoel = $('#input-gebruiksdoel').val();
+		tankkaart = $('#input-tankkaart').val();
 		
 		// BTW bepalen
 		if (entiteit == 'np') {
@@ -837,8 +815,8 @@ function calculateTCO() {
 		var verbruikRight = calculateVerbr(rightCar,phevRatioRight,cngRatioRight);
 		
 		// Pas afbeeldingen in HERO aan
-		$('#tco-result-image-left').attr('src','assets/img/cars/' + leftCar.imageSrc() + '.png');
-		$('#tco-result-image-right').attr('src','assets/img/cars/' + rightCar.imageSrc() + '.png');
+		$('#tco-result-image-left').attr('src','assets/img/cars/' + leftCar.imageSrc() + '-32.png');
+		$('#tco-result-image-right').attr('src','assets/img/cars/' + rightCar.imageSrc() + '-32.png');
 				
 		// Pas titels en subtitels aan
 		$('#tco-result-title-left').html(leftCar.brand + ' ' + leftCar.name);
@@ -885,14 +863,16 @@ function calculateTCO() {
 		$('#tco-result-car-switch-right img').click(function() { carIdRight = $(this).attr('id').substring(3); calculateTCO(); });
 		
 		// Popovers inhoud instellen
-		if ( leftCar.drivetrain == 'ev' ) { $('#tco-popover-left-elektriciteit').show(); $('#tco-popover-left-aardgas').hide(); $('#tco-popover-left-benzine').hide(); $('#tco-popover-left-diesel').hide(); $('#tco-popover-left-phevratio').hide(); $('#tco-popover-left-aardgasratio').hide(); }
-		if ( rightCar.drivetrain == 'ev' ) { $('#tco-popover-right-elektriciteit').show(); $('#tco-popover-right-aardgas').hide(); $('#tco-popover-right-benzine').hide(); $('#tco-popover-right-diesel').hide(); $('#tco-popover-right-phevratio').hide(); $('#tco-popover-right-aardgasratio').hide(); }
-		if ( leftCar.drivetrain == 'cng' ) { $('#tco-popover-left-elektriciteit').hide(); $('#tco-popover-left-aardgas').show(); $('#tco-popover-left-benzine').show(); $('#tco-popover-left-diesel').hide(); $('#tco-popover-left-phevratio').hide(); $('#tco-popover-left-aardgasratio').show(); }
-		if ( rightCar.drivetrain == 'cng' ) { $('#tco-popover-right-elektriciteit').hide(); $('#tco-popover-right-aardgas').show(); $('#tco-popover-right-benzine').show(); $('#tco-popover-right-diesel').hide(); $('#tco-popover-right-phevratio').hide(); $('#tco-popover-right-aardgasratio').show(); }
-		if ( leftCar.drivetrain == 'phev' ) { $('#tco-popover-left-elektriciteit').show(); $('#tco-popover-left-aardgas').hide(); $('#tco-popover-left-benzine').show(); $('#tco-popover-left-diesel').hide(); $('#tco-popover-left-phevratio').show(); $('#tco-popover-left-aardgasratio').hide(); }
-		if ( rightCar.drivetrain == 'phev' ) { $('#tco-popover-right-elektriciteit').show(); $('#tco-popover-right-aardgas').hide(); $('#tco-popover-right-benzine').show(); $('#tco-popover-right-diesel').hide(); $('#tco-popover-right-phevratio').show(); $('#tco-popover-right-aardgasratio').hide(); }
-		if ( rightCar.drivetrain == 'benz' ) { $('#tco-popover-right-elektriciteit').hide(); $('#tco-popover-right-aardgas').hide(); $('#tco-popover-right-benzine').show(); $('#tco-popover-right-diesel').hide(); $('#tco-popover-right-phevratio').hide(); $('#tco-popover-right-aardgasratio').hide(); }
-		if ( rightCar.drivetrain == 'dies' ) { $('#tco-popover-right-elektriciteit').hide(); $('#tco-popover-right-aardgas').hide(); $('#tco-popover-right-benzine').hide(); $('#tco-popover-right-diesel').show(); $('#tco-popover-right-phevratio').hide(); $('#tco-popover-right-aardgasratio').hide(); }
+		if ( leftCar.drivetrain == 'ev' ) { $('#tco-popover-left-elektriciteit').show(); $('#tco-popover-left-waterstof').hide(); $('#tco-popover-left-aardgas').hide(); $('#tco-popover-left-benzine').hide(); $('#tco-popover-left-diesel').hide(); $('#tco-popover-left-phevratio').hide(); $('#tco-popover-left-aardgasratio').hide(); }
+		if ( rightCar.drivetrain == 'ev' ) { $('#tco-popover-right-elektriciteit').show(); $('#tco-popover-right-waterstof').hide(); $('#tco-popover-right-aardgas').hide(); $('#tco-popover-right-benzine').hide(); $('#tco-popover-right-diesel').hide(); $('#tco-popover-right-phevratio').hide(); $('#tco-popover-right-aardgasratio').hide(); }
+		if ( leftCar.drivetrain == 'fcev' ) { $('#tco-popover-left-elektriciteit').hide(); $('#tco-popover-left-waterstof').show(); $('#tco-popover-left-aardgas').hide(); $('#tco-popover-left-benzine').hide(); $('#tco-popover-left-diesel').hide(); $('#tco-popover-left-phevratio').hide(); $('#tco-popover-left-aardgasratio').hide(); }
+		if ( rightCar.drivetrain == 'fcev' ) { $('#tco-popover-right-elektriciteit').hide(); $('#tco-popover-right-waterstof').show(); $('#tco-popover-right-aardgas').hide(); $('#tco-popover-right-benzine').hide(); $('#tco-popover-right-diesel').hide(); $('#tco-popover-right-phevratio').hide(); $('#tco-popover-right-aardgasratio').hide(); }
+		if ( leftCar.drivetrain == 'cng' ) { $('#tco-popover-left-elektriciteit').hide(); $('#tco-popover-left-waterstof').hide(); $('#tco-popover-left-aardgas').show(); $('#tco-popover-left-benzine').show(); $('#tco-popover-left-diesel').hide(); $('#tco-popover-left-phevratio').hide(); $('#tco-popover-left-aardgasratio').show(); }
+		if ( rightCar.drivetrain == 'cng' ) { $('#tco-popover-right-elektriciteit').hide(); $('#tco-popover-right-waterstof').hide(); $('#tco-popover-right-aardgas').show(); $('#tco-popover-right-benzine').show(); $('#tco-popover-right-diesel').hide(); $('#tco-popover-right-phevratio').hide(); $('#tco-popover-right-aardgasratio').show(); }
+		if ( leftCar.drivetrain == 'phev' ) { $('#tco-popover-left-elektriciteit').show(); $('#tco-popover-left-waterstof').hide(); $('#tco-popover-left-aardgas').hide(); $('#tco-popover-left-benzine').show(); $('#tco-popover-left-diesel').hide(); $('#tco-popover-left-phevratio').show(); $('#tco-popover-left-aardgasratio').hide(); }
+		if ( rightCar.drivetrain == 'phev' ) { $('#tco-popover-right-elektriciteit').show(); $('#tco-popover-right-waterstof').hide(); $('#tco-popover-right-aardgas').hide(); $('#tco-popover-right-benzine').show(); $('#tco-popover-right-diesel').hide(); $('#tco-popover-right-phevratio').show(); $('#tco-popover-right-aardgasratio').hide(); }
+		if ( rightCar.drivetrain == 'benz' ) { $('#tco-popover-right-elektriciteit').hide(); $('#tco-popover-right-waterstof').hide(); $('#tco-popover-right-aardgas').hide(); $('#tco-popover-right-benzine').show(); $('#tco-popover-right-diesel').hide(); $('#tco-popover-right-phevratio').hide(); $('#tco-popover-right-aardgasratio').hide(); }
+		if ( rightCar.drivetrain == 'dies' ) { $('#tco-popover-right-elektriciteit').hide(); $('#tco-popover-right-waterstof').hide(); $('#tco-popover-right-aardgas').hide(); $('#tco-popover-right-benzine').hide(); $('#tco-popover-right-diesel').show(); $('#tco-popover-right-phevratio').hide(); $('#tco-popover-right-aardgasratio').hide(); }
 		$('#tco-change-car-popover-left').hide(); 
 		$('#tco-change-car-popover-right').hide(); 
 		
@@ -950,7 +930,7 @@ function calculateTCO() {
 		var loser = 'right';
 		
 		// Hero initialiseren
-		if (rightCar.drivetrain == 'ev' || rightCar.drivetrain == 'cng' || rightCar.drivetrain == 'phev') { // Twee CPT-wagens
+		if (rightCar.drivetrain == 'ev' || rightCar.drivetrain == 'fcev' || rightCar.drivetrain == 'cng' || rightCar.drivetrain == 'phev') { // Twee CPT-wagens
 			if (tcoTotaalLeft > tcoTotaalRight) { // Rechts winnaar
 				term = 'Bespaar &euro;' + addCommas(-verschil,0) + ' (of &euro;' + addCommas((-verschil)/duration/12,0) + ' per maand) <br />met een ' + rightCar.fullName + '!';
 				loser = 'left';
@@ -968,8 +948,8 @@ function calculateTCO() {
 		else { $('#tco-result-image-left').removeClass('loser'); $('#tco-result-image-right').addClass('loser'); }
 		
 		// Thumbs instellen
-		$('.thumbLeft').attr('src','assets/img/cars/' + leftCar.imageSrc() + '.png').attr('title',leftCar.fullName).attr('alt',leftCar.fullName);
-		$('.thumbRight').attr('src','assets/img/cars/' + rightCar.imageSrc() + '.png').attr('title',rightCar.fullName).attr('alt',rightCar.fullName);
+		$('.thumbLeft').attr('src','assets/img/cars/' + leftCar.imageSrc() + '-32.png').attr('title',leftCar.fullName).attr('alt',leftCar.fullName);
+		$('.thumbRight').attr('src','assets/img/cars/' + rightCar.imageSrc() + '-32.png').attr('title',rightCar.fullName).attr('alt',rightCar.fullName);
 		
 		oldCarIdLeft = carIdLeft; oldCarIdRight = carIdRight;
 		oldDuration = duration; oldDistancePY = distancePY;
@@ -1031,6 +1011,7 @@ function calculateTCOVerbruik(car,verbruik) { // verbruik houdt reeds rekening m
 		term += verbruik[1] * benzineprijs; // Bereken de benzinekosten in € per 100km
 	}
 	term += verbruik[2] * aardgasprijs; // Bereken de aardgaskosten in € per 100km
+	term += verbruik[3] * waterstofprijs; // Bereken de waterstofkosten in € per 100km
 	term *= distancePY * inflatieFactor * btwFactorFromIncl; // Totale prijs op volledige afstand * inflatiefactor * 100 incl. (niet-recupereerbare) BTW
 	term /= 100;
 	return Math.round(term);
@@ -1055,7 +1036,7 @@ function calculateTCOIncentives(car,opties,korting) {
 	else { 
 		term += car.vkbPY() * inflatieFactor; // Geïndexeerde verkeersbelasting
 	}
-	if (entiteit == 'np') { // Zero-emissiebonus voor nulemissievoertuigen
+	if (entiteit == 'np' || entiteit == 'vzw') { // Zero-emissiebonus voor nulemissievoertuigen
 		term += car.zeroEmissieBonus;
 	}
 	if (car.drivetrain == 'cng') { // Aardgaspremie van KVBG (tot 29/1/2016)
@@ -1064,7 +1045,12 @@ function calculateTCOIncentives(car,opties,korting) {
 	if ( entiteit != 'np' && gebruiksdoel == 'bw') { // solidariteitsbijdrage 2016
 		term += car.solidariteitsbijdragePY() * inflatieFactor;
 		if (entiteit == 'vns') { // patronale bijdrage of werkgeversbijdrage
-			term += calculateTCOVAA(car,opties,korting) * 0.17 * vennootschapsbelasting;
+			if (tankkaart == 'y') {
+				term += calculateTCOVAA(car,opties,korting) * 0.40 * vennootschapsbelasting;
+			}
+			else {
+				term += calculateTCOVAA(car,opties,korting) * 0.17 * vennootschapsbelasting;
+			}
 		}
 	}
 	return Math.round(term);
@@ -1073,7 +1059,7 @@ function calculateTCOIncentives(car,opties,korting) {
 function calculateTCOVAA(car,opties,korting) {
 	var vaa = 0;
 	if ( entiteit != 'np' && gebruiksdoel == 'bw') {
-		var vaaMinimum = 1260;
+		var vaaMinimum = 1310; // Minimumbedrag per 1/1/2018
 		var vaaBase = car.vaaCoef() * (car.priceExcl + opties/(1+btw) + (( car.priceExcl + opties - korting)*btw) ) * 6 / 7;
 		for( i = 1; i <= duration; i++ ) { 
 			if (duration < 6 ) { // Van 0 tot 60 maanden
@@ -1081,6 +1067,7 @@ function calculateTCOVAA(car,opties,korting) {
 			} else { // Vanaf 61 maanden
 				vaa += Math.max(vaaBase * 0.7,vaaMinimum);
 			}
+			// Uitzondering voor PHEV toevoegen!
 		}
 	}
 	return Math.round(vaa);
@@ -1102,11 +1089,13 @@ function calculateTCOFiscaleAftrek(car,opties,tcoVerbruik,tcoOverige) {
 
 function createRandomStartImages() {
 	var length = cars.length;
-	var id1 = Math.floor(Math.random() * length);
-	var id2 = Math.floor(Math.random() * length);
-	$('#start-image-left').attr('src','assets/img/cars/' + cars[id1].id + '.png');
-	$('#start-image-right').attr('src','assets/img/cars/' + cars[id2].id + '.png');
-	if(cars[id1].image == false || cars[id2].image == false) createRandomStartImages(); // Altijd een auto nemen met een echte afbeelding
+	var id1 = 0;
+	var id2 = 0; 
+	id1 = Math.floor(Math.random() * length);
+	id2 = Math.floor(Math.random() * length);
+	$('#start-image-left').attr('src','assets/img/cars/' + cars[id1].id + '-32.png');
+	$('#start-image-right').attr('src','assets/img/cars/' + cars[id2].id + '-32.png');
+	if(cars[id1].image == false || cars[id2].image == false || cars[id1].id == 0 || cars[id2].id == 0) createRandomStartImages(); // Altijd een auto nemen met een echte afbeelding
 }
 
 function changeCustomCar() { 
@@ -1265,6 +1254,14 @@ function changeCustomCar() {
 		var initElektriciteitRight = new Powerange(inputElektriciteitRight, { decimal: true, callback: changeOutputElektriciteitRight, min: 0, max: 0.5, start: elektriciteitsprijs });
 		function changeOutputElektriciteitRight() { elektriciteitsprijs = parseFloat(inputElektriciteitRight.value); $('#input-elektriciteit-right').val(addCommas(elektriciteitsprijs,2)); }
 		
+		var inputWaterstofLeft = document.querySelector('.input-waterstof-left');
+		var initWaterstofLeft = new Powerange(inputWaterstofLeft, { decimal: true, callback: changeOutputWaterstofLeft, min: 5, max: 15, start: waterstofprijs, step: 0.1 });
+		function changeOutputWaterstofLeft() { waterstofprijs = parseFloat(inputWaterstofLeft.value); $('#input-waterstof-left').val(addCommas(waterstofprijs,2)); }
+		
+		var inputWaterstofRight = document.querySelector('.input-waterstof-right');
+		var initWaterstofRight = new Powerange(inputWaterstofRight, { decimal: true, callback: changeOutputWaterstofRight, min: 5, max: 15, start: waterstofprijs, step: 0.1 });
+		function changeOutputWaterstofRight() { waterstofprijs = parseFloat(inputWaterstofRight.value); $('#input-waterstof-right').val(addCommas(waterstofprijs,2)); }
+		
 		var inputAardgasLeft = document.querySelector('.input-aardgas-left');
 		var initAardgasLeft = new Powerange(inputAardgasLeft, { decimal: true, callback: changeOutputAardgasLeft, min: 0, max: 2, start: aardgasprijs });
 		function changeOutputAardgasLeft() { aardgasprijs = parseFloat(inputAardgasLeft.value); $('#input-aardgas-left').val(addCommas(aardgasprijs,2)); }
@@ -1312,6 +1309,8 @@ function changeCustomCar() {
 			initResidualRight.setPosition(residualLeft*227); $('#input-residual-right').val(addCommas(residualRight*100,0));
 			initElektriciteitLeft.setPosition(elektriciteitsprijs*400); $('#input-elektriciteit-left').val(addCommas(elektriciteitsprijs,2));
 			initElektriciteitRight.setPosition(elektriciteitsprijs*400); $('#input-elektriciteit-right').val(addCommas(elektriciteitsprijs,2));
+			initWaterstofLeft.setPosition(waterstofprijs*10.5); $('#input-waterstof-left').val(addCommas(waterstofprijs,2));
+			initWaterstofRight.setPosition(waterstofprijs*10.5); $('#input-waterstof-right').val(addCommas(waterstofprijs,2));
 			initAardgasLeft.setPosition(aardgasprijs*100); $('#input-aardgas-left').val(addCommas(aardgasprijs,2));
 			initAardgasRight.setPosition(aardgasprijs*100); $('#input-aardgas-right').val(addCommas(aardgasprijs,2));
 			initBenzineLeft.setPosition(benzineprijs*100); $('#input-benzine-left').val(addCommas(benzineprijs,2));
@@ -1396,6 +1395,7 @@ function changeCustomCar() {
 		$('#tco-control-btw-plicht').hide();
 		$('#tco-control-gebruiksdoel').hide();
 		$('#tco-control-verhoudingprive').hide();
+		$('#tco-control-tankkaart').hide();
 
 		// Zichtbaarheid van SELECT boxes in de eerste stap, en invloed op de next knop en menu
 		$('#input-entiteit').on('change', function() {
@@ -1454,10 +1454,12 @@ function changeCustomCar() {
 			if	($(this).val() == 'bw') {
 				if( $('#input-btwplicht').val() == 'y' ) { 
 					$('#tco-control-verhoudingprive').slideDown();
+					$('#tco-control-tankkaart').slideDown();
 				}
 			}
 			else { 
 				$('#tco-control-verhoudingprive').hide();
+				$('#tco-control-tankkaart').hide();
 			}
 			$('#btn-go-to-section2').addClass('active');
 			$('#nav-2').removeClass('disabled');

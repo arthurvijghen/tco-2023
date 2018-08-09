@@ -72,7 +72,7 @@
             <div class="row tco-hero">
         		<div>
             		<h1>Vergelijk milieuvriendelijke en conventionele wagens</h1>
-           	 		<p class="lead">Vergelijk de TCOelektrische, plug-in hybride, aardgas- en brandstofwagens. <br />En ontdek of het rijden met een milieuvriendelijke wagen in 2017 voordeliger is.</p>
+           	 		<p class="lead">Vergelijk de TCO van elektrische, plug-in hybride, aardgas-, waterstof- en brandstofwagens. <br />En ontdek of het rijden met een milieuvriendelijke wagen voordeliger is.</p>
 				</div>
 			</div>
 			<div class="row tco-container">
@@ -99,7 +99,7 @@
                 <option selected disabled value="sel">Selecteren...</option>
                 <option value="np">Natuurlijke persoon</option>
                 <option value="ovh">Overheidsorganisatie</option>
-                <option value="vns">Vennootschap</option>
+                <option value="vns">Vennootschap of zelfstandige</option>
                 <option value="vzw">vzw</option>
               </select>
               <p>Wordt de auto gekocht als natuurlijke persoon (particulier), overheidsorganisatie, vennootschap (onderneming) of vzw?</p>
@@ -137,7 +137,16 @@
               <div class="slider-wrapper suf-perc">
                 <input type="text" class="input-prive-professioneel" />
               </div>
-              <p>Welk aandeel van uw totale afstand rijdt u voor beroepsmatige doeleinden? <br />Woon-werkverplaatsingen worden als privéverplaatsingen aanschouwd. <!--<span style="color: red; font-weight: bold;"><br /><br />De BTW van de voertuigkosten kan door <span style="color: red; font-weight: bold;">de vennootschap/organisatie</span> maximaal 50% gerecupereerd worden in functie van de verhouding van privé en professionele kilometers. Vanaf 35% beroepsmatige kilometers kan voor een forfaitair regime gekozen worden. <span style="color: red; font-weight: bold;">Meer info via <a href="https://multimediafiles.kbcgroup.eu/ng/published/kbc/pdf/kbc_autolease_fiscale_brochure_bedrijfsauto_s.pdf" target="_blank">tooltip</a>?. In tooltip 3 methodes voorstellen: rittenadministatie (individueel) / ifv woonwerkafstand (individueel) / forfaitair voor hele wagenpark in aparte pop-up.</span></span>--></p>
+              <p>Welk aandeel van uw totale afstand rijdt u voor beroepsmatige doeleinden? <br />Woon-werkverplaatsingen worden als privéverplaatsingen aanschouwd.<br />Indien je dit niet weet kun je best 35% aanhouden: deze aanname wordt gebruikt om te bepalen hoeveel BTW de werkgever mag recuprereren.<!--<span style="color: red; font-weight: bold;"><br /><br />De BTW van de voertuigkosten kan door <span style="color: red; font-weight: bold;">de vennootschap/organisatie</span> maximaal 50% gerecupereerd worden in functie van de verhouding van privé en professionele kilometers. Vanaf 35% beroepsmatige kilometers kan voor een forfaitair regime gekozen worden. <span style="color: red; font-weight: bold;">Meer info via <a href="https://multimediafiles.kbcgroup.eu/ng/published/kbc/pdf/kbc_autolease_fiscale_brochure_bedrijfsauto_s.pdf" target="_blank">tooltip</a>?. In tooltip 3 methodes voorstellen: rittenadministatie (individueel) / ifv woonwerkafstand (individueel) / forfaitair voor hele wagenpark in aparte pop-up.</span></span>--></p>
+            </div>
+            
+            <div class="tco-box" id="tco-control-tankkaart">
+              <h2>Tankkaart of laadpas<sup>*</sup></h2>
+              <select class="form-control" id="input-tankkaart" name="input-tankkaart2">
+                <option selected value="y">Ja (standaard)</option>
+                <option value="n">Nee</option>
+              </select>
+              <p>Voorziet de werkgever een tankkaart of laadpas die je ook mag gebruiken voor privé gebruik?</p>
             </div>
             
             <div id="btn-go-to-section2" class="bigbutton nextbutton">Uw wagengebruik</div>
@@ -215,6 +224,7 @@
                         <div id="left-cng">Aardgaswagens</div>
                         <div id="left-ev" class="active">Elektrische wagens</div>
                         <div id="left-phev">Plug-in hybrides</div>
+                        <div id="left-phev">Waterstofwagens</div>
                     </div>
                   </div>
               </div>
@@ -233,6 +243,7 @@
                         <div id="rght-dies">Diesel</div>
                         <div id="rght-ev">Elektrische wagens</div>
                         <div id="rght-phev">Plug-in hybrides</div>
+                        <div id="rght-phev">Waterstofwagens</div>
                     </div>
                   </div>
               </div>
@@ -270,14 +281,14 @@
             </div>
             <div class="row tco-container">
               <div class="col-sm-6 col-xs-6 tco-hero-image-container">
-                  <div class="tco-hero-images"><img id="tco-result-image-left" class="tco-hero-image loser" src="assets/img/cars/VW-e-golf.png" /></div>
+                  <div class="tco-hero-images"><img id="tco-result-image-left" class="tco-hero-image loser" src="" /></div> <!-- assets/img/cars/VW-e-golf.png -->
                   <div class="tco-result-ecoscore ecoscore-bg-67" id="tco-result-ecoscore-left">
                     <p>Ecoscore</p>
                     <h3>78</h3>
                   </div>
               </div>
               <div class="col-sm-6 col-xs-6 tco-hero-image-container">
-                  <div class="tco-hero-images"><img id="tco-result-image-right" class="tco-hero-image flipped" src="assets/img/cars/BMW-i3.png" /></div>
+                  <div class="tco-hero-images"><img id="tco-result-image-right" class="tco-hero-image flipped" src="" /></div> <!--assets/img/cars/BMW-i3.png -->
                   <div class="tco-result-ecoscore ecoscore-bg-75" id="tco-result-ecoscore-right">
                     <p>Ecoscore</p>
                     <h3>84</h3>
@@ -324,6 +335,8 @@
                                 <h2>Restwaarde of herverkoopwaarde</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-residual-left">Restwaarde</label> <div class="input-group"> <input type="text" class="form-control" id="input-residual-left" placeholder="0" disabled> <div class="input-group-addon">%</div> </div> </div> <div class="slider-wrapper suf-perc"> <input type="text" class="input-residual-left" /> </div><p>In procent op de totale aanschafprijs.</p>
                                 
                                 <div id="tco-popover-left-elektriciteit"><h2>Elektriciteitsprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-elektriciteit-left">Elektriciteitsprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-elektriciteit-left" placeholder="0" disabled> <div class="input-group-addon">&euro;/kWh</div> </div> </div> <div class="slider-wrapper suf-eurokwh"> <input type="text" class="input-elektriciteit-left" /> </div> </div>
+                                
+                                <div id="tco-popover-left-waterstof"><h2>Waterstofprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-waterstof-left">Waterstofprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-waterstof-left" placeholder="0" disabled> <div class="input-group-addon">&euro;/kg</div> </div> </div> <div class="slider-wrapper suf-eurokg"> <input type="text" class="input-waterstof-left" /> </div> </div>
                                 
                                 <div id="tco-popover-left-aardgas"><h2>Aardgasprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-aardgas-left">Aardgasprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-aardgas-left" placeholder="0" disabled> <div class="input-group-addon">&euro;/kg</div> </div> </div> <div class="slider-wrapper suf-eurokg"> <input type="text" class="input-aardgas-left" /> </div> </div>
                                 
@@ -374,6 +387,7 @@
                                 <h2>Korting</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-discount-right">Korting</label> <div class="input-group"> <input type="text" class="form-control" id="input-discount-right" placeholder="0" disabled> <div class="input-group-addon">%</div> </div> </div> <div class="slider-wrapper suf-perc"> <input type="text" class="input-discount-right" /> </div>
                                 <h2>Restwaarde of herverkoopwaarde</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-residual-right">Restwaarde</label> <div class="input-group"> <input type="text" class="form-control" id="input-residual-right" placeholder="0" disabled> <div class="input-group-addon">%</div> </div> </div> <div class="slider-wrapper suf-perc"> <input type="text" class="input-residual-right" /> </div><p>In procent op de totale aanschafprijs.</p>
                                 <div id="tco-popover-right-elektriciteit"><h2>Elektriciteitsprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-elektriciteit-right">Elektriciteitsprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-elektriciteit-right" placeholder="0" disabled> <div class="input-group-addon">&euro;/kWh</div> </div> </div> <div class="slider-wrapper suf-eurokwh"> <input type="text" class="input-elektriciteit-right" /> </div> </div>
+                                <div id="tco-popover-right-waterstof"><h2>Waterstofprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-waterstof-right">Waterstofprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-waterstof-right" placeholder="0" disabled> <div class="input-group-addon">&euro;/kg</div> </div> </div> <div class="slider-wrapper suf-eurokg"> <input type="text" class="input-waterstof-right" /> </div> </div>
                                 <div id="tco-popover-right-aardgas"><h2>Aardgasprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-aardgas-right">Aardgasprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-aardgas-right" placeholder="0" disabled> <div class="input-group-addon">&euro;/kg</div> </div> </div> <div class="slider-wrapper suf-eurokg"> <input type="text" class="input-aardgas-right" /> </div> </div>
                                 <div id="tco-popover-right-benzine"><h2>Benzineprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-benzine-right">Benzineprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-benzine-right" placeholder="0" disabled> <div class="input-group-addon">&euro;/L</div> </div> </div> <div class="slider-wrapper suf-eurol"> <input type="text" class="input-benzine-right" /> </div> </div>
                                <div id="tco-popover-right-diesel"><h2>Dieselprijs</h2> <div class="form-group slider-output"> <label class="sr-only" for="input-diesel-right">Dieselprijs</label> <div class="input-group"> <input type="text" class="form-control" id="input-diesel-right" placeholder="0" disabled> <div class="input-group-addon">&euro;/L</div> </div> </div> <div class="slider-wrapper suf-eurol"> <input type="text" class="input-diesel-right" /> </div> </div>
@@ -409,8 +423,8 @@
                     <h2>Aankoop en herverkoopwaarde<span class="car-tooltip" title="Toelichting aankoop en herverkoopwaarde" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>Aankoopprijs inclusief opties, korting en (in het geval van BTW-plichtige organisaties: niet-recupereerbare) BTW.</li><li>De kosten voor batterijleasing.</li><li>De herverkoopwaarde van het voertuig op het einde van de gebruiksduur.</li></ul>">i</span></h2>
                     <div class="row">
                         <div class="col-sm-10">
-                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="assets/img/nissan-leaf-l.png" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-wagen-left-bar"></div><div class="tco-results-number" id="tco-result-wagen-left-nr">0</div></div>
-                            <div class="clear"><img class="tco-results-thumb thumbRight" src="assets/img/volkswagen-egolf-l.png" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-wagen-right-bar"></div><div class="tco-results-number" id="tco-result-wagen-right-nr">0</div></div>
+                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-wagen-left-bar"></div><div class="tco-results-number" id="tco-result-wagen-left-nr">0</div></div> <!-- assets/img/nissan-leaf-l.png -->
+                            <div class="clear"><img class="tco-results-thumb thumbRight" src="" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-wagen-right-bar"></div><div class="tco-results-number" id="tco-result-wagen-right-nr">0</div></div> <!-- assets/img/volkswagen-egolf-l.png -->
                         </div>
                         <div class="col-sm-2">
                             <div class="tco-results-cost-summary">
@@ -422,11 +436,11 @@
                 </div>
                 
                 <div class="col-sm-12" id="tco-result-prbel">
-                    <h2>Premies en belastingen (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting premies en belastingen" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>De belasting op inverkeerstelling en verkeersbelasting sinds 1 januari 2016.</li><li>De premie voor elektrische voertuigen voor natuurlijke personen sinds 1 januari 2016.</li><li>De solidariteitsbijdrage die wordt aangerekend aan de rechtspersoon in het geval van een bedrijfswagen.</li><li>De verworpen uitgave van het voordeel alle aard die wordt aangerekend aan vennootschappen in het geval van een bedrijfswagen.</li></ul>">i</span></h2>
+                    <h2>Premies en belastingen (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting premies en belastingen" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>De belasting op inverkeerstelling en verkeersbelasting (per 1/7/2018).</li><li>De zero-emissiepremie voor elektrische en waterstofvoertuigen voor natuurlijke personen en vzw's (per 1 januari 2018).</li><li>De solidariteitsbijdrage die wordt aangerekend aan de rechtspersoon in het geval van een bedrijfswagen (per 1 januari 2018).</li><li>De verworpen uitgave van het voordeel alle aard die wordt aangerekend aan vennootschappen in het geval van een bedrijfswagen (per 1 januari 2018).</li></ul>">i</span></h2>
                     <div class="row">
                         <div class="col-sm-10">
-                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="assets/img/nissan-leaf-l.png" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-prbel-left-bar"></div><div class="tco-results-number" id="tco-result-prbel-left-nr">0</div></div>
-                            <div class="clear"><img class="tco-results-thumb thumbRight" src="assets/img/volkswagen-egolf-l.png" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-prbel-right-bar"></div><div class="tco-results-number" id="tco-result-prbel-right-nr">0</div></div>
+                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-prbel-left-bar"></div><div class="tco-results-number" id="tco-result-prbel-left-nr">0</div></div> <!-- assets/img/nissan-leaf-l.png -->
+                            <div class="clear"><img class="tco-results-thumb thumbRight" src="" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-prbel-right-bar"></div><div class="tco-results-number" id="tco-result-prbel-right-nr">0</div></div> <!-- assets/img/volkswagen-egolf-l.png -->
                         </div>
                         <div class="col-sm-2">
                             <div class="tco-results-cost-summary">
@@ -438,11 +452,11 @@
                 </div>
                 
                 <div class="col-sm-12" id="tco-result-verbr">
-                    <h2>Energie- en brandstofverbruik (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting energie- en brandstofverbruik" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>De elektriciteits, aardgas-, benzine- en/of dieselkosten inclusief (in het geval van BTW-plichtige organisaties: niet-recupereerbare) BTW, rekening houdend met de inflatie en het rijgedrag.</li><li>De verhouding van elektriciteits- en benzineverbruik of aardgas- en benzineverbruik bij plug-in hybride en aardgasvoertuigen.</li></ul>">i</span></h2>
+                    <h2>Energie- en brandstofverbruik (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting energie- en brandstofverbruik" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>De elektriciteits, waterstof-, aardgas-, benzine- en/of dieselkosten inclusief (in het geval van BTW-plichtige organisaties: niet-recupereerbare) BTW, rekening houdend met de inflatie en het rijgedrag.</li><li>De verhouding van elektriciteits- en benzineverbruik of aardgas- en benzineverbruik bij plug-in hybride en aardgasvoertuigen.</li></ul>">i</span></h2>
                     <div class="row">
                         <div class="col-sm-10">
-                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="assets/img/nissan-leaf-l.png" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-verbr-left-bar"></div><div class="tco-results-number" id="tco-result-verbr-left-nr">0</div></div>
-                            <div class="clear"><img class="tco-results-thumb thumbRight" src="assets/img/volkswagen-egolf-l.png" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-verbr-right-bar"></div><div class="tco-results-number" id="tco-result-verbr-right-nr">0</div></div>
+                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-verbr-left-bar"></div><div class="tco-results-number" id="tco-result-verbr-left-nr">0</div></div> <!-- assets/img/nissan-leaf-l.png -->
+                            <div class="clear"><img class="tco-results-thumb thumbRight" src="" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-verbr-right-bar"></div><div class="tco-results-number" id="tco-result-verbr-right-nr">0</div></div> <!-- assets/img/volkswagen-egolf-l.png -->
                         </div>
                         <div class="col-sm-2">
                             <div class="tco-results-cost-summary">
@@ -457,8 +471,8 @@
                     <h2>Verzekering en onderhoud (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting verzekering en onderhoud" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>Een BA- en omniumverzekering op de volledige looptijd</li><li>Reparatie, onderhoud en banden op de volledige looptijd, inclusief (in het geval van BTW-plichtige organisaties: niet-recupereerbare) BTW</li></ul>">i</span></h2>
                     <div class="row">
                         <div class="col-sm-10">
-                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="assets/img/nissan-leaf-l.png" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-verzrob-left-bar"></div><div class="tco-results-number" id="tco-result-verzrob-left-nr">0</div></div>
-                            <div class="clear"><img class="tco-results-thumb thumbRight" src="assets/img/volkswagen-egolf-l.png" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-verzrob-right-bar"></div><div class="tco-results-number" id="tco-result-verzrob-right-nr">0</div></div>
+                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-verzrob-left-bar"></div><div class="tco-results-number" id="tco-result-verzrob-left-nr">0</div></div> <!-- assets/img/nissan-leaf-l.png -->
+                            <div class="clear"><img class="tco-results-thumb thumbRight" src="" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-verzrob-right-bar"></div><div class="tco-results-number" id="tco-result-verzrob-right-nr">0</div></div> <!-- assets/img/volkswagen-egolf-l.png -->
                         </div>
                         <div class="col-sm-2">
                             <div class="tco-results-cost-summary">
@@ -470,11 +484,11 @@
                 </div>
                 
                 <div class="col-sm-12" id="tco-result-fisc">
-                    <h2>Fiscale aftrek (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting fiscale aftrek" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>Alle fiscaal aftrekbare kosten, in functie van bedrijfswagen (tussen 50 en 120% fiscale aftrek) of poolwagengebruik (100% fiscale aftrek).</li><li>Het elektriciteits- en brandstofverbruik (75% fiscaal aftrekbaar)</li></ul>">i</span></h2>
+                    <h2>Fiscale aftrek (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting fiscale aftrek" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>Alle fiscaal aftrekbare kosten, in functie van bedrijfswagen (tussen 50 en 120% fiscale aftrek) of poolwagengebruik (100% fiscale aftrek) (regeling per 1/1/2018).</li><li>Het elektriciteits- en brandstofverbruik (75% fiscaal aftrekbaar)</li></ul>">i</span></h2>
                     <div class="row">
                         <div class="col-sm-10">
-                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="assets/img/nissan-leaf-l.png" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-fisc-left-bar"></div><div class="tco-results-number" id="tco-result-fisc-left-nr">0</div></div>
-                            <div class="clear"><img class="tco-results-thumb thumbRight" src="assets/img/volkswagen-egolf-l.png" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-fisc-right-bar"></div><div class="tco-results-number" id="tco-result-fisc-right-nr">0</div></div>
+                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-fisc-left-bar"></div><div class="tco-results-number" id="tco-result-fisc-left-nr">0</div></div> <!-- assets/img/nissan-leaf-l.png -->
+                            <div class="clear"><img class="tco-results-thumb thumbRight" src="" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-fisc-right-bar"></div><div class="tco-results-number" id="tco-result-fisc-right-nr">0</div></div> <!-- assets/img/volkswagen-egolf-l.png -->
                         </div>
                         <div class="col-sm-2">
                             <div class="tco-results-cost-summary">
@@ -489,8 +503,8 @@
                     <h2>Totale kosten (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting totale kosten" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>Alle voorgaande kostencomponenten bij elkaar opgeteld.</li></ul>">i</span></h2>
                     <div class="row">
                         <div class="col-sm-10">
-                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="assets/img/nissan-leaf-l.png" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-totaltco-left-bar"></div><div class="tco-results-number" id="tco-result-totaltco-left-nr">0</div></div>
-                            <div class="clear"><img class="tco-results-thumb thumbRight" src="assets/img/volkswagen-egolf-l.png" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-totaltco-right-bar"></div><div class="tco-results-number" id="tco-result-totaltco-right-nr">0</div></div>
+                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-totaltco-left-bar"></div><div class="tco-results-number" id="tco-result-totaltco-left-nr">0</div></div> <!-- assets/img/nissan-leaf-l.png -->
+                            <div class="clear"><img class="tco-results-thumb thumbRight" src="" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-totaltco-right-bar"></div><div class="tco-results-number" id="tco-result-totaltco-right-nr">0</div></div> <!-- assets/img/volkswagen-egolf-l.png -->
                         </div>
                         <div class="col-sm-2">
                             <div class="tco-results-cost-summary">
@@ -502,11 +516,11 @@
                 </div>
                 
                 <div class="col-sm-12" id="tco-result-vaa">
-                    <h2>Bruto voordeel alle aard voor werknemer (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting voordeel alle aard" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>Het bruto voordeel alle aard voor de werknemer op de volledige looptijd.</li></ul>">i</span></h2>
+                    <h2>Bruto voordeel alle aard voor werknemer (op <span class="years">x</span> jaar)<span class="car-tooltip" title="Toelichting voordeel alle aard" data-content="<p>De volgende kostencomponenten worden berekend:</p><ul><li>Het bruto voordeel alle aard voor de werknemer op de volledige looptijd (regeling per 1/1/2018).</li></ul>">i</span></h2>
                     <div class="row">
                         <div class="col-sm-10">
-                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="assets/img/nissan-leaf-l.png" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-vaa-left-bar"></div><div class="tco-results-number" id="tco-result-vaa-left-nr">0</div></div>
-                            <div class="clear"><img class="tco-results-thumb thumbRight" src="assets/img/volkswagen-egolf-l.png" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-vaa-right-bar"></div><div class="tco-results-number" id="tco-result-vaa-right-nr">0</div></div>
+                            <div class="clear"><img class="tco-results-thumb thumbLeft" src="" alt="Nissan LEAF" title="Nissan LEAF" /> <div class="tco-results-bar active" id="tco-result-vaa-left-bar"></div><div class="tco-results-number" id="tco-result-vaa-left-nr">0</div></div> <!-- assets/img/nissan-leaf-l.png -->
+                            <div class="clear"><img class="tco-results-thumb thumbRight" src="" alt="Volkswagen e-Golf" title="Volkswagen e-Golf" /> <div class="tco-results-bar" id="tco-result-vaa-right-bar"></div><div class="tco-results-number" id="tco-result-vaa-right-nr">0</div></div> <!-- assets/img/volkswagen-egolf-l.png -->
                         </div>
                         <div class="col-sm-2">
                             <div class="tco-results-cost-summary">
@@ -551,18 +565,18 @@
                     <li>De tool geldt enkel voor entiteiten in Vlaanderen.</li>
                     <li>Voor rechtspersonen wordt aangenomen dat de voertuigen in de balans worden opgenomen.</li>
                     <li>Er wordt geen rekening gehouden met financiering en/of aankoopopties.</li>
-                    <li>In de webapplicatie zijn meer dan 150 personenwagens beschikbaar.</li>
+                    <li>In de webapplicatie zijn meer dan 200 personenwagens beschikbaar.</li>
                     <li>Alle terugkerende kosten worden ge&iuml;ndexeerd. </li>
                     <li>De berekeningen gelden enkel voor nieuw ingeschreven wagens (dit heeft onder andere effect op de BIV en het Voordeel alle aard).</li>
                     <li>Er wordt in de berekeninge geen rekening gehouden met de kosten van laad- en tankinfrastructuur voor milieuvriendelijke voertuigen.</li>
-                    <li>De totale kosten worden weergegeven op de volledige gebruiksduur.</li>
+                    <li>De totale kosten worden weergegeven op de volledige gebruiksduur of op de volledige gebruiksduur gedeeld door het aantal maanden.</li>
                 </ul>
                 
                 <h2>Uitgangspunten voor de voertuigen</h2>
                 <p>De selectie van voertuigen is gebaseerd op basis van de volgende uitgangspunten:</p>
                 
                 <ul>
-                	<li>Alle elektrische, plug-in hybride en aardgasvoertuigen voor vervoer van personen die in Vlaanderen verkrijgbaarbaar zijn op niet-discriminatoire basis.</li>
+                	<li>Alle elektrische, plug-in hybride, aardgasvoertuigen voor vervoer van personen die in Vlaanderen per 1/7/2018 verkrijgbaarbaar zijn op niet-discriminatoire basis, binnen 12 afgebakende segmenten.</li>
                     <li>Een selectie van benzine- en dieselvoertuigen in de categori&euml;n van de hiervoor geselecteerde milieuvriendelijke voertuigen met als uitvoering en motorisatie:
                     	<ul>
                         	<li>Een automatische versnellingsbak (indien beschikbaar).</li>
@@ -573,20 +587,21 @@
                             <li>Een hatchback (A- tot C-segment) of break-versie (D-E segment) als carrosserievorm (indien beschikbaar).</li>                            
                         </ul>
                      </li>
+                     <li>De productafbeeldingen zijn gekozen op basis van model. Opties en/of kenmerken kunnen afwijken. Zo is bijvoorbeeld de afgebeelde chassis-kleur willekeurig gekozen.</li>
                 </ul>
                 
                 <h2>Algemene aannames</h2>
                 <p>Voor de berekening in deze webapplicatie werden de volgende aannames gemaakt:</p>
                 <ul>
-                	<li>Jaarlijkse inflatie van 2,03% (<a href="http://statbel.fgov.be/nl/statistieken/cijfers/economie/consumptieprijzen/inflatie/" target="_blank">bron: FOD Economie, december 2016</a>)</li>
-                    <li>Vennootschapsbelasting van ondernemingen 33,99%</li>
+                	<li>Jaarlijkse inflatie van 2,08% (<a href="https://statbel.fgov.be/nl/themas/consumptieprijsindex/consumptieprijsindex" target="_blank">bron: FOD Economie, juni 2018</a>)</li>
+                    <li>Vennootschapsbelasting van ondernemingen 29,58% (geldig voor 2018 en 2019)</li>
                     <li>Vennootschappen hebben voldoende <em>ruimte</em> in de belastbare winst om de fiscale aftrek van wagens maximaal te benutten</li>
-                    <li>Standaard elektriciteitsprijs: 0,28 &euro;/kWh inclusief BTW (<a href="http://www.vreg.be/sites/default/files/evolutie_prijzen_hh_november_2016.pdf)" target="_blank">bron: VREG, november 2016</a>)</li>
-                    <li>Standaard aardgasprijs: 0,990 &euro;/kg inclusief BTW (cfr beschikbare prijzen op www.dats24.be op 1/1/2016 voor hoogcalorisch gas (H-gas, 11.3662 kWh/m<sup>3</sup>))</li>
-                    <li>Standaard benzine E10-prijs: 1,416 &euro;/L inclusief BTW (<a href="http://www.petrolfed.be/nl/maximumprijzen/databank" target="_blank">gemiddelde van maximumprijzen in december 2016 volgens Petrolfed</a>)</li>
-                    <li>Standaard dieselprijs: 1,315 &euro;/L inclusief BTW (<a href="http://www.petrolfed.be/nl/maximumprijzen/databank" target="_blank">gemiddelde van maximumprijzen in december 2016 volgens Petrolfed</a>)</li>
-                    <li>De catalogusprijzen zijn afkomstig van de website van Directlease (<a href="http://directlease.be" target="_blank">bron</a>) of van de websites van Belgische importeurs en geraadpleegd in december 2016.</li>    
-                    <li>Het veld &quot;Theoretisch versus realistisch verbruik&quot; laat vijf waardes toe, gaande van &quot;Volgens laboratoriumtesten&quot; tot &quot;Sportief&quot;. Volgens een <a href="http://www.theicct.org/laboratory-road-2016-update" target="_blank">studie van TNO en ICCT</a> in november 2016 bedroeg de gemiddelde verbruiksfactor in Europa in 2015 1,42. Deze waarde heeft een effect op het berekende brandstof- en energieverbruik en rijbereik. Het <em>berekende</em> verbruik wordt berekend volgens een zogenaamde <em>verbruiksfactor</em> (van 1,00 (rijgedrag volgens laboratoriumtesten) tot 1,75 (sportief rijgedrag)) maal het door de constructeur opgegeven verbruik. Het berekende rijbereik wordt berekend volgens de beschikbare batterijcapaciteit en/of tankcapaciteit en het berekende verbruik.</li>
+                    <li>Standaard elektriciteitsprijs: 0,26 &euro;/kWh inclusief BTW (<a href="https://www.vreg.be/nl/prijsevoluties)" target="_blank">bron: VREG, juni 2018</a>, op basis van eenheidsprijzen voor particulieren met het een jaarverbruik van 3.600 kWh (dagmeter) en 3.900 kWh (nachtmeter))</li>
+                    <li>Standaard aardgasprijs: 0,970 &euro;/kg inclusief BTW (cfr beschikbare prijzen via de <a href="https://dats24.be/" target="_blank">stationzoeker van Dats24</a> op 27/7/2018 voor laagcalorisch gas (10.2739 kWh/m<sup>3</sup>))</li>
+                    <li>Standaard benzine E10-prijs: 1,5226 &euro;/L inclusief BTW (<a href="https://petrolfed.be/nl/maximumprijzen/databank" target="_blank">gemiddelde van maximumprijzen in juni 2018 volgens Petrolfed</a>)</li>
+                    <li>Standaard dieselprijs: 1,5208 &euro;/L inclusief BTW (<a href="https://petrolfed.be/nl/maximumprijzen/databank" target="_blank">gemiddelde van maximumprijzen in juni 2018 volgens Petrolfed</a>)</li>
+                    <li>De catalogusprijzen zijn afkomstig van de website van <a href="https://directlease.be/" target="_blank">Directlease</a> of van de websites van Belgische importeurs en geraadpleegd in juni 2018.</li>    
+                    <li>Het veld &quot;Theoretisch versus realistisch verbruik&quot; laat vijf waardes toe, gaande van &quot;Volgens laboratoriumtesten&quot; tot &quot;Sportief&quot;. Volgens een <a href="https://www.theicct.org/sites/default/files/FactSheet_FromLabToRoad_ICCT_2016_EN.pdf" target="_blank">studie van TNO en ICCT</a> in november 2016 bedroeg de gemiddelde verbruiksfactor in Europa in 2015 1,42. Deze waarde heeft een effect op het berekende brandstof- en energieverbruik en rijbereik. Het <em>berekende</em> verbruik wordt berekend volgens een zogenaamde <em>verbruiksfactor</em> (van 1,00 (rijgedrag volgens laboratoriumtesten) tot 1,75 (sportief rijgedrag)) maal het door de constructeur opgegeven verbruik. Het berekende rijbereik wordt berekend volgens de beschikbare batterijcapaciteit en/of tankcapaciteit en het berekende verbruik.</li>
                     <li>Verzekeringspremie van 395 euro per jaar (BA-verzekering) + 2% van de cataloguswaarde inclusief opties en (in het geval van BTW-plichtige organisaties: niet-recupereerbare) BTW, jaarlijks geïndexeerd met de inflatie (bron: TCO model elektrisch rijden, prof. ir M. Steinbuch, TU Eindhoven).</li>
                     <li>Onderhoudskost van 0,02 + 2 miljoenste van de cataloguswaarde inclusief BTW &euro;/km (bron: TCO model elektrisch rijden, prof. ir M. Steinbuch, TU Eindhoven).</li>
                     <li>Herverkoopwaarde van de cataloguswaarde inclusief BTW X een restwaardefactor in functie van de totale afstand (bron: TCO model elektrisch rijden, prof. ir M. Steinbuch, TU Eindhoven), met een restwaardefactor van:
@@ -611,10 +626,10 @@
                     </li>
                     <li><strong>Premies en belastingen</strong>
                     	<ul>
-                        	<li>De belasting op inverkeerstelling en verkeersbelasting sinds 1 januari 2016 (rekening houdende met een vrijstelling van de verkeersbelasting voor CNG- en PHEV-voertuigen met een CO2-uitstoot van maximaal 50 g/km tot 31 december 2020).</li>
-                            <li>De <a href="http://www.milieuvriendelijkevoertuigen.be/zero-emissiepremie" target="_blank" title="">zero-emissie premie voor elektrische voertuigen</a> voor natuurlijke personen vanaf 1 januari 2017.</li>
-                            <li>De solidariteitsbijdrage die wordt aangerekend aan de rechtspersoon in het geval van een bedrijfswagen.</li>
-                            <li>De verworpen uitgave van het voordeel alle aard die wordt aangerekend aan vennootschappen in het geval van een bedrijfswagen.</li>
+                        	<li>De <a href="https://belastingen.vlaanderen.be/biv-op-basis-van-milieukenmerken-van-het-voertuig" target="_blank">belasting op inverkeerstelling</a> en <a href="https://belastingen.vlaanderen.be/tarief-vanaf-01072018-tot-en-met-30062019" target="_blank">verkeersbelasting</a> sinds 1 juli 2018 (rekening houdende met een vrijstelling van de verkeersbelasting voor CNG- en PHEV-voertuigen met een CO2-uitstoot van maximaal 50 g/km tot 31 december 2020).</li>
+                            <li>De <a href="http://www.milieuvriendelijkevoertuigen.be/zero-emissiepremie" target="_blank" title="">zero-emissie premie voor elektrische voertuigen</a> voor natuurlijke personen en vzw's vanaf 1 januari 2018.</li>
+                            <li>De solidariteitsbijdrage die wordt aangerekend aan de rechtspersoon in het geval van een bedrijfswagen (met waarden van 2018).</li>
+                            <li>De verworpen uitgave van het voordeel alle aard die wordt aangerekend aan vennootschappen in het geval van een bedrijfswagen (met waarden van 2018, rekening houdend met tankkaart en uitzondering voor bepaalde plug-in hybrides).</li>
                         </ul>
                     </li>
                     <li><strong>Energie- en brandstofverbruik</strong>
@@ -642,7 +657,7 @@
                     </li>
                     <li><strong>Bruto voordeel alle aard (enkel in het geval van een bedrijfswagen)</strong>
                     	<ul>
-                        	<li>Het bruto voordeel alle aard voor de werknemer op de volledige looptijd.</li>
+                        	<li>Het bruto voordeel alle aard voor de werknemer op de volledige looptijd (met waarden van 2018, rekening houdend met de uitzondering voor plug-in hybrides.</li>
                         </ul>
                     </li>
                 </ul>
@@ -662,8 +677,17 @@
     	<div class="row">
         	<div class="col-md-8 col-md-offset-2">
             	<h1>Over deze webtool</h1>
-                <p>De webapplicatie &quot;Vergelijk milieuvriendelijke en conventionele wagens&quot; werd ontwikkeld door projectbureau <a href="http://www.thenewdrive.be/" target="_blank">The New Drive</a> en ontworpen door <a href="http://haveitmade.be/" target="_blank">MADE</a> in opdracht van het departement Leefmilieu, Natuur en Energie.</p>
-                <h2>Disclaimer</h2>
+                <p>De webapplicatie &quot;Vergelijk milieuvriendelijke en conventionele wagens&quot; werd ontwikkeld door projectbureau <a href="http://www.thenewdrive.be/" target="_blank">The New Drive</a> en ontworpen door <a href="http://haveitmade.be/" target="_blank">MADE</a> in opdracht van het Departement Omgeving van de Vlaamse overheid.</p>
+                <h2>Update augustus 2018</h2>
+                <p>De TCO webtool heeft in augustus 2018 een update gekregen. De volgende elementen zijn toegevoegd, aangepast of bijgewerkt:</p>
+                <ul>
+                	<li>Functionaliteit voor wagens op waterstof</li>
+                    <li>Update van de nieuwe federale fiscaliteit (nieuwe indices en regels voor voordeel alle aard, solidariteitbijdrage en fiscale aftrek per 1/1/2018).</li>
+                    <li>Update van de nieuwe gewestelijke fiscaliteit (nieuwe indices en regels voor de BIV en verkeersbelasting per 1/7/2018 en de vernieuwde zero-emissie premie).</li>
+                    <li>Update van diverse parameters, zoals energie- en brandstofprijzen, inflatie </li>
+                    <li>Update van de volledige voertuigenlijst met alle nieuwe (milieuvriendelijke) automodellen, specificaties, prijszetting en productafbeeldingen</li>
+                </ul>
+				<h2>Disclaimer</h2>
                 <p>De informatie, voertuigen en databases van de webapplicatie zijn met de nodige zorgvuldigheid samengesteld en worden in de mate van het mogelijke ge&uuml;pdatet. De informatie die door middel van de webapplicatie wordt verstrekt geldt slechts ten indicatieve titel en is het resultaat van de gecombineerde gegevens van constructeurs, verzekeraars en invoer van de gebruiker.</p><p>
 Het departement Leefmilieu, Natuur en Energie garandeert echter niet dat de informatie op de website en/of verstrekt via de webapplicatie juist, actueel of volledig is. De informatie op de Website en/of verstrekt via de webapplicatie kan technische onjuistheden en typ- of andere redactionele fouten bevatten. De reële informatie, waaronder, maar niet beperkt tot de reële kosten kunnen in de praktijk of naargelang de specifieke omstandigheden afwijken van de door de webapplicatie verstrekte informatie.</p>
 
@@ -713,7 +737,7 @@ Het departement Leefmilieu, Natuur en Energie garandeert echter niet dat de info
         	<div class="col-md-9">
             	<div class="fl-logo"></div>
                 <h2 class="site-disclaimer">Milieuvriendelijkevoertuigen.be is een offici&euml;le website van de Vlaamse overheid</h2>
-                <div class="site-publisher">uitgegeven door <a href="http://www.vlaanderen.be/nl/contact/adressengids/diensten-van-de-vlaamse-overheid/administratieve-diensten-van-de-vlaamse-overheid/beleidsdomein-leefmilieu-natuur-en-energie/departement-leefmilieu-natuur-en-energie" target="_blank">Departement Leefmilieu, Natuur en Energie</a></div>
+                <div class="site-publisher">uitgegeven door <a href="https://www.omgevingvlaanderen.be/opdracht-en-organisatie" target="_blank">Departement Omgeving</a></div>
                 <div class="site-description">Op deze website kun je de totale kosten vergelijken van milieuvriendelijke voertuigen met conventionele voertuigen.</div>
             </div>
             <div class="col-md-3"><span id="footer-close" class="footer-collapse">Verberg info<span class="glyphicon glyphicon-menu-down"></span></span></div>
@@ -724,7 +748,7 @@ Het departement Leefmilieu, Natuur en Energie garandeert echter niet dat de info
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="assets/js/ie10-viewport-bug-workaround.js" ></script>
     
-	<!--<script>
+	<!-- <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -733,7 +757,7 @@ Het departement Leefmilieu, Natuur en Energie garandeert echter niet dat de info
       ga('create', 'UA-40230205-7', 'auto');
       ga('send', 'pageview');
      
-    </script>-->
+    </script> -->
     <div class="modal fade" tabindex="-1" role="dialog" id="modalCustomCar">
         <div class="modal-dialog">
             <div class="modal-content">
