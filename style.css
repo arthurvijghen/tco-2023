@@ -147,7 +147,7 @@ h6 { font-size:1em; }
 /*#cpt-car-switch, #all-car-switch { width: 270px; float: right; border: none; box-shadow: none; text-align: right; font-size: 1.1em; }*/
 
 .car { border: 1px solid #FFF; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; margin-top: 0px; padding-top: 15px; overflow: hidden; min-height: 375px !important; }
-.car.active, .car.active2 { border-color: #1069C9; }
+.car.active, .car.active2 { border-color: #1069C9; background-color: #E6F3FF; }
 .car img { cursor: pointer; }
 .car h2 { font-size: 1.3em; font-family: 'Flanders Art Serif Medium', sans-serif; margin:0; position: relative;  }
 .car h3 { font-size: 1em; margin: 0; line-height: 1.9em; white-space: nowrap; }
