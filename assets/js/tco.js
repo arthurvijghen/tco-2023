@@ -1327,7 +1327,7 @@ function changeCustomCar() {
 		function changeOutputAutoGebruik() { btwRecup = parseFloat(inputAutoGebruik.value)/100; $('#input-prive-professioneel').val(inputAutoGebruik.value); calculateTCO(); }
 		
 		var inputAfstand = document.querySelector('.input-afstand');
-    	var initAfstand = new Powerange(inputAfstand, { decimal: false, callback: changeOutputAfstand, min: 5000, max: 50000, start: 30000, step: 1000 });
+    	var initAfstand = new Powerange(inputAfstand, { decimal: false, callback: changeOutputAfstand, min: 5000, max: 50000, start: 15000, step: 1000 });
 		function changeOutputAfstand() { distancePY = parseFloat(inputAfstand.value); $('#input-afstand').val(parseInt(inputAfstand.value).toLocaleString('nl-NL')); calculateTCO(); }
 		
 		var inputLeeftijd = document.querySelector('.input-leeftijd');
@@ -1519,9 +1519,11 @@ function changeCustomCar() {
 				$('#nav-2').removeClass('disabled');
 				$('#nav-3').removeClass('disabled');
 				initAfstand.setPosition(125); $('#input-afstand').val(addCommas(15000,0));
+				distancePY = 15000;
 			}
 			else { 
 				initAfstand.setPosition(250); $('#input-afstand').val(addCommas(30000,0));
+				distancePY = 30000;
 				$('#term-entity').html($('#input-entiteit option:selected').text());
 				$('#tco-control-btw-plicht').slideDown();
 				$('#tco-control-gebruiksdoel').slideDown(function() {
