@@ -22,6 +22,8 @@ h6 { font-size:1em; }
 
 .clear { clear:both; }
 
+#tco-debug { position:fixed; bottom: 40px; background: #FF0; width: 100%; margin: 0; text-align: center; cursor: pointer; z-index: 1000; padding: 5px; display: none; }
+
 #car-overview td, #car-overview th { padding: 2px; }
 #car-overview tr:nth-child(odd) { background-color: #EEE; }
 
