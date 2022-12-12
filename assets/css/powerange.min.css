@@ -1,6 +1,6 @@
 .range-bar{background-color: #E5E5E5;border-radius:15px;display:block;height:4px;position:relative;width:100%}
-.range-quantity{background-color: #1069C9;border-radius:15px;display:block;height:100%;width:0}
-.range-handle{background-color: #1069C9;border-radius:100%;cursor: move;height:18px;left:0;top:-7px;position:absolute;width:18px; border: 2px solid #FFF;}
+.range-quantity{background-color: #1C7074;border-radius:15px;display:block;height:100%;width:0}
+.range-handle{background-color: #1C7074;border-radius:100%;cursor: move;height:18px;left:0;top:-7px;position:absolute;width:18px; border: 2px solid #FFF;}
 .range-min,.range-max{color:#181819;font-size:12px;height:20px;padding-top:4px;position:absolute;text-align:center;top:-9px;width:65px;top: 8px;}
 .range-min{left:0px; text-align: left;}
 .range-max{right:0px; text-align: right;}
