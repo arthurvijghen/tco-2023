@@ -253,28 +253,28 @@
                   <td>
                     <div class="input-group">
                       <input type="text" class="form-control laadmix-group" id="input-laadmix-thuis" value="45">
-                      <div class="input-group-addon">%</div>
+                      <div class="input-group-addon hideSM">%</div>
                     </div>
                   </td>
                   <td class="small">+</td>
                   <td>
                     <div class="input-group">
                       <input type="text" class="form-control laadmix-group" id="input-laadmix-werk" value="45">
-                      <div class="input-group-addon">%</div>
+                      <div class="input-group-addon hideSM">%</div>
                     </div>
                   </td>
                   <td class="small">+</td>
                   <td>
                     <div class="input-group">
                       <input type="text" class="form-control laadmix-group" id="input-laadmix-publiek" value="5">
-                      <div class="input-group-addon">%</div>
+                      <div class="input-group-addon hideSM">%</div>
                     </div>
                   </td>
                   <td class="small">+</td>
                   <td>
                     <div class="input-group">
                       <input type="text" class="form-control laadmix-group" id="input-laadmix-onderweg" value="5">
-                      <div class="input-group-addon">%</div>
+                      <div class="input-group-addon hideSM">%</div>
                     </div>
                   </td>
                   <td class="small">=</td>
@@ -310,7 +310,7 @@
             </div>
             
             <div id="cpt-car" class="car-selector row">
-              <div class="car-header" id="left-car-switch">Selecteer een milieuvriendelijke wagen: <span id="left-car-switch-term">elektrische </span>wagens <span class="glyphicon-dropdown"><span class="glyphicon glyphicon-chevron-up"></span><br /><span class="glyphicon glyphicon-chevron-down"></span></span>
+              <div class="car-header" id="left-car-switch">Selecteer een milieuvriendelijke wagen: <div class="car-switch-button"><span id="left-car-switch-term">elektrische </span>wagens <span class="glyphicon-dropdown"><span class="glyphicon glyphicon-chevron-up"></span><br /><span class="glyphicon glyphicon-chevron-down"></span></span></div>
                   <div class="popover fade bottom in switch" role="tooltip" id="left-car-switch-dropdown">
                     <div class="arrow"></div>
                     <h3 class="popover-title" style="display: none;"></h3>
@@ -327,7 +327,7 @@
               </div>
             </div>
             <div id="all-car" class="car-selector row">
-              <div class="car-header" id="right-car-switch">Selecteer tweede wagen: <span id="rght-car-switch-term">benzine</span>wagens <span class="glyphicon-dropdown"><span class="glyphicon glyphicon-chevron-up"></span><br /><span class="glyphicon glyphicon-chevron-down"></span></span>
+              <div class="car-header" id="right-car-switch">Selecteer tweede wagen: <div class="car-switch-button"><span id="rght-car-switch-term">benzine</span>wagens <span class="glyphicon-dropdown"><span class="glyphicon glyphicon-chevron-up"></span><br /><span class="glyphicon glyphicon-chevron-down"></span></span></div>
                   <div class="popover fade bottom in switch" role="tooltip" id="right-car-switch-dropdown">
                     <div class="arrow"></div>
                     <h3 class="popover-title" style="display: none;"></h3>
@@ -460,8 +460,8 @@
                                 <div class="col-sm-8 col-xs-8">Koffer-inhoud</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-koffer">0</div>
                                 <div class="col-sm-8 col-xs-8">Cilinderinhoud</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-cilinderinhoud">0</div>
                                 <div class="col-sm-8 col-xs-8">Batterijcapaciteit</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-batterijcapaciteit">0</div>
-                                <div class="col-sm-8 col-xs-8">Inhoud brandstoftank(s)</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-brandstoftank">0</div>
-                                <div class="col-sm-8 col-xs-8">Berekend rijbereik <span class="car-tooltip" data-content="<p>Deze schatting houdt rekening met het antwoord op de de inschatting van uw rijgedrag.</p>">i</span></div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-rijbereik">0</div>
+                                <!--<div class="col-sm-8 col-xs-8">Inhoud brandstoftank(s)</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-brandstoftank">0</div>-->
+                                <div class="col-sm-8 col-xs-8">Elektrisch rijbereik <span class="car-tooltip" data-content="<p>Deze schatting houdt rekening met het antwoord op de de inschatting van uw rijgedrag.</p>">i</span></div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-rijbereik">0</div>
                                 <div class="col-sm-8 col-xs-8">Inschatting verbruik per 100 km <span class="car-tooltip" data-content="<p>Deze schatting houdt rekening met het antwoord op de de inschatting van uw rijgedrag.</p>">i</span></div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-verbruik">0</div>
                                 <div class="col-sm-8 col-xs-8">Theoretisch verbruik per 100 km <span class="car-tooltip" data-content="<p>Dit is het verbruik dat is opgegeven door de constructeur.</p>">i</span></div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-left-verbruik-reeel">0</div>
                                 
@@ -510,8 +510,8 @@
                                 <div class="col-sm-8 col-xs-8">Koffer-inhoud</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-koffer">0</div>
                                 <div class="col-sm-8 col-xs-8">Cilinderinhoud</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-cilinderinhoud">0</div>
                                 <div class="col-sm-8 col-xs-8">Batterijcapaciteit</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-batterijcapaciteit">0</div>
-                                <div class="col-sm-8 col-xs-8">Inhoud brandstoftank(s)</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-brandstoftank">0</div>
-                                <div class="col-sm-8 col-xs-8">Berekend rijbereik <span class="car-tooltip" data-content="<p>Deze schatting houdt rekening met het antwoord op de de inschatting van uw rijgedrag.</p>">i</span></div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-rijbereik">0</div>
+                                <!--<div class="col-sm-8 col-xs-8">Inhoud brandstoftank(s)</div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-brandstoftank">0</div>-->
+                                <div class="col-sm-8 col-xs-8">Elektrisch rijbereik <span class="car-tooltip" data-content="<p>Deze schatting houdt rekening met het antwoord op de de inschatting van uw rijgedrag.</p>">i</span></div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-rijbereik">0</div>
                                 <div class="col-sm-8 col-xs-8">Berekend verbruik per 100 km <span class="car-tooltip" data-content="<p>Deze schatting houdt rekening met het antwoord op de de inschatting van uw rijgedrag.</p>">i</span></div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-verbruik">0</div>
                                 <div class="col-sm-8 col-xs-8">Theoretisch verbruik per 100 km <span class="car-tooltip" data-content="<p>Dit is het verbruik dat is opgegeven door de constructeur.</p>">i</span></div><div class="col-sm-4 col-xs-4" id="tco-result-specsheet-right-verbruik-reeel">0</div>
                                 

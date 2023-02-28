@@ -139,16 +139,27 @@ h6 { font-size:1em; }
 	#car-tabs .car-tab span { margin-right: 5px; }
 }
 
+@media screen and (max-width: 480px) {
+    .hideSM {
+        display: none !important;
+    }
+
+}
+#laadmix-group .input-group-addon { padding: 6px 12px 6px 0 !important;}
+
+
 .car-selector { clear: both; padding-top: 50px; }
 .car-header { font-size: 21px; font-family: 'Flanders Art Serif Medium', sans-serif; border-bottom: 1px solid #E5E5E5; padding-bottom: 5px; cursor: pointer; position: relative; }
 .car-header .glyphicon { font-size: 0.5em;  }
 .glyphicon-dropdown { display: inline-block; line-height: 0.4em; padding-left: 5px; position:relative; top: 2px;}
 
-.car-selector .popover { display: block; top: 24px; max-width: 210px; width: 210px; -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0; border: 0; box-shadow: 0 0 20px 0 rgba(0,0,0,.4); left: 250px; top: 28px;  }
+.car-selector .popover { display: block; top: 24px; max-width: 210px; width: 210px; -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0; border: 0; box-shadow: 0 0 20px 0 rgba(0,0,0,.4); left: 665px; top: 28px;  }
 .car-selector .popover .arrow { left: 50% !important; border: none; }
 .switch .popover-content { line-height: 28px; font-size: 15px; font-family: 'Flanders Art Sans', sans-serif; padding: 12px;  }
 .car-selector .popover-content div:hover, .car-selector .popover-content div.active {font-family: 'Flanders Art Serif Medium', sans-serif; }
-#left-car-switch-term, #rght-car-switch-term { text-transform: lowercase; }
+#left-car-switch-term, #rght-car-switch-term {  }
+.car-switch-button { text-transform: uppercase; background: #2B979D; color: #FFF; padding: 5px 20px; line-height: 24px; border-radius: 3px; display: block; float: right; font-family: 'Flanders Art Sans Medium'; font-weight: normal; font-size: 0.7em; width: auto; position: relative; top: -5px;   }
+.car-switch-button:hover { background: #1C7074;   }
 
 .car-selector .car-switch { font-size: 1.05em; float: right; width: 300px; padding: 10px 20px; text-align: right; cursor: pointer; position: relative; background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAPCAYAAAA2yOUNAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAK8AAACvABQqw0mAAAABZ0RVh0Q3JlYXRpb24gVGltZQAwMS8wOC8xNo1mUE8AAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzQGstOgAAABGElEQVQokYWRL6vCcBSGX2dyiILsG2zJDyDLLmgwWBYM6xYRv4PJLIhxwbgqwj7LikywyDT9BiLPDRfm1Sv4tnPOy/nzHPGm9XpNlmUvOf0NdrsdjUaDwWCAMea/KUkSbNtGEpIYjUbc7/en6XA40Gq1kES3263MYRhSliVK05R2u40kfN/HGEMcxzSbTSTR7/dRnuf0ej08z6MoimqP1WqF67pst9vfcdfrlfP5/H4oeZ4DUAPQF1nfDJJkXS4XhWGoxWLxUojjWOPxWKfTSdpsNhWb5XIJwH6/x3EcJDGfz1FZlsxmMyzLol6vM51O6XQ6Fafb7fYkHkVR1fEjcYDH48FkMkESw+Hw8+8AjDEEQcDxeHzh9QNZd0FylSVNJgAAAABJRU5ErkJggg==') no-repeat right; }
 .car-selector .car-switch:hover { font-family: 'Flanders Art Sans Medium', sans-serif;}
@@ -282,5 +293,5 @@ img.flipped { -moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-tran
 .table-active { background: #F2F4FF; }
 #chapter-2 .input-group .search-input { width: 300px; }
 
-#new-message { padding-right: 150px; }
+#new-message { padding-right: 120px; }
 #new-message span { color: white; background-color: #bf5108; padding: 1px 5px; border-radius: 1em; font-size: 0.65em; position:absolute; top: 8px; left: 148px; color: white; }
